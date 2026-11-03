@@ -101,24 +101,24 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
 <body>
 <div class="wrap">
 <h1>六爻·临阵</h1>
-<div class="sub">VALORANT 个人竞技作战 · V2.1 · 备战 → 临阵 → 进游戏 · 《增删卜易》分占</div>
+<div class="sub">VALORANT 个人临阵决策 · V3.0 · 先察己 → 再取势 → 后择将 → 定个人战术 · 《增删卜易》分占</div>
 
 <!-- 第一阶段：备战（匹配之前） -->
 <section id="stPrep">
  <div class="card">
-  <details id="setBox"><summary>我的英雄池 / 熟练度 / 偏好 / 习惯 <span class="note" id="setSum"></span></summary>
+  <details id="setBox"><summary>我的英雄池 / 熟练度（辅助） / 偏好 / 习惯 <span class="note" id="setSum"></span></summary>
    <div class="lbl">我的英雄池 <small>（可多选，自动记住）</small></div>
    <div id="heroes"></div>
-   <div class="lbl" style="margin-top:10px">熟练度排序 <small>（越靠上越熟）</small></div>
+   <div class="lbl" style="margin-top:10px">熟练度排序 <small>（可选；仅在条件相同时作辅助，不参与吉凶）</small></div>
    <div class="prof" id="prof"></div>
-   <div class="lbl" style="margin-top:8px">打法偏好 <small>（不指定 = 按英雄类型）</small></div>
+   <div class="lbl" style="margin-top:8px">打法偏好 <small>（可选；只在两个战术卦象同级、稳妥度也相同时参考）</small></div>
    <div class="chips" id="pref"></div>
    <div class="lbl" style="margin-top:8px">我常犯的问题 <small>（用于临阵戒令）</small></div>
    <div class="chips" id="habits"></div>
   </details>
  </div>
  <button class="go" id="prep" type="button">⚔️ 备战 · 察己之势</button>
- <div class="note" style="text-align:center">匹配之前点：只问“下一场我能否保持稳定的个人发挥”，起 1 卦；不需要地图，不锁定英雄和路线。</div>
+ <div class="note" style="text-align:center">匹配之前点：只问“下一场我能否保持稳定的个人发挥”，起 1 卦（传统象义参考，不是心理测量）；不需要地图，不锁定英雄和路线。</div>
 </section>
 
 <!-- 第二阶段：待匹配 → 临阵 -->
@@ -130,6 +130,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   <div class="note" id="mapNote"></div>
  </div>
  <button class="go hide" id="deploy" type="button">⚔️ 出征 · 定我打法</button>
+ <div class="note" style="text-align:center">出征：先列出本图 2–3 个进攻、2–3 个防守战术候选（英雄池能执行的才列），每个候选各起一卦；择将只做现实匹配，不起卦。</div>
  <div class="btns"><button class="btn sm" id="voidBtn" type="button">作废本次备战</button></div>
 </section>
 <div class="msg" id="msg" role="alert"></div>
@@ -137,15 +138,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
 <!-- 进游戏：临阵战令 -->
 <section id="stOrder" class="hide">
  <div class="note" id="roNote"></div>
- <div class="lbl">英雄 <small>（首选被选走时点备选，立即切换，不重新起卦）</small></div>
- <div class="chips" id="heroSw"></div>
  <div class="card order" id="order"></div>
  <div class="btns">
   <button class="btn" id="copy" type="button">📋 一键复制完整作战分析</button>
   <button class="btn" id="again" type="button">🔄 新一场</button>
  </div>
  <div class="note" id="copyMsg"></div>
- <div class="card"><details id="basisBox"><summary>展开依据（排盘事实 · 传统判断 · 现实战术）</summary><div id="basis"></div></details></div>
+ <div class="card"><details id="basisBox"><summary>展开依据（各卦排盘 · 战术候选与取舍 · 择将匹配）</summary><div id="basis"></div></details></div>
 </section>
 
 <div class="card hist"><details id="histBox"><summary>历史记录（只读，最近 15 场）</summary><div id="hist"></div></details></div>
@@ -985,7 +984,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   else root.TACTICS_DB = factory();
 })(typeof self !== 'undefined' ? self : this, function () {
   var TACTICS_DB = {
-    dbVersion: 'LZ-DB 2.1',
+    dbVersion: 'LZ-DB 3.0',
     updated: '2026-11-03',
     gameVersion: 'VALORANT 13.09（V26 Act 6；图池自 13.08 起未变）',
     sources: [
@@ -1227,6 +1226,62 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       Abyss: { Neon: [1, '速度能抢 {A Main}，但边缘多，滑铲方向错了会坠亡'], Yoru: [1, '{B Danger}、{A Vent} 等侧路可以绕后'], Reyna: [1, '包点有高处，单挑容易被高处看到'], Jett: [2, '高低差多，凌空和冲刺有发挥空间'], Phoenix: [1, '进点前要先处理高处'], Iso: [1, '护盾可以先挡高处那一枪'], Raze: [1, '炸药包机动强，但边缘多容易坠亡'], "Hush": [1, "近距离入口可以用念落星移，边缘多，注意自己的落点"], "Waylay": [1, "光速飞跃能冲上高处，但边缘多，冲刺方向错了会坠亡"], "Breach": [1, "包点有高处，闪光要先处理 {A Tower}、{B Tower}"], "Fade": [1, "侧路多，诡眼可以先看 {A Vent}、{B Danger}"], "Gekko": [1, "顽皮搭档可以先探 {A Main}"], "KAY/O": [1, "闪存过载可以先闪高处"], "Skye": [1, "辟林之虎可以先探 {B Main}"], "Sova": [1, "高低差多，寻敌箭角度要找好"], "Tejo": [1, "精准投放可以打 {A Tower}、{B Tower} 一带"], "Astra": [1, "预放星可以覆盖高处"], "Brimstone": [1, "空投烟幕可以封 {A Tower}、{B Tower}"], "Clove": [1, "整蛊可以先衰减包点近点"], "Harbor": [1, "狂潮可以沿 {A Main} 拉墙"], "Miks": [1, "音脉强袭的击退作用所有玩家，边缘附近慎用"], "Omen": [1, "{B Danger}、{A Vent} 侧路可以配合践影换位"], "Viper": [1, "毒幕可以切开 {B Site}"], "Chamber": [1, "{Mid Library} 有窄长枪线"], "Cypher": [1, "{A Vent}、{B Danger} 侧路可以拉绊线防绕后"], "Deadlock": [1, "入口窄时屏障好堵"], "Killjoy": [1, "包点入口少，炮台好架"], "Sage": [1, "玉城可以堵 {A Main}"], "Veto": [1, "涡流折跃给你一条不靠边缘的退路"], "Vyse": [1, "侧路窄，裁断好用"] }
     },
 
+    // ===== V3.0：战术候选（现实战术）=====
+    // 能力（cap）只从官方技能描述里读出：每位英雄的每个能力都指明提供它的技能槽位（构建与测试核对描述关键词）
+    caps: {
+      move: { zh: '位移脱身', re: '加速|冲刺|滑铲|传送|弹起|击飞|推向|回到标记' },
+      vision: { zh: '遮挡视线（烟/墙）', re: '烟|遮挡视线|墙' },
+      blind: { zh: '致盲/近视/耳聋', re: '闪光|致盲|近视|耳聋' },
+      cc: { zh: '控制（震荡/减速/束缚/压制）', re: '震晕|震荡|减速|束缚|压制|阻滞|拉向|拘禁|蹲下|悬浮|击退|阻挡移动' },
+      recon: { zh: '侦察（显示敌人位置）', re: '显示|标记|侦测|显形' },
+      trap: { zh: '陷阱/警报', re: '触发|绊线|隐形' },
+      dmg: { zh: '区域伤害/衰减清角', re: '伤害|爆炸|衰减' },
+      heal: { zh: '自保续航', re: '回血|治疗自己|护盾|超额生命|无法被攻击|免疫|复活' },
+      decoy: { zh: '诱饵/假动作', re: '分身|假传送' }
+    },
+    heroCaps: {
+      Neon: { move: 'E', vision: 'C', cc: 'Q' }, Yoru: { decoy: 'C', blind: 'Q', move: 'E' }, Reyna: { blind: 'C', heal: 'Q' },
+      Jett: { move: 'E', vision: 'C' }, Phoenix: { blind: 'E', vision: 'C', dmg: 'Q', heal: 'P' }, Iso: { heal: 'E', cc: 'Q', vision: 'C' },
+      Raze: { move: 'Q', dmg: 'E' }, Hush: { move: 'C', blind: 'Q', cc: 'E' }, Waylay: { move: 'Q', cc: 'C' },
+      Breach: { dmg: 'C', blind: 'Q', cc: 'E' }, Fade: { recon: 'E', blind: 'C', cc: 'Q' }, Gekko: { dmg: 'C', cc: 'Q', blind: 'E' },
+      'KAY/O': { dmg: 'C', blind: 'Q', cc: 'E' }, Skye: { cc: 'Q', blind: 'E' }, Sova: { recon: 'E', dmg: 'Q' }, Tejo: { recon: 'C', cc: 'Q', dmg: 'E' },
+      Astra: { vision: 'E', cc: 'Q' }, Brimstone: { vision: 'E', dmg: 'Q' }, Clove: { vision: 'E', heal: 'C', dmg: 'Q' }, Harbor: { vision: 'Q', blind: 'C', cc: 'C' },
+      Miks: { vision: 'E', cc: 'C' }, Omen: { vision: 'E', blind: 'Q', move: 'C' }, Viper: { vision: 'E', dmg: 'C' },
+      Chamber: { trap: 'C', move: 'E', cc: 'C' }, Cypher: { trap: 'C', recon: 'E', vision: 'Q' }, Deadlock: { trap: 'Q', cc: 'E' },
+      Killjoy: { trap: 'Q', dmg: 'C', cc: 'X' }, Sage: { vision: 'C', cc: 'Q', heal: 'E' }, Veto: { trap: 'Q', move: 'C', blind: 'Q', heal: 'X' },
+      Vyse: { trap: 'Q', blind: 'E', cc: 'C' }
+    },
+    // 战术原型：need = 必须满足的条件组（每组至少满足一项；esc:* 指英雄库里的脱身等级），pref = 加分能力（只用于同等可执行时的匹配深度）
+    tacArch: {
+      rush: { side: 'atk', zh: '快攻抢点', need: [['move', 'vision']], pref: ['blind', 'cc'], why: '要快速通过开阔段：需要位移或能遮挡视线的技能' },
+      clear: { side: 'atk', zh: '稳步清点', need: [['blind', 'cc', 'dmg', 'recon']], pref: ['vision', 'heal'], why: '要用技能一步步清近点：需要致盲、控制、区域伤害或侦察之一' },
+      burst: { side: 'atk', zh: '近身爆发进点', need: [['blind', 'cc', 'dmg']], pref: ['heal', 'move'], why: '狭窄入口近身交火：需要能先手压制入口的技能' },
+      flank: { side: 'atk', zh: '侧路牵制·绕后', need: [['recon', 'trap', 'decoy', 'esc:strong']], pref: ['move', 'blind'], why: '一个人走侧路：需要能独自拿信息/看住身后，或有可靠的位移脱身' },
+      contact: { side: 'def', zh: '前点接触即退', need: [['esc:strong', 'esc:conditional']], pref: ['blind', 'cc', 'move'], why: '前点打一枪就要退得回来：英雄库脱身等级须为“可靠”或“有条件”' },
+      anchor: { side: 'def', zh: '包点深位拖延', need: [['trap', 'vision', 'cc', 'dmg']], pref: ['heal', 'blind'], why: '守在包点深处拖时间：需要陷阱、封视线、控制或区域伤害之一' },
+      info: { side: 'def', zh: '信息位·机动补防', need: [['recon', 'trap', 'move']], pref: ['blind', 'cc'], why: '先拿信息再补防：需要侦察、陷阱警报或位移之一' }
+    },
+    // 每张完整战术地图：攻 / 防 各 2–3 个原型 → 现有路线（起点、撤退条件各不相同；构建时断言）
+    tactics: {
+      Haven: { atk: [['rush', 'H-A-LONG'], ['clear', 'H-C-LONG'], ['flank', 'H-C-GARAGE']], def: [['contact', 'H-D-A-LONG'], ['anchor', 'H-D-C-SITE'], ['info', 'H-D-B-BACK']] },
+      Bind: { atk: [['rush', 'BD-B-LONG'], ['clear', 'BD-A-SHORT'], ['burst', 'BD-A-BATH']], def: [['contact', 'BD-D-B-WINDOW'], ['anchor', 'BD-D-B-SITE'], ['info', 'BD-D-A-TOWER']] },
+      Sunset: { atk: [['rush', 'SS-B-MAIN'], ['clear', 'SS-A-MAIN'], ['flank', 'SS-B-MARKET']], def: [['contact', 'SS-D-A-ELBOW'], ['anchor', 'SS-D-B-SITE'], ['info', 'SS-D-B-MARKET']] },
+      Abyss: { atk: [['rush', 'AB-A-MAIN'], ['clear', 'AB-B-MAIN'], ['flank', 'AB-A-VENT']], def: [['contact', 'AB-D-MID-LIB'], ['anchor', 'AB-D-A-SECURITY'], ['info', 'AB-D-A-TOWER']] }
+    },
+    // 资料不足地图：只用官方名（X Main / X Lobby / X Site / Defender Side Spawn），不写路线连接与枪线
+    limitedTac: {
+      atk: [
+        { arch: 'rush', name: '主通道快节奏跟进', start: 'mains', open: '跟第一波一起过主通道，进点后马上贴掩体，不在通道里停留', push: '第一波技能交出、入口近点已清时立即进点', retreat: '主通道出口被架死、或第一波技能没有效果时，退回进攻方大厅一侧，不在通道里硬拼', safe: 1 },
+        { arch: 'clear', name: '大厅慢节奏拿信息再进', start: 'lobbies', open: '先在大厅一侧用技能或队友技能确认入口后的近点，再决定进不进', push: '入口近点清掉、至少知道包点里大概几个人时再进', retreat: '技能交完仍没清掉近点时，留在大厅不进，等队友或转另一包点', safe: 2 },
+        { arch: 'flank', name: '另一包点主通道牵制', start: 'otherMain', open: '队伍打一个包点时，你在另一个包点的主通道制造动静、看住身后，不单人深入', push: '队友已经进点、对方开始回防时，再从侧面转过去补枪', retreat: '被两人以上压住时立即退回进攻方一侧，不在侧路一换一', safe: 2 }
+      ],
+      def: [
+        { arch: 'contact', name: '包点入口接一枪即退', start: 'siteEdge', first: '在包点靠主通道出口一侧的掩体边接第一枪，打完立刻换位', fallback: '对方多人进点时，往守方重生点方向拉开，等队友回防', rotate: '另一包点报多人、你这边长时间没有动静时，经守方一侧回防', safe: 1 },
+        { arch: 'anchor', name: '包点深位拖延', start: 'siteDeep', first: '站在包点深处、靠近撤退方向的掩体，不看主通道出口正前方', fallback: '用技能拖住进点的人，打不过就往守方重生点方向退，保枪等回防', rotate: '确认对方全部在另一包点后再回防，不提前离开', safe: 3 },
+        { arch: 'info', name: '守方重生点一侧机动补防', start: 'spawnSide', first: '在两个包点之间、靠守方重生点一侧，先听脚步、看技能，再决定去哪边', fallback: '遇到多人时不接战，退回守方重生点方向报点', rotate: '哪边先报多人就往哪边补，补防时走守方一侧，不穿对方控制的区域', safe: 2 }
+      ]
+    },
+
     styles: {
       主动: { name: '主动争取交火机会', short: '主动' },
       稳健: { name: '稳健控制交火风险', short: '稳健' },
@@ -1242,17 +1297,18 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   return TACTICS_DB;
 });
 </script>
-<script id="linzhen-engine">/* 六爻·临阵 V2.1 分占引擎（两阶段：prepare 备战 / deploy 出征）：复用 core.js（排盘）与 zengshan.js（《增删卜易》分析），不改动二者。
-   本文件只做：审题、取用神、倾向归纳（程序归纳）、与现实战术库组合、生成战令与可复制文本。 */
+<script id="linzhen-engine">/* 六爻·临阵 V3.0 分占引擎（先察己 → 再取势 → 后择将 → 定个人战术）：复用 core.js（排盘）与 zengshan.js（《增删卜易》分析），不改动二者。
+   备战一卦（察己）；地图揭晓后生成 2–3 个真正不同的攻/防战术候选，每个候选各起一卦（取势），按《增删卜易》逐级判定（不投票）；
+   择将只做现实能力匹配（不起卦）；熟练度只在执行条件相同时排先后，不进入吉凶。 */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory;
   else root.LinzhenFactory = factory;
 })(typeof self !== 'undefined' ? self : this, function (C, Z, DB) {
-  var VER = '六爻·临阵 V2.1';
+  var VER = '六爻·临阵 V3.0';
   var POS = ['初', '二', '三', '四', '五', '上'];
   var S = Z.S;
-  var KEYS = { beizhan: '备战', zejiang: '择将', buzhan: '择将·补占', jingong: '进攻', fangshou: '防守' };
-  var REVIEW_PROMPT = '【独立复核要求】请你作为独立复核者阅读以下全部卦例与程序判断：统一按《增删卜易》（野鹤老人）体系；不迎合提问者；不编造现实背景；不给无依据的百分比或胜率；严格区分【排盘事实】【传统解释】【现实战术】三类内容；逐卦核对审题与用神取法是否合理、程序的“倾向”归纳是否有据，并明确指出你不同意的地方。';
+  var KEYS = { beizhan: '备战', jingong: '进攻战术', fangshou: '防守战术' };
+  var REVIEW_PROMPT = '【独立复核要求】请你作为独立复核者阅读以下全部卦例与程序判断：统一按《增删卜易》（野鹤老人）体系；不迎合提问者；不编造现实背景；不给无依据的百分比或胜率；严格区分【排盘事实】【传统判断】【现实战术】三类内容；逐卦核对审题与用神取法是否合理、程序的逐级判定是否有据，核对“择将为现实匹配，不是卦象结果”是否被遵守，并明确指出你不同意的地方。';
 
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   function byId(a, id) { for (var i = 0; i < a.length; i++) if (a[i].id === id) return a[i]; return null; }
@@ -1315,100 +1371,94 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     pool.forEach(function (h) { if (base.indexOf(h) < 0) base.push(h); });
     return base;
   }
-  // 候选排序：熟练度分（第1熟=3，第2=2，第3=1，其余0）+ 地图适配（只在地图已知且有资料时）
-  function rankCandidates(inp) {
-    var po = profOrder(inp), mx = inp.map ? MAPX(inp.map) : null;
-    var fit = mx && mx.tier === 'full' ? (DB.fit[mx.id] || {}) : null;
-    var list = po.map(function (h, r) {
-      var ps = r === 0 ? 3 : r === 1 ? 2 : r === 2 ? 1 : 0, f;
-      if (!mx) f = [0, '地图未知：不做地图适配'];
-      else if (!fit) f = [0, '本地图战术资料不足：不做地图适配'];
-      else if (fit[h]) f = [fit[h][0], fmt(mx.id, fit[h][1])];
-      else f = [0, '该英雄在本地图没有适配资料'];
-      return { id: h, zh: heroZhX(h), prof: r + 1, profScore: ps, fit: f[0], fitWhy: f[1], score: ps + f[0], generic: !!HEROX(h).generic };
-    });
-    list.sort(function (a, b) { return (b.score - a.score) || (a.prof - b.prof); });
-    return { list: list, mapRanked: !!fit };
-  }
 
   // ---------- 摇卦（每卦一次，不重摇） ----------
   function cast(rnd) { var coins = [], values = []; for (var i = 0; i < 6; i++) { var c = C.randCoins(rnd); coins.push(c); values.push(c[0] + c[1] + c[2]); } return { coins: coins, values: values }; }
 
-  // ---------- 审题取用神 ----------
+  // ---------- 审题取用神（V3：不按战术名称/关键词指派六亲） ----------
+  var YONG_WHY = '自占以世爻为用神（Z06 原书明确：“自占吉凶者，以世爻为用神”增 L640）；对局另一方看应爻（博戏章“技斗、力斗，首重世应”增 L6668，原书明确；电子竞技套用为电竞类比）。原神（生世之五行）、忌神（克世之五行）按世爻五行动态确定，不按战术名称或关键词指定六亲（程序约定：保留原问题为第一原则）。';
   var YONG = {
-    zejiang: { primary: { k: '世', role: '我自己（本场个人发挥）' }, aux: [{ k: '子孫', role: '所用之“将”（英雄）', r: 'Z05' }, { k: '應', role: '对局另一方', r: 'Z06' }],
-      why: '问的是“我用某英雄，对我个人发挥是否有利”：自占以世爻为用神（Z06，原文）；英雄比作“将”，参看子孙爻（Z05“良将…兵卒皆以子孙爻为用神”为原文，英雄=将为电竞类比）；对手看应爻（博戏章“技斗首重世应”）。',
-      cls: ['原文', '电竞类比'] },
-    beizhan: { primary: { k: '世', role: '我自己（下一场竞技比赛的个人发挥）' }, aux: [{ k: '應', role: '对局另一方', r: 'Z06' }, { k: '官鬼', role: '阻滞、伤我身者', r: 'Z02' }],
-      why: '问的是“下一场竞技比赛，我能否保持稳定的个人发挥”：自占以世爻为用神（Z06，原文“自占吉凶者，以世爻为用神”）；对局另一方看应爻（博戏章“技斗首重世应”，原文）；官鬼为“一切拘束我身者”（Z02 原文），用于看有无阻滞我发挥之象（用到电竞为传统延伸）。此卦不针对任何地图、英雄或路线。',
-      cls: ['原文', '传统延伸'] },
-    jingong: { primary: { k: '世', role: '我自己（进攻方案中的个人发挥）' }, aux: [{ k: '兄弟', role: '谋事之阻隔', r: 'Z03' }, { k: '應', role: '守方对手', r: 'Z06' }],
-      why: '问的是“我按某进攻方案打，是否有利于个人发挥”：仍以世为用神（Z06）；进攻是“谋事”，兄弟为“阻隔之神”（Z03 原文），兄弟发动视为方案受阻（套用到进攻为传统延伸）。',
-      cls: ['原文', '传统延伸'] },
-    fangshou: { primary: { k: '世', role: '我自己（防守站位中的个人发挥）' }, aux: [{ k: '官鬼', role: '拘束、伤害我身者', r: 'Z02' }, { k: '應', role: '攻方对手', r: 'Z06' }],
-      why: '问的是“我按某防守位置守，是否有利于个人发挥”：以世为用神（Z06）；防守最怕被伤，看官鬼（Z02“一切拘束我身者”）与博戏章“鬼爻克世，灾祸相侵”（原文；用到防守站位为传统延伸）。',
-      cls: ['原文', '传统延伸'] }
+    beizhan: { primary: { k: '世', role: '我自己（下一场竞技比赛的个人状态与纪律）' }, aux: [{ k: '應', role: '对局另一方', r: 'Z06' }],
+      why: '问的是“下一场竞技比赛，我能否保持稳定的个人发挥”。' + YONG_WHY + '此卦不针对任何地图、英雄或路线；它是传统象义参考，不是心理测量。', cls: ['原书明确', '电竞类比', '程序约定'] },
+    jingong: { primary: { k: '世', role: '我自己（按这一进攻战术出战时的个人发挥）' }, aux: [{ k: '應', role: '守方对手', r: 'Z06' }],
+      why: '问的是“我按这一进攻战术出战，对我个人发挥是否有利”（题目含战术名、简述、地图与攻守方）。' + YONG_WHY, cls: ['原书明确', '电竞类比', '程序约定'] },
+    fangshou: { primary: { k: '世', role: '我自己（按这一防守战术出战时的个人发挥）' }, aux: [{ k: '應', role: '攻方对手', r: 'Z06' }],
+      why: '问的是“我按这一防守战术出战，对我个人发挥是否有利”（题目含战术名、简述、地图与攻守方）。' + YONG_WHY, cls: ['原书明确', '电竞类比', '程序约定'] }
   };
 
-  YONG.buzhan = YONG.zejiang;   // 补占：同择将题型（每英雄每场最多一次）
-
-  // ---------- 倾向归纳（程序归纳 P-LZ01，非原书吉凶断语） ----------
-  function classify(r, res, kind) {
+  // ---------- 逐级判定（P-LZ01 v3：程序约定的判断顺序；每一步引原书；不数条件、不投票） ----------
+  var GRADE = { 支持: 2, 混杂: 1, 不支持: 0 };
+  var LABEL = { 支持: '倾向有利', 混杂: '有利不利并见', 不支持: '倾向不利' };
+  var RULE = 'P-LZ01 v3（程序约定的判断顺序；每步所据见括号；不数条件、不投票）：①世动化回头克→不利（Z25/Z26）；②世爻真空、月破到底、日破→不利（Z34/Z36/Z19）；③世爻无根（月日不扶、无有力动爻生扶）：有有效忌神动克→不利，否则有利不利并见（Z32/Z33）；④有效忌神动克世：原神同动接续相生→有利（增 L931“忌神与元神同动”、L948 例），世得月日两扶→并见，否则→不利（Z10）；⑤日或月克世→并见（斗殴争竞章“日月克身”）；⑥世动化退神→并见（斗殴争竞章“世动化退，我心怯焉”）；⑦应有力而克世→并见（“应克世他胜”）；⑧有根无伤→有利（Z15“用神宜旺”、博戏章“世喜临于日月”）。三合只认“成局”，存疑不用（Z42）。';
+  function judge(r, res) {
     var F = res.facts, L = r.lines, si = L.findIndex(function (l) { return l.shi; }), yi = L.findIndex(function (l) { return l.ying; });
-    var f = F[si], g = F[yi], sup = [], obs = [], heavy = [], unc = [];
-    var nm = function (i) { return POS[i] + '爻' + S(L[i].qin) + L[i].zhi + L[i].wx; };
-    var SH = C.SHENG, KE = C.KE;
+    var f = F[si], ls = L[si], g = F[yi], ly = L[yi], swx = ls.wx, SH = C.SHENG, KE = C.KE;
     var sheng = function (a, b) { return SH[a] === b; }, ke = function (a, b) { return KE[a] === b; };
-    // 世爻自身
-    if (f.m.lin) sup.push(['世临月建', '博戏章“世喜临于日月”']);
-    else if (f.strong) sup.push(['世爻' + f.ws + '于月令', '旺相有气（Z14）']);
-    if (f.d.lin) sup.push(['世临日辰', '博戏章“世喜临于日月”']);
-    else if (f.d.sh) sup.push(['日生世', '日辰生扶（Z14）']);
-    else if (f.d.fu) sup.push(['日扶世', '日辰生扶（Z14）']);
-    if (!f.m.lin && f.m.sh) sup.push(['月生世', '月建生扶（Z14）']);
-    f.mvS.forEach(function (j) { sup.push([nm(j) + '动生世', '动爻生世（Z23）']); });
-    if (f.b && f.b.hs) sup.push(['世动化回头生', '博戏章“世爻动而化吉”']);
-    if (f.b && f.b.jin) sup.push(['世动化进神', '博戏章“世爻动而化吉”（Z27）']);
-    if (f.m.po) heavy.push(['世爻月破', '斗殴争竞章“世空世破…我心怯焉”']);
-    if (f.ripo) heavy.push(['世爻日破', '斗殴争竞章“世空世破”（Z19）']);
-    if (f.kongReal) heavy.push(['世爻旬空（' + f.kongS + '）', '斗殴争竞章“世空…我心怯焉”']);
-    else if (f.kong) unc.push('世爻旬空：' + f.kongS);
-    if (f.b && f.b.hk) heavy.push(['世动化回头克', '回头克（Z26）']);
-    if (f.b && f.b.tui) obs.push(['世动化退神', '斗殴争竞章“世动化退，我心怯焉”']);
-    if (f.d.ke) obs.push(['日克世', '斗殴争竞章“日月克身，我必受辱”']);
-    if (!f.m.lin && f.m.ke) obs.push(['月克世', '斗殴争竞章“日月克身，我必受辱”']);
-    f.mvK.forEach(function (j) { obs.push([nm(j) + '动克世', S(L[j].qin) === '官鬼' ? '博戏章“鬼爻克世，灾祸相侵”' : '动爻克世（Z23）']); });
-    if (!f.strong && !f.help && !f.m.ke && !f.d.ke) obs.push(['世爻休囚无扶', '无日月动爻生扶（Z14）']);
-    // 世应（博戏章“技斗首重世应”；斗殴争竞章）
-    if (sheng(L[yi].wx, L[si].wx)) sup.push(['应生世', '博戏章“应…而生世…皆我胜也”']);
-    if (ke(L[si].wx, L[yi].wx)) sup.push(['世克应', '斗殴争竞章“世克应我赢”']);
-    if (ke(L[yi].wx, L[si].wx)) obs.push(['应克世', '斗殴争竞章“应克世他胜”']);
-    if (C.chong(L[si].zhi, L[yi].zhi)) unc.push('世应相冲：斗殴争竞章“不宜冲克喜相生”，冲只作提示，不单独计入');
-    if (kind === 'zejiang' || kind === 'buzhan') {
-      L.forEach(function (l, i) { if (S(l.qin) !== '子孙' || l.shi) return; var fi = F[i];
-        if ((l.moving || fi.an) && sheng(l.wx, L[si].wx)) sup.push([nm(i) + (l.moving ? '动' : '暗动') + '生世', '子孙为将（Z05；英雄=将为电竞类比）']);
-        if ((l.moving || fi.an) && ke(l.wx, L[si].wx)) obs.push([nm(i) + (l.moving ? '动' : '暗动') + '克世', '子孙为将而克我（Z05；电竞类比）']);
-        if (fi.m.po || fi.kongReal) unc.push(nm(i) + (fi.m.po ? '月破' : '旬空') + '：所用之“将”无力（Z05 电竞类比，只作提示）'); });
-    }
-    if (kind === 'jingong') {
-      L.forEach(function (l, i) { if (S(l.qin) !== '兄弟' || l.shi) return; if (l.moving || F[i].an) obs.push([nm(i) + (l.moving ? '发动' : '暗动'), '兄弟“占谋事，以此为阻隔之神”（Z03）']); });
-    }
-    if (kind === 'fangshou') {
-      L.forEach(function (l, i) { if (S(l.qin) !== '官鬼' || l.shi) return; if (F[i].an && ke(l.wx, L[si].wx)) obs.push([nm(i) + '暗动克世', '博戏章“鬼爻克世，灾祸相侵”（Z33 暗动）']); });
-    }
-    // 三合（严格按 zengshan 三合判定，只用“成局”）
-    (res.sanhe || []).forEach(function (h) {
-      if (h.kind === '成局') { if (sheng(h.wx, L[si].wx)) sup.push(['三合' + h.g + h.wx + '局生世', '三合成局（Z42）']); else if (ke(h.wx, L[si].wx)) obs.push(['三合' + h.g + h.wx + '局克世', '三合成局（Z42）']); }
-      else if (h.kind === '存疑') unc.push('三合' + h.g + '成局存疑（Z42 条文与例卦不一），不计入');
+    var nm = function (i) { return POS[i] + '爻' + S(L[i].qin) + L[i].zhi + L[i].wx; };
+    var yuanWx = Object.keys(SH).filter(function (w) { return SH[w] === swx; })[0], jiWx = Object.keys(KE).filter(function (w) { return KE[w] === swx; })[0];
+    var sup = [], obs = [], heavy = [], unc = [], steps = [];
+    var b = f.mv && f.b ? f.b : {};
+    // 月日根气
+    var rootM = f.m.lin ? '世临月建' : f.strong ? '世爻' + f.ws + '于月令' : f.m.sh ? '月生世' : f.m.fu ? '月扶世' : '';
+    var rootD = f.d.lin ? '世临日辰' : f.d.sh ? '日生世' : f.d.fu ? '日扶世' : '';
+    var kM = !f.m.lin && f.m.ke, kD = f.d.ke;
+    if (rootM) sup.push([rootM, f.m.lin ? '博戏章“世喜临于日月”' : 'Z14/Z15 旺相有气']); if (rootD) sup.push([rootD, f.d.lin ? '博戏章“世喜临于日月”' : 'Z15 日辰生扶']);
+    if (kM) obs.push(['月克世', '斗殴争竞章“日月克身，我必受辱”']); if (kD) obs.push(['日克世', '斗殴争竞章“日月克身，我必受辱”']);
+    // 动爻（含暗动）：原神 / 忌神 是否有力
+    var gens = [], kills = [], weakJi = [], weakYuan = [];
+    L.forEach(function (l, j) {
+      if (j === si) return; var fj = F[j], act = l.moving || fj.an; if (!act) return;
+      var tag = nm(j) + (l.moving ? '动' : '暗动');
+      if (sheng(l.wx, swx)) {
+        var bad = l.moving && fj.b && (fj.b.hk || fj.b.po || fj.b.cs === '绝');
+        var ok = fj.an || (l.moving && (fj.strong || fj.help || fj.kong));
+        if (ok && !bad) { gens.push(tag + '生世（原神有力，Z30' + (fj.an ? '/Z33 暗动' : '') + '）'); sup.push([tag + '生世', '原神有力（Z30）']); }
+        else { weakYuan.push(tag + '生世，但' + (bad ? '化回头克/化破/化绝（Z25 化凶）' : '休囚无扶') + '，生之无力'); unc.push(weakYuan[weakYuan.length - 1]); }
+      }
+      if (ke(l.wx, swx)) {
+        var why = '';
+        if (l.moving && fj.b && (fj.b.hk || fj.b.po || fj.b.cs === '绝')) why = '忌神动而化克/化破/化绝，无力（Z29 六）';
+        else if (l.moving && !fj.strong && !fj.help && (fj.d.ke || fj.m.ke)) why = '忌神动而休囚、被日月克，无力（Z29 一）';
+        else if (l.moving && fj.b && fj.b.tui && !fj.strong) why = '忌神衰而化退，无力（Z29 四）';
+        if (why) { weakJi.push(tag + '克世：' + why); unc.push(weakJi[weakJi.length - 1]); }
+        else { kills.push(tag + '克世（忌神' + (l.moving ? '动' : '暗动，Z33') + '）'); obs.push([tag + '克世', l.moving ? 'Z10“有忌神动而克害否”' : 'Z33 暗动之忌']); }
+      }
     });
+    (res.sanhe || []).forEach(function (h) {
+      if (h.kind === '成局') { if (sheng(h.wx, swx)) { gens.push('三合' + h.g + h.wx + '局生世（Z42 成局）'); sup.push(['三合' + h.g + h.wx + '局生世', 'Z42 成局']); } else if (ke(h.wx, swx)) { kills.push('三合' + h.g + h.wx + '局克世（Z42 成局）'); obs.push(['三合' + h.g + h.wx + '局克世', 'Z42 成局']); } }
+      else if (h.kind === '存疑') unc.push('三合' + h.g + '成局存疑（Z42），不用');
+    });
+    if (b.hs) sup.push(['世动化回头生', 'Z25 化吉']); if (b.jin) sup.push(['世动化进神', 'Z25/Z27 化吉']);
+    if (b.hk) heavy.push(['世动化回头克', 'Z25/Z26 化凶']); if (b.tui) obs.push(['世动化退神', '斗殴争竞章“世动化退，我心怯焉”']);
+    var poEnd = f.m.po && !f.mv && !f.help;
+    if (f.kongReal) heavy.push(['世爻旬空（' + f.kongS + '）', 'Z34']); else if (f.kong) unc.push('世爻旬空：' + f.kongS);
+    if (poEnd) heavy.push(['世爻静而月破、无日辰动爻生助（到底而破）', 'Z36']); else if (f.m.po) unc.push('世爻月破，但' + (f.mv ? '动' : '得日辰动爻生助') + '，非到底而破（Z36）');
+    if (f.ripo) heavy.push(['世爻日破', 'Z19']);
+    var yStrong = ly.moving || g.an || g.strong || g.help;
+    if (ke(ly.wx, swx)) (yStrong ? obs : []).push(['应克世' + (ly.moving ? '（应动）' : g.an ? '（应暗动）' : '（应旺相/有扶）'), '斗殴争竞章“应克世他胜”']);
+    if (ke(swx, ly.wx)) sup.push(['世克应', '斗殴争竞章“世克应我赢”']);
+    if (sheng(ly.wx, swx)) sup.push(['应生世', '博戏章“应…生世…皆我胜也”']);
+    if (C.chong(ls.zhi, ly.zhi)) unc.push('世应相冲：斗殴争竞章“不宜冲克喜相生”，只作提示');
     (res.conflicts || []).forEach(function (c) { if (/世|用神/.test(c.t)) unc.push(c.t); });
-    var nS = sup.length, nH = heavy.length, nO = obs.length + nH, v;
-    if (nH > 0 && nS <= 1) v = '不支持'; else if (nH > 0) v = '混杂';
-    else if ((nS >= 2 && nO === 0) || nS >= nO + 2) v = '支持';
-    else if (nO >= nS + 2) v = '不支持'; else v = '混杂';
-    return { verdict: v, label: v === '支持' ? '倾向有利' : v === '不支持' ? '倾向不利' : '证据不足（有利与不利条件混杂）', sup: sup, obs: obs, heavy: heavy, unc: unc, shi: nm(si), ying: nm(yi),
-      rule: '程序归纳 P-LZ01：只数世爻相关条件；重凶（月破、日破、真空、化回头克）存在且支持≤1 → 倾向不利；支持≥2且无阻碍、或支持比阻碍多2条以上 → 倾向有利；阻碍比支持多2条以上 → 倾向不利；其余为证据不足。原书不给这种计数法，这是程序约定。' };
+    var root = !!(rootM || rootD || gens.length || b.hs || b.jin);
+    // 逐级判定
+    var v = null, key = '';
+    function step(n, t, fin) { steps.push([n, t]); if (fin && !v) { v = fin; key = n + '：' + t; } }
+    if (b.hk) step('①动变', '世爻动化回头克，用神化凶（Z25/Z26）', '不支持'); else step('①动变', b.hs ? '世动化回头生（化吉）' : b.jin ? '世动化进神（化吉）' : f.mv ? '世动，未化回头克' : '世爻安静');
+    if (!v) { if (f.kongReal || poEnd || f.ripo) step('②空破', (f.kongReal ? '世爻真空' : poEnd ? '世爻月破到底' : '世爻日破') + '（Z34/Z36/Z19）', '不支持'); else step('②空破', '世爻不空不破' + (f.kong ? '（旬空但' + f.kongS + '）' : '')); }
+    if (!v) { if (!root) step('③根气', '世爻休囚，月日不扶、无有力动爻生扶：用神无根（Z32“用神无根，谓之元神有力亦难生，忌神无力亦休喜”）' + (kills.length ? '；又有' + kills[0] + '（Z33“用神休囚无助，若遇忌神…克害”）' : ''), kills.length ? '不支持' : '混杂');
+      else step('③根气', '世爻有根：' + [rootM, rootD].concat(gens.slice(0, 1)).concat(b.hs ? ['化回头生'] : b.jin ? ['化进神'] : []).filter(Boolean).join('、')); }
+    if (!v) { if (kills.length) { if (gens.length) step('④原忌', kills[0] + '，但' + gens[0] + '：忌神与元神同动，接续相生，化凶为吉（增 L931、L948）', '支持');
+        else if (rootM && rootD) step('④原忌', kills[0] + '；世得月日两扶，有气受克', '混杂'); else step('④原忌', kills[0] + '；世只有一方扶助，受克（Z10）', '不支持'); }
+      else step('④原忌', '无有效忌神动克' + (weakJi.length ? '（' + weakJi[0] + '）' : '')); }
+    if (!v) { if (kM || kD) step('⑤日月', (kM && kD ? '日月同克世' : kM ? '月克世' : '日克世') + '（斗殴争竞章“日月克身”）', '混杂'); else step('⑤日月', '日月不克世'); }
+    if (!v) { if (b.tui) step('⑥化退', '世动化退神（斗殴争竞章“世动化退，我心怯焉”）', '混杂'); else step('⑥化退', '世不化退'); }
+    if (!v) { if (ke(ly.wx, swx) && yStrong) step('⑦世应', '应有力而克世（斗殴争竞章“应克世他胜”）', '混杂'); else step('⑦世应', ke(swx, ly.wx) ? '世克应（“世克应我赢”）' : sheng(ly.wx, swx) ? '应生世' : '应不克世'); }
+    if (!v) step('⑧结论', '世爻有根、无空破、无有效忌神、日月不克（Z15“用神宜旺”）', '支持');
+    return { verdict: v, grade: GRADE[v], label: LABEL[v], key: key, steps: steps, sup: sup, obs: obs, heavy: heavy, unc: unc, shi: nm(si), ying: nm(yi),
+      yuan: yuanWx + '（生世）', ji: jiWx + '（克世）', rule: RULE };
   }
+  var classify = function (r, res) { return judge(r, res); };
 
   function chartOf(r) {
     var p = r.pillars || {};
@@ -1419,99 +1469,147 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   }
   var COIN = function (c) { return c.map(function (x) { return x === 3 ? '背' : '字'; }).join(''); };
   var VNAME = { 6: '老阴 ×', 7: '少阳', 8: '少阴', 9: '老阳 ○' };
-
+  function judgeValues(values, t, q, kind) { var r = C.build(values, t, {}), y = YONG[kind]; var res = Z.analyze(r, { q: q, primary: y.primary, aux: y.aux, date: t }); return { r: r, res: res, k: judge(r, res) }; }
   function doCast(kind, q, rnd, nowFn, setAt0) {
     var setAt = setAt0 || tStr(bjParts(nowFn()));  // 先定题（多卦时由调用方在全部起卦之前统一定题）
     var c = cast(rnd);                              // 再摇六爻（每爻一次 getRandomValues，共 6 次）
     var t = bjParts(nowFn());
-    var r = C.build(c.values, t, {});
-    var y = YONG[kind];
-    var res = Z.analyze(r, { q: q, primary: y.primary, aux: y.aux, date: t });
-    var k = classify(r, res, kind);
+    var j = judgeValues(c.values, t, q, kind), y = YONG[kind];
     return { kind: kind, name: KEYS[kind], q: q, setAt: setAt, time: t, timeStr: tStr(t), coins: c.coins, values: c.values,
       coinText: c.coins.map(function (cc, i) { return POS[i] + '爻：' + COIN(cc) + ' = ' + c.values[i] + '（' + VNAME[c.values[i]] + '）'; }),
-      chart: chartOf(r), yongWhy: y.why, yongCls: y.cls, cls: k, brief: Z.briefText(r, res, { q: q, time: tStr(t) }) };
+      chart: chartOf(j.r), yongWhy: y.why, yongCls: y.cls, cls: j.k, brief: Z.briefText(j.r, j.res, { q: q, time: tStr(t) }) };
   }
 
-  // ---------- 现实规则：打法（V2：不再由卦象决定） ----------
-  // P-LZ03v2：打法只看 英雄类型/技能 → 你的偏好 → 脱身能力 → 地图提示；卦象只写进“传统参考”，不改变打法
-  function decideStyle(heroId, pref, mx) {
-    var st = DB.styles, h = HEROX(heroId), k = pref && st[pref] ? pref : h.defStyle, from = [];
-    from.push(pref && st[pref] ? '你设置的打法偏好「' + st[pref].name + '」' : (h.generic ? h.zh + '属于' + h.role + '，按角色通用打法' : h.zh + '的常规打法（英雄库）'));
-    var note;
-    if (k === '主动') {
-      if (h.escape === 'strong') note = '有位移脱身技能，可以争第一枪，但只打第一枪就换位，脱身技能没用掉之前才算有退路。';
-      else if (h.escape === 'conditional') note = '可以争第一枪，但脱身靠条件（' + h.escNote + '），只接能先手的一对一。';
-      else { note = '没有可靠的位移脱身：争第一枪之前先站到有掩体、能退回的位置，不在空地对枪。'; from.push('脱身能力弱 → 主动但先找掩体'); }
-    } else if (k === '信息') note = '先拿信息再决定打不打，用换位代替硬拼，每次露头前先想好退到哪里。';
-    else note = '控制交火次数，只打有把握的一对一，打完第一枪就回掩体，等队友再交火。';
-    if (mx && mx.id === 'Abyss' && (h.tags.indexOf('speed') >= 0 || h.tags.indexOf('explosive') >= 0)) note += '幽邃地窟没有外边界，高速移动或炸药包位移前先看清落点，避免坠亡。';
-    return { key: k, name: st[k].name, from: '现实战术：' + from.join('；'), note: note };
+  // ---------- 现实能力（只来自官方技能描述 + 英雄库脱身等级） ----------
+  var CAPS = DB.caps || {}, ARCH = DB.tacArch || {};
+  function capsOf(hid) { return (DB.heroCaps || {})[hid] || {}; }
+  function hasItem(h, x) { if (x.indexOf('esc:') === 0) return h.escape === x.slice(4); return !!capsOf(h.id)[x]; }
+  function itemText(h, x) {
+    if (x.indexOf('esc:') === 0) return '脱身（英雄库：' + (h.escape === 'strong' ? '可靠' : '有条件') + '——' + h.escNote + '）';
+    var sl = capsOf(h.id)[x], a = h.abil && h.abil[sl]; return CAPS[x].zh + '：' + (a ? a[0] + '(' + a[1] + ')' : sl);
   }
-  function scoreAtk(p, h, style) {
-    var s = p.safe * 1;                                                       // 可撤退性始终计入
-    p.suits.forEach(function (t) { if (h.tags.indexOf(t) >= 0) s += 2; });      // 英雄技能适配
-    if (style === '主动') s += p.pace === 'fast' ? 2 : p.pace === 'mid' ? 1 : 0;
-    if (style === '稳健') s += p.safe * 1.5;
-    if (style === '信息') s += (p.type === 'flank' ? 3 : 0) + (p.pace === 'slow' ? 1 : 0) + (p.type === 'mid' ? 1 : 0);
-    if ((h.escape === 'weak' || h.escape === 'unknown') && p.safe === 1) s -= 2;  // 没有脱身就避开最难撤的路线
-    return s;
+  function needText(g) { return g.map(function (x) { return x.indexOf('esc:') === 0 ? (x === 'esc:strong' ? '可靠脱身' : '有条件脱身') : CAPS[x].zh; }).join(' / '); }
+  // 该英雄能否执行某战术：每个 need 组至少满足一项（硬约束）；pref 只算匹配深度
+  function canExec(hid, arch) {
+    var h = HEROX(hid), A = ARCH[arch]; if (!h || !A || h.generic) return { ok: false, hits: [], miss: A ? A.need.map(needText) : [], depth: 0 };
+    var hits = [], miss = [];
+    A.need.forEach(function (g) { var m = g.filter(function (x) { return hasItem(h, x); }); if (m.length) m.forEach(function (x) { hits.push(x); }); else miss.push(needText(g)); });
+    var ph = (A.pref || []).filter(function (x) { return hasItem(h, x); });
+    return { ok: !miss.length, hits: hits, prefHits: ph, miss: miss, depth: hits.length + ph.length };
   }
-  function pickAtk(mapId, hero, style) {
-    var m = MAP(mapId), h = HEROX(hero), best = null, bs = -1e9;
-    m.atk.forEach(function (p) { var s = scoreAtk(p, h, style); if (s > bs) { bs = s; best = p; } });
-    return best;
+  function capLine(hid, arch) { var h = HEROX(hid), e = canExec(hid, arch); if (!e.ok) return ''; return '本战术需要「' + ARCH[arch].need.map(needText).join('」+「') + '」，你用：' + e.hits.map(function (x) { return itemText(h, x); }).join('；') + (e.prefHits.length ? '；加分：' + e.prefHits.map(function (x) { return itemText(h, x); }).join('；') : '') + '。'; }
+
+  // ---------- 战术候选（现实战术：起点、路线、撤退条件各不相同） ----------
+  function siteList(mapId, sites, suf) { return sites.filter(function (x) { return hasCo(mapId, x + suf); }).map(function (x) { return '{' + x + suf + '}'; }); }
+  function limitedCand(mx, side, t) {
+    var mapId = mx.id, mains = siteList(mapId, mx.sites, ' Main'), lobbies = siteList(mapId, mx.sites, ' Lobby'), sites = siteList(mapId, mx.sites, ' Site'), refs = [];
+    var startT = { mains: '队伍选定包点的主通道（' + mains.join(' / ') + '）', lobbies: '进攻方大厅一侧（' + lobbies.join(' / ') + '）', otherMain: '队伍不打的那个包点的主通道（' + mains.join(' / ') + ' 中的另一条）',
+      siteEdge: '包点靠主通道出口一侧的掩体（' + sites.join(' / ') + '）', siteDeep: '包点深处、靠近撤退方向（' + sites.join(' / ') + '）', spawnSide: '{Defender Side Spawn} 一侧、两个包点之间' }[t.start];
+    String(startT).replace(/\{([^{}]+)\}/g, function (_, k) { refs.push(k); return ''; });
+    var A = ARCH[t.arch];
+    return { tid: mapId + '-G-' + side.toUpperCase() + '-' + t.arch, side: side, arch: t.arch, archZh: A.zh, name: t.name, generic: true, safe: t.safe,
+      start: fmt(mapId, startT), brief: A.zh + '｜起点：' + fmt(mapId, startT), route: fmt(mapId, startT), lim: t, refs: refs,
+      retreat: side === 'atk' ? t.retreat : t.fallback, plan: null };
   }
-  function defAllowed(p, h, style) { if (!p.needEsc) return true; return h.escape === 'strong' || (h.escape === 'conditional' && style === '主动'); }
-  function pickDef(mapId, hero, style) {
-    var m = MAP(mapId), h = HEROX(hero), best = null, bs = -1e9;
-    m.def.forEach(function (p) { if (!defAllowed(p, h, style)) return; var s = p.safe * 0.5 + (style === '主动' ? (p.fwd ? 3 : 0) + p.info * 0.5 : style === '稳健' ? p.safe * 1.5 : p.info * 1.5 + (p.fwd ? 0.5 : 0));
-      if (h.tags.indexOf('lurk') >= 0 && p.info >= 2) s += 1; if (h.tags.indexOf('trap') >= 0 && !p.fwd) s += 1; if (h.tags.indexOf('recon') >= 0 && p.info >= 2 && !p.needEsc) s += 0.5; if (h.tags.indexOf('explosive') >= 0 && p.site !== 'Mid' && !p.fwd) s += 0.5;
-      if (s > bs) { bs = s; best = p; } });
-    return best;
+  function fullCand(mx, side, arch, pid) {
+    var m = MAP(mx.id), p = byId(side === 'atk' ? m.atk : m.def, pid), A = ARCH[arch];
+    if (!p) throw new Error('战术库缺路线：' + pid);
+    var start = side === 'atk' ? co(m.id, p.route[0]) : co(m.id, p.pos);
+    var rt = side === 'atk' ? route(m.id, p.route) : co(m.id, p.pos) + (p.fwd ? '（前点：' + co(m.id, p.fwd) + '）' : '');
+    return { tid: p.id, side: side, arch: arch, archZh: A.zh, name: p.name, generic: false, safe: p.safe, start: start, route: rt,
+      brief: A.zh + '｜' + (side === 'atk' ? '路线：' + rt : '位置：' + rt), retreat: fmt(m.id, side === 'atk' ? p.retreat : p.fallback), plan: p,
+      refs: side === 'atk' ? p.route.concat([p.threat]) : [p.pos].concat(p.fwd ? [p.fwd] : []) };
   }
+  function allCandidates(mx) {
+    var out = { atk: [], def: [] };
+    if (mx.tier === 'full') { var T = DB.tactics[mx.id]; ['atk', 'def'].forEach(function (s) { T[s].forEach(function (x) { out[s].push(fullCand(mx, s, x[0], x[1])); }); }); }
+    else ['atk', 'def'].forEach(function (s) { DB.limitedTac[s].forEach(function (t) { out[s].push(limitedCand(mx, s, t)); }); });
+    return out;
+  }
+  // 候选过滤：至少有一位英雄池里的英雄能执行（地图与技能为硬约束；熟练度不参与）
+  function tacticsFor(mx, pool) {
+    var all = allCandidates(mx), res = {};
+    ['atk', 'def'].forEach(function (s) {
+      var c = [], x = [];
+      all[s].forEach(function (t) { var by = pool.filter(function (h) { return canExec(h, t.arch).ok; }); t.execBy = by;
+        if (by.length) c.push(t); else x.push({ tid: t.tid, name: t.name, archZh: t.archZh, why: '英雄池里没有英雄满足「' + ARCH[t.arch].need.map(needText).join('」+「') + '」（' + ARCH[t.arch].why + '）：现实不可执行，不起卦' }); });
+      res[s] = { cands: c, excluded: x };
+    });
+    return res;
+  }
+  function tacQ(mx, side, t) { return '本场在' + mx.zh + '（' + mx.id + '）' + (side === 'atk' ? '进攻' : '防守') + '，我采用「' + t.name + '」战术（' + t.brief + '），对我本场的个人发挥是否有利？'; }
+
+  // ---------- 综合（纯函数）：先看各自卦的逐级判定等级，再按现实稳妥度、你的偏好、原型顺序 ----------
+  var ARCH_ORDER = { atk: ['clear', 'flank', 'burst', 'rush'], def: ['anchor', 'info', 'contact'] };
+  var PREF_ARCH = { 主动: ['rush', 'burst', 'contact'], 稳健: ['clear', 'anchor'], 信息: ['flank', 'info'] };
+  function chooseTactic(list, pref, side) {
+    // list: [{tid,name,arch,safe,grade,label,feasible}]；不可执行者永远不选
+    var ok = list.filter(function (x) { return x.feasible !== false; });
+    if (!ok.length) return { chosen: null, order: [], why: '没有现实可执行的候选。', allBad: false, tie: false };
+    var pa = PREF_ARCH[pref] || [], ao = ARCH_ORDER[side] || ARCH_ORDER.atk;
+    var sorted = ok.slice().sort(function (a, b) { return (b.grade - a.grade) || (b.safe - a.safe) || ((pa.indexOf(b.arch) >= 0) - (pa.indexOf(a.arch) >= 0)) || (ao.indexOf(a.arch) - ao.indexOf(b.arch)); });
+    var top = sorted[0], same = sorted.filter(function (x) { return x.grade === top.grade; }), why;
+    var allBad = top.grade === 0;
+    if (ok.length === 1) why = '只有「' + top.name + '」在你的英雄池里现实可执行；它的卦为「' + top.label + '」。' + (allBad ? '卦象倾向不利也不重摇：照常执行，但降低交火强度。' : '');
+    else if (allBad) why = '所有候选的卦都倾向不利：不重摇，取现实上最稳妥的「' + top.name + '」（撤退难度 ' + top.safe + '/3），执行时降低交火强度。';
+    else if (same.length === 1) why = '「' + top.name + '」的卦为「' + top.label + '」，等级高于其余候选（' + sorted.slice(1).map(function (x) { return x.name + '「' + x.label + '」'; }).join('、') + '），按卦象取它；它已通过现实可执行性检查。';
+    else { var s2 = same[1]; why = same.map(function (x) { return '「' + x.name + '」'; }).join('、') + '的卦等级相同（都是「' + top.label + '」）：卦象分不出高下，' +
+      (top.safe !== s2.safe ? '取现实上更稳妥的「' + top.name + '」（撤退难度 ' + top.safe + '/3 高于 ' + s2.safe + '/3）。' : pa.indexOf(top.arch) >= 0 && pa.indexOf(s2.arch) < 0 ? '稳妥度也相同，按你的打法偏好取「' + top.name + '」。' : '稳妥度也相同，按程序约定的原型顺序（先稳后快）取「' + top.name + '」。'); }
+    return { chosen: top.tid, order: sorted.map(function (x) { return x.tid; }), why: why, allBad: allBad, tie: same.length > 1 };
+  }
+
+  // ---------- 择将（现实匹配，不是卦象结果；不起卦） ----------
+  var ZJ_NOTE = '择将为现实匹配，不是卦象结果';
+  function matchHeroes(pool, prof, atkMain, defMain) {
+    var rows = pool.map(function (hid) {
+      var a = atkMain ? canExec(hid, atkMain.arch) : { ok: false, depth: 0, miss: [] }, d = defMain ? canExec(hid, defMain.arch) : { ok: false, depth: 0, miss: [] };
+      return { id: hid, zh: heroZhX(hid), canAtk: a.ok, canDef: d.ok, tier: (a.ok ? 1 : 0) + (d.ok ? 1 : 0), depth: (a.ok ? a.depth : 0) + (d.ok ? d.depth : 0), prof: prof.indexOf(hid) + 1, missAtk: a.miss, missDef: d.miss };
+    });
+    rows.sort(function (x, y) { return (y.tier - x.tier) || (y.depth - x.depth) || (x.prof - y.prof); });
+    rows.forEach(function (r, i) {
+      var nx = rows[i + 1], pv = rows[i - 1];
+      var tieProf = (nx && nx.tier === r.tier && nx.depth === r.depth) || (pv && pv.tier === r.tier && pv.depth === r.depth);
+      r.why = (r.tier === 2 ? '攻防两个主战术都能执行' : r.canAtk ? '只能执行进攻主战术' : r.canDef ? '只能执行防守主战术' : '两个主战术都不能执行') + '｜匹配深度 ' + r.depth + (tieProf ? '｜与相邻英雄条件相同，按熟练度第' + r.prof + '排先后（仅在条件相同时作辅助）' : '');
+    });
+    return rows;
+  }
+
+  // ---------- 单英雄执行视图 ----------
   function fill(mapId, tpl, ctx) { return fmt(mapId, String(tpl).replace(/\{(exit|risk0|pos|retreatPt)\}/g, function (_, k) { return ctx[k]; })); }
-
-  function atkPlanView(mapId, p, heroId, variant) {
-    var h = HEROX(heroId), m = MAP(mapId), site = m.perSite[p.site] || { risk: [], retreat: [] };
-    var exit = '{' + p.route[p.route.length - 2] + '}', risk0 = '{' + p.threat + '}', retreatPt = '{' + p.route[0] + '}';
-    return { id: p.id + (variant ? '-2' : ''), name: p.name + (variant ? '（第二人位跟进）' : ''), site: p.site, route: route(mapId, p.route), routeBoth: route(mapId, p.route, 'both'),
-      open: (variant ? '不当第一个进点：等队友先进或先交技能，你在第二位置补枪。' : '') + fmt(mapId, p.info), skill: fill(mapId, h.atk, { exit: exit, risk0: risk0, retreatPt: retreatPt }),
-      push: fmt(mapId, p.push), retreat: fmt(mapId, p.retreat), risks: site.risk.map(function (x) { return fmt(mapId, x); }), retreats: site.retreat.map(function (x) { return fmt(mapId, x); }),
-      solo: '队友不跟时：' + (variant ? '原地守住入口不单进，等下一次机会。' : '不单人深入，打完第一枪就按撤退路线回来，等队友或换另一包点。'), refs: p.route.concat([p.threat]) };
+  function dp0(x) { return String(x || '').replace(/[。；\s]+$/, ''); }
+  function abyssNote(mx, hid) { return mx.id === 'Abyss' && (capsOf(hid).move) ? '幽邃地窟没有外边界：位移前先看清落点，避免坠亡。' : ''; }
+  function altText(mx, side, t, others) {
+    var m = mx.tier === 'full' ? MAP(mx.id) : null, p = t.plan;
+    if (m && p && p.alt && p.alt !== p.id) { var q = byId(side === 'atk' ? m.atk : m.def, p.alt);
+      if (q) return '变招：' + (side === 'atk' ? '同一包点打不开时改走「' + q.name + '」（' + route(m.id, q.route) + '）' + (p.altWhy ? '——' + fmt(m.id, p.altWhy) : '') : '前点守不住时改为「' + q.name + '」（' + co(m.id, q.pos) + '），不再前压'); }
+    var o = (others || [])[0];
+    return o ? '变招：连续两回合打不开/守不住时，改用候选「' + o.name + '」（' + o.brief + '）' : '变招：连续两回合不顺时，放慢节奏，跟队友一起行动，不单人尝试。';
   }
-  function defPlanView(mapId, p, heroId, style, verdict, variant) {
-    var h = HEROX(heroId), m = MAP(mapId), site = m.perSite[p.site] || { risk: [], defRetreat: [] };
-    var fwdOk = !!p.fwd && !variant && verdict !== '不支持' && style !== '稳健' && (h.escape === 'strong' || h.escape === 'conditional');
-    var fwdWhy = !p.fwd ? '这个位置本身不前压，不建议额外前点接触。' : variant ? '方案卦倾向不利，改为不前压。' : verdict === '不支持' ? '方案卦倾向不利，不前压。' : style === '稳健' ? '本场打法为稳健，不前压。' : (h.escape === 'weak' || h.escape === 'unknown') ? h.zh + '没有可靠的位移脱身，不前压。' : '';
-    return { id: p.id + (variant ? '-2' : ''), name: p.name + (variant ? '（推迟交火）' : ''), site: p.site, pos: co(mapId, p.pos), posBoth: co(mapId, p.pos, 'both'),
-      first: (variant ? '不抢第一枪：先躲开对方第一波技能，等队友报点后再露头。' : '') + fmt(mapId, p.first), fwd: fwdOk ? fmt(mapId, p.fwdText) : '不建议。' + fwdWhy,
-      fallback: fmt(mapId, p.fallback), rotate: fmt(mapId, p.rotate), skill: fill(mapId, h.def, { pos: '{' + p.pos + '}' }), risks: (site.risk || []).map(function (x) { return fmt(mapId, x); }),
-      retreats: (site.defRetreat || []).map(function (x) { return fmt(mapId, x); }), solo: '队友不回防时：不在包点一个人守到底，按撤退路线拉开，保枪保命。', refs: [p.pos].concat(p.fwd ? [p.fwd] : []) };
+  function atkView(mx, t, hid, bad, others) {
+    var h = HEROX(hid), mapId = mx.id, pre = bad ? '卦象倾向不利（象征性参考）：不当第一个进点，等队友先交技能，你在第二位补枪。' : '';
+    if (t.generic) { var lt = t.lim;
+      return { tid: t.tid, name: t.name, archZh: t.archZh, start: t.start, route: t.route, open: pre + lt.open, skill: capLine(hid, t.arch) + fill(mapId, h.atk, { exit: '包点入口', risk0: '入口后的近点', retreatPt: '进点前的通道' }),
+        push: lt.push, retreat: lt.retreat, alt: altText(mx, 'atk', t, others), risks: ['本地图战术资料不足，未列具体枪线：每个入口先假设有人架枪'], retreats: [lt.retreat], refs: t.refs, mapTip: '' }; }
+    var p = t.plan, m = MAP(mapId), site = m.perSite[p.site] || { risk: [], retreat: [] };
+    var exit = '{' + p.route[p.route.length - 2] + '}', risk0 = '{' + p.threat + '}', retreatPt = '{' + p.route[0] + '}', ft = DB.fit[mapId] && DB.fit[mapId][hid];
+    return { tid: t.tid, name: t.name, archZh: t.archZh, start: t.start, route: t.route, routeBoth: route(mapId, p.route, 'both'), open: pre + fmt(mapId, p.info),
+      skill: capLine(hid, t.arch) + fill(mapId, h.atk, { exit: exit, risk0: risk0, retreatPt: retreatPt }) + '。' + abyssNote(mx, hid),
+      push: fmt(mapId, p.push), retreat: fmt(mapId, p.retreat), alt: altText(mx, 'atk', t, others), risks: site.risk.map(function (x) { return fmt(mapId, x); }), retreats: site.retreat.map(function (x) { return fmt(mapId, x); }),
+      refs: p.route.concat([p.threat]), mapTip: ft ? fmt(mapId, ft[1]) : '' };
   }
-  // 资料不足地图：只用“包点名 / 主通道 / 大厅 / 守方重生点”这类官方名，不写路线连接与枪线
-  function limitedAtkView(mapId, heroId) {
-    var mx = MAPX(mapId), h = HEROX(heroId), refs = [];
-    var mains = mx.sites.filter(function (x) { return hasCo(mapId, x + ' Main'); }).map(function (x) { refs.push(x + ' Main'); return '{' + x + ' Main}'; });
-    var lobbies = mx.sites.filter(function (x) { return hasCo(mapId, x + ' Lobby'); }).map(function (x) { refs.push(x + ' Lobby'); return '{' + x + ' Lobby}'; });
-    return { id: mapId + '-GEN-ATK', name: '通用进攻（资料限制）', site: '', generic: true,
-      route: fmt(mapId, '跟队伍选定的包点走它的官方主通道（' + mains.join(' / ') + '）'),
-      open: '不当第一个进点：先等队友技能或自己用技能确认入口后的近点，再在第二位跟进',
-      skill: fill(mapId, h.atk, { exit: '包点入口', risk0: '入口后的近点', retreatPt: '进点前的通道' }),
-      push: '入口近点已清、队友已经进点时再跟进下包',
-      retreat: fmt(mapId, '入口被架死、或技能交完仍没拿到击杀时，退回进攻方一侧' + (lobbies.length ? '（' + lobbies.join(' / ') + '）' : '') + '，不在入口硬拼'),
-      risks: ['本地图战术资料不足，未列具体枪线：每个入口先假设有人架枪'], retreats: [fmt(mapId, lobbies.length ? '退回 ' + lobbies.join(' / ') : '退回进攻方一侧')],
-      solo: '队友不跟时：不单人深入，退回来等队友一起进。', refs: refs };
-  }
-  function limitedDefView(mapId, heroId, style) {
-    var mx = MAPX(mapId), h = HEROX(heroId), sites = mx.sites.map(function (x) { return '{' + x + ' Site}'; }), refs = mx.sites.map(function (x) { return x + ' Site'; }).concat(['Defender Side Spawn']);
-    return { id: mapId + '-GEN-DEF', name: '通用防守（资料限制）', site: '', generic: true,
-      pos: fmt(mapId, '被分到哪个包点就守哪个（' + sites.join(' / ') + '）：站在包点内有掩体、离撤退方向近的位置'), posBoth: '',
-      first: '不站在主通道出口正前方：在掩体边接第一枪，打一枪就换位', fwd: '不建议。本地图战术资料不足，不给前点位置。',
-      fallback: fmt(mapId, '对方多人进点时，往 {Defender Side Spawn} 方向拉开，等队友回防'),
-      rotate: '另一包点报多人、而你这边长时间没有动静时，经守方一侧回防',
-      skill: fill(mapId, h.def, { pos: '你守的包点' }), risks: ['本地图战术资料不足，未列具体枪线'], retreats: [fmt(mapId, '往 {Defender Side Spawn} 方向')],
-      solo: '队友不回防时：不在包点一个人守到底，往守方重生点方向拉开，保枪保命。', refs: refs };
+  function defView(mx, t, hid, bad, others) {
+    var h = HEROX(hid), mapId = mx.id, pre = bad ? '卦象倾向不利（象征性参考）：不抢第一枪，先躲开对方第一波技能，等队友报点后再露头。' : '';
+    var escOk = h.escape === 'strong' || h.escape === 'conditional';
+    if (t.generic) { var lt = t.lim;
+      return { tid: t.tid, name: t.name, archZh: t.archZh, start: t.start, pos: t.start, first: pre + lt.first, fwd: t.arch === 'contact' && escOk && !bad ? '接一枪就退，不补第二枪' : '不前压。',
+        fallback: fmt(mapId, lt.fallback.replace('守方重生点方向', '{Defender Side Spawn} 方向')), rotate: lt.rotate, skill: capLine(hid, t.arch) + fill(mapId, h.def, { pos: '你守的位置' }), alt: altText(mx, 'def', t, others),
+        risks: ['本地图战术资料不足，未列具体枪线'], retreats: [fmt(mapId, '往 {Defender Side Spawn} 方向')], refs: t.refs.concat(['Defender Side Spawn']), mapTip: '' }; }
+    var p = t.plan, m = MAP(mapId), site = m.perSite[p.site] || { risk: [], defRetreat: [] }, ft = DB.fit[mapId] && DB.fit[mapId][hid];
+    var fwdOk = !!p.fwd && !bad && escOk, fwdWhy = !p.fwd ? '这个位置本身不前压。' : bad ? '卦象倾向不利，改为不前压。' : h.zh + '没有可靠的位移脱身，不前压。';
+    return { tid: t.tid, name: t.name, archZh: t.archZh, start: t.start, pos: co(mapId, p.pos), posBoth: co(mapId, p.pos, 'both'), first: pre + fmt(mapId, p.first),
+      fwd: fwdOk ? fmt(mapId, p.fwdText) : '不前压：' + fwdWhy, fallback: fmt(mapId, p.fallback), rotate: fmt(mapId, p.rotate), skill: capLine(hid, t.arch) + fill(mapId, h.def, { pos: '{' + p.pos + '}' }) + '。' + abyssNote(mx, hid),
+      alt: altText(mx, 'def', t, others), risks: (site.risk || []).map(function (x) { return fmt(mapId, x); }), retreats: (site.defRetreat || []).map(function (x) { return fmt(mapId, x); }),
+      refs: [p.pos].concat(p.fwd ? [p.fwd] : []), mapTip: ft ? fmt(mapId, ft[1]) : '' };
   }
 
   var DISC = {
@@ -1521,86 +1619,84 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     tilt: '连续两回合先倒下后，下一回合不打第一枪，改为跟在队友后面补枪。'
   };
   function noOf(c) { return '卦' + c.no + '·' + c.name; }
-  // 临阵戒令：只出一条。优先 卦象证据 ∩ 你的习惯 → 卦象证据 → 你的习惯 → 英雄主要风险
-  function decideRisk(prepCast, planCasts, heroId, habits) {
+  // 临阵戒令：只出一条。卦象证据 ∩ 你的习惯 → 卦象证据 → 你的习惯 → 英雄主要风险
+  function decideRisk(prepCast, tacCasts, heroId, habits) {
     var h = HEROX(heroId), dom = [], ev = [];
     if (prepCast && prepCast.cls.verdict === '不支持') { dom.push('tempo'); ev.push(noOf(prepCast) + '倾向不利'); }
     if (prepCast && prepCast.cls.heavy.length && prepCast.cls.verdict !== '不支持') { dom.push('tilt'); ev.push(noOf(prepCast) + '世爻有' + prepCast.cls.heavy[0][0]); }
-    (planCasts || []).forEach(function (c) { var bad = c.cls.verdict === '不支持', hv = c.cls.heavy.length > 0;
+    (tacCasts || []).forEach(function (c) { if (!c) return; var bad = c.cls.verdict === '不支持';
       if (c.kind === 'jingong' && bad) { dom.push('tempo'); ev.push(noOf(c) + '倾向不利'); }
-      if (c.kind === 'fangshou' && bad) { dom.push('escape'); ev.push(noOf(c) + '倾向不利'); }
-      if (hv && !bad) { dom.push('escape'); ev.push(noOf(c) + '世爻有' + c.cls.heavy[0][0]); } });
+      if (c.kind === 'fangshou' && bad) { dom.push('escape'); ev.push(noOf(c) + '倾向不利'); } });
     var hb = (habits || []).map(function (id) { return byId(DB.habits, id); }).filter(Boolean);
     var m1 = hb.filter(function (x) { return dom.indexOf(x.dom) >= 0; })[0];
     var esc2 = function (d) { return d === 'escape' ? h.escNote + '。' : ''; };
-    if (m1) return { text: DISC[m1.dom] + esc2(m1.dom), from: ev.join('、') + ' + 你勾选的习惯“' + m1.t + '”', basis: '卦象证据（象征性参考）+ 个人习惯', fromGua: true };
-    if (dom.length) return { text: DISC[dom[0]] + esc2(dom[0]), from: ev.join('、'), basis: '卦象证据·程序归纳 P-LZ05（象征性参考）', fromGua: true };
-    if (hb.length) return { text: DISC[hb[0].dom], from: '你勾选的习惯“' + hb[0].t + '”', basis: '非卦象预测：各卦没有指向明确风险，按你自己的习惯', fromGua: false };
-    return { text: '用' + h.zh + '最容易犯的错：' + h.risks[0] + '。' + h.escNote + '。', from: h.zh + '的主要风险（' + (h.generic ? '角色通用规则' : '英雄库') + '）', basis: '非卦象预测：各卦没有指向明确风险，按英雄主要风险', fromGua: false };
+    if (m1) return { text: DISC[m1.dom] + esc2(m1.dom), from: ev.join('、') + ' + 你勾选的习惯“' + m1.t + '”', basis: '卦象（传统象义参考）+ 个人习惯', fromGua: true };
+    if (dom.length) return { text: DISC[dom[0]] + esc2(dom[0]), from: ev.join('、'), basis: '卦象（传统象义参考，程序约定 P-LZ05）', fromGua: true };
+    if (hb.length) return { text: DISC[hb[0].dom], from: '你勾选的习惯“' + hb[0].t + '”', basis: '现实纪律（非卦象）：按你自己的习惯', fromGua: false };
+    return { text: '用' + h.zh + '最容易犯的错：' + h.risks[0] + '。' + h.escNote + '。', from: h.zh + '的主要风险（英雄库）', basis: '现实纪律（非卦象）：按英雄主要风险', fromGua: false };
   }
 
-  // ---------- 第一阶段：备战（匹配之前，不涉及地图/英雄/路线） ----------
+  // ---------- 第一阶段：备战（察己；不涉及地图/英雄/路线） ----------
   var PREP_Q = '下一场竞技比赛，我能否保持稳定的个人发挥？';
   var SEQ = 0;
   function newId(nowFn) { SEQ++; return 'S' + nowFn().getTime().toString(36) + '-' + SEQ; }
+  var HONEST = '（传统象义参考，不是心理测量）';
   function prepDiscipline(c) {
     var v = c.cls.verdict;
-    if (v === '支持') return '卦象倾向有利（象征性参考）：按平时节奏打，不因开局顺利就加码冒险。';
-    if (v === '不支持') return '卦象倾向不利（象征性参考）：本场先稳，前两回合不抢第一枪，确认退路再交火。';
-    return '卦象证据不足（有利与不利条件混杂）：按现实纪律，每次交火前先确认退路。';
+    if (v === '支持') return '卦象倾向有利' + HONEST + '：按平时节奏打，不因开局顺利就加码冒险。';
+    if (v === '不支持') return '卦象倾向不利' + HONEST + '：本场先稳，前两回合不抢第一枪，确认退路再交火。';
+    return '卦象有利不利并见' + HONEST + '：按现实纪律，每次交火前先确认退路。';
   }
   function prepare(inp, opt) {
     opt = opt || {};
     var v = validatePrep(inp); if (!v.ok) return { error: v.msg };
     var rnd = opt.rnd || C.cryptoRnd, nowFn = opt.now || function () { return new Date(); };
     var c = doCast('beizhan', PREP_Q, rnd, nowFn); c.no = 1;
-    var k = c.cls, keyItems = k.heavy.concat(k.obs).slice(0, 2).map(function (x) { return '阻碍：' + x[0]; }).concat(k.sup.slice(0, 2).map(function (x) { return '支持：' + x[0]; }));
+    var k = c.cls, keyItems = ['判定：' + k.key].concat(k.heavy.concat(k.obs).slice(0, 2).map(function (x) { return '不利条件：' + x[0]; })).concat(k.sup.slice(0, 2).map(function (x) { return '有利条件：' + x[0]; }));
     return { id: newId(nowFn), app: VER, dbVersion: DB.dbVersion, createdAt: c.timeStr, status: '待匹配',
       inputs: { heroes: poolOf(inp), prof: profOrder(inp), pref: inp.pref || '', habits: (inp.habits || []).slice() },
       cast: c, ref: { gua: c.chart.ben + (c.chart.bian ? ' 之 ' + c.chart.bian : '（六爻安静）'), label: k.label, items: keyItems, discipline: prepDiscipline(c) } };
   }
 
-  // ---------- 第二阶段：出征（地图揭晓后；读取备战卦，不重摇） ----------
-  function dp0(x) { return String(x || '').replace(/[。；\s]+$/, ''); }
-  function heroView(mx, heroId, pref, prepCast, opts) {
-    // opts: { zj: 该英雄自己的择将卦 | null, planAtk: {plan, cast}, planDef: {...}, habits }
-    var h = HEROX(heroId), style = decideStyle(heroId, pref, mx), full = mx.tier === 'full', mapId = mx.id;
-    var atkFirst, atkFinal, atkSw = '', defFirst, defFinal, defSw = '';
-    if (full) {
-      var ap = pickAtk(mapId, heroId, style.key); atkFirst = atkPlanView(mapId, ap, heroId); atkFinal = atkFirst;
-      var pa = opts.planAtk;
-      if (pa && pa.cast.cls.verdict === '不支持') { var ap2 = ap.alt && ap.alt !== ap.id ? byId(MAP(mapId).atk, ap.alt) : null; atkFinal = ap2 ? atkPlanView(mapId, ap2, heroId) : atkPlanView(mapId, ap, heroId, true);
-        atkSw = noOf(pa.cast) + '倾向不利：只作标注，改用现实上更稳妥的「' + atkFinal.name + '」' + (ap2 ? '：' + fmt(mapId, ap.altWhy) : '（本包点没有更稳妥的路线，保留路线但不当第一个进点）') + '。未重新起卦。'; }
-      else if (pa && pa.cast.cls.verdict === '混杂') atkSw = noOf(pa.cast) + '证据不足，按现实原则保留原方案。';
-      else if (pa) atkSw = noOf(pa.cast) + pa.cast.cls.label + '（象征性参考），保留原方案。';
-      var dp = pickDef(mapId, heroId, style.key), pd = opts.planDef, dv = pd ? pd.cast.cls.verdict : '混杂';
-      defFirst = defPlanView(mapId, dp, heroId, style.key, '支持');
-      if (pd && dv === '不支持') { var dp2 = dp.alt && dp.alt !== dp.id ? byId(MAP(mapId).def, dp.alt) : null; defFinal = dp2 ? defPlanView(mapId, dp2, heroId, style.key, '不支持') : defPlanView(mapId, dp, heroId, style.key, '不支持', true);
-        defSw = noOf(pd.cast) + '倾向不利：只作标注，改用现实上更稳妥的「' + defFinal.name + '」' + (dp2 ? '（不前压的位置）' : '（同一位置，推迟交火）') + '。未重新起卦。'; }
-      else { defFinal = defPlanView(mapId, dp, heroId, style.key, pd ? dv : '混杂'); if (pd) defSw = noOf(pd.cast) + (dv === '混杂' ? '证据不足，按现实原则保留原方案。' : pd.cast.cls.label + '（象征性参考），保留原方案。'); }
-    } else { atkFirst = atkFinal = limitedAtkView(mapId, heroId); defFirst = defFinal = limitedDefView(mapId, heroId, style.key); }
-    var planCasts = [opts.planAtk && opts.planAtk.cast, opts.planDef && opts.planDef.cast].filter(Boolean);
-    var risk = decideRisk(prepCast, planCasts, heroId, opts.habits);
-    var zjTag = opts.zj ? [noOf(opts.zj) + '（' + opts.zj.cls.label + '，象征性参考）'] : [];
-    var heroLib = h.generic ? '角色通用规则 ' + h.roleEn + '（只列官方技能名）' : '英雄库 ' + h.id + '（官方技能）';
-    var tacLib = function (v) { return full ? '战术库 ' + v.id : '通用打法（资料限制）'; };
-    var guaStatus = opts.zj ? '该英雄本场已占问：' + noOf(opts.zj) + '「' + opts.zj.q + '」→ ' + opts.zj.cls.label + '（只作象征性参考）。' : '该英雄本场未占问，以下仅为现实战术。';
-    if (opts.zj && !planCasts.length && full) guaStatus += '进攻/防守方案未单独占问。';
-    var o = {
-      core: { t: style.name + '：' + style.note, src: [style.from] },
-      atkPos: { t: atkFinal.route + (atkSw && pa && pa.cast.cls.verdict === '不支持' ? '（备选）' : ''), src: planCasts.length ? [tacLib(atkFinal), noOf(opts.planAtk.cast) + '（象征性参考）'] : [tacLib(atkFinal)] },
-      atkOpen: { t: atkFinal.open, src: [tacLib(atkFinal)] },
-      atkSkill: { t: atkFinal.skill, src: [heroLib, tacLib(atkFinal)] },
-      atkRetreat: { t: dp0(atkFinal.retreat) + '。继续推进的条件：' + dp0(atkFinal.push) + '。' + atkFinal.solo, src: [tacLib(atkFinal)] },
-      defPos: { t: (full ? defFinal.pos + '（' + defFinal.name + '）' : defFinal.pos), src: planCasts.length ? [tacLib(defFinal), noOf(opts.planDef.cast) + '（象征性参考）'] : [tacLib(defFinal)] },
-      defFirst: { t: dp0(defFinal.first) + '；前点接触：' + dp0(defFinal.fwd) + '。技能：' + defFinal.skill, src: [tacLib(defFinal), heroLib] },
-      defMove: { t: dp0(defFinal.fallback) + '。' + defFinal.solo, src: [tacLib(defFinal)] },
-      defRotate: { t: defFinal.rotate, src: [tacLib(defFinal)] },
-      ban: { t: risk.text, src: [risk.fromGua ? 'P-LZ05 卦象证据（象征性参考）' : '非卦象预测', risk.from] }
+  // ---------- 第二阶段：出征（取势 → 择将 → 定个人战术） ----------
+  function heroView(mx, hid, X) {
+    var h = HEROX(hid), byTid = X.byTid;
+    function pickFor(side) {
+      var main = X[side + 'Main'], order = X[side + 'Order'].map(function (t) { return byTid[t]; });
+      if (main && canExec(hid, main.arch).ok) return { t: main, isMain: true };
+      var alt = order.filter(function (t) { return canExec(hid, t.arch).ok; })[0];
+      return alt ? { t: alt, isMain: false, miss: canExec(hid, main.arch).miss } : { t: null, isMain: false, miss: main ? canExec(hid, main.arch).miss : [] };
+    }
+    var pa = pickFor('atk'), pd = pickFor('def');
+    var othersOf = function (side, t) { return X[side + 'Order'].map(function (x) { return byTid[x]; }).filter(function (x) { return x.tid !== t.tid && canExec(hid, x.arch).ok; }); };
+    var castOf = function (t) { return t ? X.castByTid[t.tid] : null; };
+    var av = pa.t ? atkView(mx, pa.t, hid, castOf(pa.t).cls.verdict === '不支持', othersOf('atk', pa.t)) : null;
+    var dv = pd.t ? defView(mx, pd.t, hid, castOf(pd.t).cls.verdict === '不支持', othersOf('def', pd.t)) : null;
+    var risk = decideRisk(X.prepCast, [castOf(pa.t), castOf(pd.t)], hid, X.habits);
+    var lib = '英雄库 ' + h.id + '（官方技能）', tacLib = function (t) { return t.generic ? '通用打法（资料限制，只用官方点位名）' : '战术库 ' + t.tid; };
+    var tacLine = function (side, p) {
+      if (!p.t) return '没有能执行的候选' + (side === 'atk' ? '进攻' : '防守') + '战术：' + h.zh + '缺少' + p.miss.join('、') + '。只按现实纪律打：跟在队友后面，不主动开第一枪。';
+      var c = castOf(p.t);
+      return '「' + p.t.name + '」（' + p.t.archZh + '）｜' + noOf(c) + '：' + c.cls.label + '——' + c.cls.key + (p.isMain ? '' : '｜变招：' + h.zh + '不能执行主战术「' + X[side + 'Main'].name + '」（缺' + p.miss.join('、') + '），改执行本英雄能执行的最高位候选（不重新起卦）');
     };
-    return { hero: heroId, heroZh: h.zh, generic: !!h.generic, role: h.role, style: style, guaStatus: guaStatus, zjNo: opts.zj ? opts.zj.no : 0,
-      planNos: planCasts.map(function (c) { return c.no; }), atk: { first: atkFirst, final: atkFinal, sw: atkSw }, def: { first: defFirst, final: defFinal, sw: defSw }, risk: risk, order: o,
-      refs: atkFinal.refs.concat(defFinal.refs) };
+    var o = {
+      mind: { t: X.prepDisc + '现实纪律：每次交火前先确认退路。', src: [noOf(X.prepCast) + '（传统象义参考，不是心理测量）', '现实纪律'] },
+      ban: { t: risk.text, src: [risk.basis, risk.from] },
+      atkTac: { t: tacLine('atk', pa), src: pa.t ? ['现实战术：' + tacLib(pa.t), '传统判断：' + noOf(castOf(pa.t))] : ['现实可执行性检查'] },
+      atkPos: { t: av ? '起点 ' + av.start + '；路线：' + av.route : '—', src: av ? [tacLib(pa.t)] : [] },
+      atkOpen: { t: av ? av.open : '—', src: av ? [tacLib(pa.t)] : [] },
+      atkSkill: { t: av ? av.skill : '—', src: av ? [lib, '官方技能描述'] : [] },
+      atkRetreat: { t: av ? dp0(av.retreat) + '。继续推进的条件：' + dp0(av.push) + '。' + av.alt : '—', src: av ? [tacLib(pa.t)] : [] },
+      defTac: { t: tacLine('def', pd), src: pd.t ? ['现实战术：' + tacLib(pd.t), '传统判断：' + noOf(castOf(pd.t))] : ['现实可执行性检查'] },
+      defPos: { t: dv ? dv.pos + '（' + dv.name + '）' : '—', src: dv ? [tacLib(pd.t)] : [] },
+      defFirst: { t: dv ? dp0(dv.first) + '；前点接触：' + dp0(dv.fwd) + '。技能：' + dv.skill : '—', src: dv ? [tacLib(pd.t), lib] : [] },
+      defMove: { t: dv ? dp0(dv.fallback) + '。' + dv.alt : '—', src: dv ? [tacLib(pd.t)] : [] },
+      defRotate: { t: dv ? dv.rotate : '—', src: dv ? [tacLib(pd.t)] : [] },
+      heroFit: { t: X.rowOf[hid].why + (av && av.mapTip ? '｜地图提示：' + av.mapTip : ''), src: [ZJ_NOTE].concat(av && av.mapTip ? ['地图适配提示（战术库，不参与排序）'] : []) },
+      core: { t: '进攻' + (pa.t ? '「' + pa.t.name + '」' : '跟队友') + '、防守' + (pd.t ? '「' + pd.t.name + '」' : '跟队友') + '；' + h.zh + '的本职：' + (h.duty || []).slice(0, 2).join('、') + '；' + h.escNote + '。', src: ['现实战术', lib] }
+    };
+    return { hero: hid, heroZh: h.zh, role: h.role, atk: av, def: dv, atkMain: pa.isMain, defMain: pd.isMain, atkTid: pa.t ? pa.t.tid : '', defTid: pd.t ? pd.t.tid : '',
+      atkNone: !pa.t, defNone: !pd.t, risk: risk, order: o, refs: (av ? av.refs : []).concat(dv ? dv.refs : []) };
   }
 
   function deploy(sess, inp, opt) {
@@ -1608,83 +1704,51 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var v = validateDeploy(sess, inp); if (!v.ok) return { error: v.msg };
     var rnd = opt.rnd || C.cryptoRnd, nowFn = opt.now || function () { return new Date(); };
     var prep = sess.prep, mx = MAPX(inp.map), mapName = mx.zh + '（' + mx.id + '）', pref = inp.pref || '', habits = (inp.habits || []).slice();
-    var rk = rankCandidates(inp), cands = rk.list, casts = [], no = 1;
-    // ① 择将：只有前两名现实分差 ≤1（确实分不出高下）时才各起一卦；先把两题都定好，再依次起卦
-    var need = cands.length >= 2 && cands[0].score - cands[1].score <= 1, compareWhy, zj = {};
-    if (cands.length < 2) compareWhy = '英雄池只有一位英雄，不需要择将，不起择将卦。';
-    else if (!need) compareWhy = '现实条件已能分出首选：' + cands[0].zh + '（熟练度第' + cands[0].prof + '＋适配' + cands[0].fit + '）明显高于 ' + cands[1].zh + '（熟练度第' + cands[1].prof + '＋适配' + cands[1].fit + '），不为凑卦起择将卦。';
-    else {
-      compareWhy = '前两名现实条件接近（' + cands[0].zh + ' ' + cands[0].score + ' 分 / ' + cands[1].zh + ' ' + cands[1].score + ' 分，熟练度＋地图适配的定性分，不是胜率），各起一卦作象征性参考。';
-      var qs = cands.slice(0, 2).map(function (c) { return { c: c, q: '本场在' + mx.zh + '使用' + c.zh + '出战，对我的个人发挥是否有利？' }; });
-      var setAt = tStr(bjParts(nowFn()));                       // 两题同时先定
-      qs.forEach(function (x) { var k = doCast('zejiang', x.q, rnd, nowFn, setAt); k.hero = x.c.id; k.heroZh = x.c.zh; k.no = ++no; casts.push(k); zj[x.c.id] = k; });
-    }
-    var chosen = cands[0], alt = cands[1] || null, pickWhy;
-    var RANK = { 支持: 2, 混杂: 1, 不支持: 0 };
-    if (need) {
-      var a = RANK[zj[cands[0].id].cls.verdict], b = RANK[zj[cands[1].id].cls.verdict];
-      if (b > a) { chosen = cands[1]; alt = cands[0]; pickWhy = '两位现实条件接近；两卦倾向不同（' + cands[0].zh + '「' + zj[cands[0].id].cls.label + '」，' + cands[1].zh + '「' + zj[cands[1].id].cls.label + '」），按卦象参考首选' + chosen.zh + '。两人都在你的英雄池里，不会让你改用不熟的英雄；你若更想用' + alt.zh + '，直接点它即可。'; }
-      else if (a > b) pickWhy = '两位现实条件接近；两卦倾向不同，' + chosen.zh + '较好，与现实排序一致，首选' + chosen.zh + '。';
-      else pickWhy = '两卦倾向相同（都是「' + zj[cands[0].id].cls.label + '」），卦象分不出高下，按现实熟练度与地图适配首选' + chosen.zh + '。';
-    } else pickWhy = cands.length < 2 ? '只有一位英雄。' : '按现实熟练度与地图适配首选' + chosen.zh + '（未起择将卦）。';
-    // ② 首选英雄的现实方案先定 → ③ 有具体方案（完整战术地图）才对进攻/防守方案各起一卦，题目在起卦前写好
-    var H = HEROX(chosen.id), planAtk = null, planDef = null;
-    if (mx.tier === 'full') {
-      var st0 = decideStyle(chosen.id, pref, mx), ap = pickAtk(mx.id, chosen.id, st0.key), apv = atkPlanView(mx.id, ap, chosen.id), dp = pickDef(mx.id, chosen.id, st0.key), dpv = defPlanView(mx.id, dp, chosen.id, st0.key, '支持');
-      var q3 = '本场进攻阶段，我用' + H.zh + '采取「' + ap.name + '」方案（' + apv.route + '），是否有利于个人发挥？';
-      var q4 = '本场防守阶段，我用' + H.zh + '采取「' + dp.name + '」方案（位置：' + dpv.pos + '），是否有利于个人发挥？';
-      var setAt2 = tStr(bjParts(nowFn()));
-      var g3 = doCast('jingong', q3, rnd, nowFn, setAt2); g3.no = ++no; g3.hero = chosen.id; g3.plan = ap.id; casts.push(g3);
-      var g4 = doCast('fangshou', q4, rnd, nowFn, setAt2); g4.no = ++no; g4.hero = chosen.id; g4.plan = dp.id; casts.push(g4);
-      planAtk = { plan: ap, cast: g3 }; planDef = { plan: dp, cast: g4 };
-    }
-    // ④ 英雄池里每位英雄都预先生成现实方案（切换英雄时立即显示，不起卦）
+    var pool = poolOf(inp), prof = profOrder(inp);
+    // ① 取势：生成战术候选（现实可执行性为硬约束）
+    var T = tacticsFor(mx, pool), byTid = {};
+    ['atk', 'def'].forEach(function (s) { T[s].cands.forEach(function (t) { byTid[t.tid] = t; }); });
+    // ② 所有题目先定好、存档，再依次起卦（每个候选一卦）
+    var setAt = tStr(bjParts(nowFn())), no = 1, plan = [];
+    ['atk', 'def'].forEach(function (s) { T[s].cands.forEach(function (t) { plan.push({ no: ++no, tid: t.tid, side: s, kind: s === 'atk' ? 'jingong' : 'fangshou', q: tacQ(mx, s, t), setAt: setAt }); }); });
+    var questions = plan.map(function (x) { return { no: x.no, tid: x.tid, side: x.side, q: x.q, setAt: x.setAt }; });
+    if (opt.onPlan) opt.onPlan(JSON.parse(JSON.stringify(questions)));
+    var casts = [], castByTid = {};
+    plan.forEach(function (x) { var c = doCast(x.kind, x.q, rnd, nowFn, x.setAt); c.no = x.no; c.tid = x.tid; c.side = x.side; c.tacName = byTid[x.tid].name; casts.push(c); castByTid[x.tid] = c; });
+    // ③ 综合：各卦各答各题；按逐级判定等级 → 现实稳妥度 → 偏好 → 原型顺序
+    var pick = {};
+    ['atk', 'def'].forEach(function (s) { pick[s] = chooseTactic(T[s].cands.map(function (t) { var c = castByTid[t.tid]; return { tid: t.tid, name: t.name, arch: t.arch, safe: t.safe, grade: c.cls.grade, label: c.cls.label, feasible: true }; }), pref, s); });
+    var atkMain = pick.atk.chosen ? byTid[pick.atk.chosen] : null, defMain = pick.def.chosen ? byTid[pick.def.chosen] : null;
+    // ④ 择将：现实能力匹配（不起卦）；熟练度只在条件相同时排先后
+    var rows = matchHeroes(pool, prof, atkMain, defMain), rowOf = {};
+    rows.forEach(function (r) { rowOf[r.id] = r; });
+    var X = { byTid: byTid, castByTid: castByTid, atkMain: atkMain, defMain: defMain, atkOrder: pick.atk.order, defOrder: pick.def.order, prepCast: prep.cast, prepDisc: prep.ref.discipline, habits: habits, rowOf: rowOf };
     var views = {};
-    cands.forEach(function (c) { views[c.id] = heroView(mx, c.id, pref, prep.cast, { zj: zj[c.id] || null, planAtk: c.id === chosen.id ? planAtk : null, planDef: c.id === chosen.id ? planDef : null, habits: habits }); });
-    var nowT = tStr(bjParts(nowFn()));
-    return { app: VER, dbVersion: DB.dbVersion, dbUpdated: DB.updated, gameVersion: DB.gameVersion, prepId: sess.id, createdAt: casts.length ? casts[0].timeStr : nowT,
+    rows.forEach(function (r) { views[r.id] = heroView(mx, r.id, X); });
+    var hero = rows[0].id, alt = rows[1] ? rows[1].id : '';
+    var cand = function (s) { return T[s].cands.map(function (t) { var c = castByTid[t.tid], chosen = pick[s].chosen === t.tid;
+      return { tid: t.tid, name: t.name, archZh: t.archZh, arch: t.arch, start: t.start, brief: t.brief, retreat: t.retreat, safe: t.safe, execBy: t.execBy, no: c.no, label: c.cls.label, verdict: c.cls.verdict, key: c.cls.key, chosen: chosen,
+        whyNot: chosen ? '' : '未选：卦' + c.no + '「' + c.cls.label + '」' + (c.cls.grade < castByTid[pick[s].chosen].cls.grade ? '低于主战术的「' + castByTid[pick[s].chosen].cls.label + '」' : '与主战术同级，按' + (t.safe < byTid[pick[s].chosen].safe ? '现实稳妥度（撤退难度 ' + t.safe + '/3 较低）' : '偏好/原型顺序') + '让位') }; }); };
+    return { app: VER, dbVersion: DB.dbVersion, dbUpdated: DB.updated, gameVersion: DB.gameVersion, prepId: sess.id, createdAt: casts.length ? casts[0].timeStr : tStr(bjParts(nowFn())),
       map: mx.id, mapZh: mx.zh, mapName: mapName, tier: mx.tier, limitedWhy: mx.tier === 'limited' ? mx.m.why : '', mech: mx.tier === 'limited' ? mx.m.mech.map(function (x) { return fmt(mx.id, x); }) : [],
-      inputs: { map: mx.id, heroes: poolOf(inp), prof: profOrder(inp), pref: pref, habits: habits },
-      cands: cands, mapRanked: rk.mapRanked, compare: { need: need, why: compareWhy }, pickWhy: pickWhy, hero: chosen.id, altHero: alt ? alt.id : '',
-      casts: casts, nCasts: casts.length, views: views,
-      head: { map: { t: mapName + (mx.tier === 'limited' ? '（战术资料不足，只给通用打法）' : ''), src: ['你点选的匹配地图'] },
-        hero: { t: H.zh + '（' + H.id + '）', src: (need ? [noOf(zj[cands[0].id]), noOf(zj[cands[1].id])] : []).concat(['规则 R-LZ01 熟练度/适配']) },
-        alt: { t: alt ? alt.zh + '（' + alt.id + '）' : '无（英雄池只有一位）', src: ['规则 R-LZ01 熟练度/适配'] } } };
+      inputs: { map: mx.id, heroes: pool, prof: prof, pref: pref, habits: habits },
+      questions: questions, tac: { atk: cand('atk'), def: cand('def') }, excluded: { atk: T.atk.excluded, def: T.def.excluded },
+      pick: { atk: { tid: pick.atk.chosen, why: pick.atk.why, allBad: pick.atk.allBad }, def: { tid: pick.def.chosen, why: pick.def.why, allBad: pick.def.allBad } },
+      heroes: rows, hero: hero, altHero: alt, zjNote: ZJ_NOTE, casts: casts, nCasts: casts.length, views: views,
+      head: { map: { t: mapName + (mx.tier === 'limited' ? '（战术资料不足，只给通用打法，只用官方点位名）' : ''), src: ['你点选的匹配地图'] },
+        hero: { t: heroZhX(hero) + '（' + hero + '）', src: [ZJ_NOTE] }, alt: { t: alt ? heroZhX(alt) + '（' + alt + '）' : '无（英雄池只有一位）', src: [ZJ_NOTE] } } };
   }
-  // 切换到某英雄后“为该英雄占一卦”：每英雄每场最多一次；已有择将卦/补占卦则直接复用，不调用随机源
-  function castHero(sess, heroId, opt) {
-    opt = opt || {};
-    var d = sess && sess.deploy; if (!d) return { error: '还没出征。' };
-    if (!d.views[heroId]) return { error: '该英雄不在本场英雄池。' };
-    var ex = (d.casts.filter(function (c) { return c.kind === 'zejiang' && c.hero === heroId; })[0]) || (sess.extra && sess.extra[heroId]);
-    if (ex) return { cast: ex, reused: true };
-    var rnd = opt.rnd || C.cryptoRnd, nowFn = opt.now || function () { return new Date(); };
-    var used = 1 + d.casts.length + Object.keys(sess.extra || {}).length;
-    var k = doCast('buzhan', '本场在' + d.mapZh + '使用' + heroZhX(heroId) + '出战，对我的个人发挥是否有利？', rnd, nowFn); k.hero = heroId; k.heroZh = heroZhX(heroId); k.no = used + 1;
-    return { cast: k, reused: false };
-  }
-  function guaOfView(sess, heroId) {
-    var d = sess.deploy, v = d.views[heroId], ex = sess.extra && sess.extra[heroId];
-    if (v.zjNo) return v.guaStatus;
-    if (ex) return '该英雄本场已补占：' + noOf(ex) + '「' + ex.q + '」→ ' + ex.cls.label + '（只作象征性参考；进攻/防守方案未单独占问）。';
-    return v.guaStatus;
-  }
-  function allCasts(sess) {
-    var a = [sess.prep.cast].concat(sess.deploy ? sess.deploy.casts : []);
-    Object.keys(sess.extra || {}).forEach(function (k) { a.push(sess.extra[k]); });
-    return a.sort(function (x, y) { return x.no - y.no; });
-  }
+  function allCasts(sess) { return [sess.prep.cast].concat(sess.deploy ? sess.deploy.casts : []).sort(function (x, y) { return x.no - y.no; }); }
 
   // ---------- 文本 ----------
-  function orderText(sess, heroId, side) {
-    var d = sess.deploy, hid = heroId || d.hero, v = d.views[hid], o = v.order, t = [];
-    t.push('【临阵战令】', '地图：' + d.head.map.t, '首选英雄：' + d.head.hero.t, '备选英雄：' + d.head.alt.t);
-    if (hid !== d.hero) t.push('当前英雄：' + v.heroZh + '（' + v.hero + '）——首选被占用后切换');
-    t.push('卦象：' + guaOfView(sess, hid));
-    t.push('【个人核心打法】', o.core.t);
-    if (side !== 'def') t.push('【进攻】', '首选位置：' + o.atkPos.t, '开局第一步：' + o.atkOpen.t, '技能使用：' + o.atkSkill.t, '撤退条件：' + o.atkRetreat.t), v.atk.sw && t.push('说明：' + v.atk.sw);
-    if (side !== 'atk') t.push('【防守】', '首选位置：' + o.defPos.t, '第一枪：' + o.defFirst.t, '换位方式：' + o.defMove.t, '转点条件：' + o.defRotate.t), v.def.sw && t.push('说明：' + v.def.sw);
-    t.push('【临阵戒令】', o.ban.t + '（' + v.risk.basis + '）');
+  function orderText(sess, heroId) {
+    var d = sess.deploy, hid = heroId && d.views[heroId] ? heroId : d.hero, v = d.views[hid], o = v.order, t = [];
+    t.push('【临阵战令】', '地图：' + d.head.map.t);
+    t.push('【心态纪律】' + o.mind.t, '【临阵戒令】' + o.ban.t + '（' + v.risk.basis + '）');
+    t.push('【进攻】主战术：' + o.atkTac.t, '　起点与路线：' + o.atkPos.t, '　开局第一步：' + o.atkOpen.t, '　技能使用：' + o.atkSkill.t, '　撤退/变招：' + o.atkRetreat.t);
+    t.push('【防守】主战术：' + o.defTac.t, '　位置：' + o.defPos.t, '　第一枪：' + o.defFirst.t, '　撤退/变招：' + o.defMove.t, '　转点条件：' + o.defRotate.t);
+    t.push('【适合英雄】（' + d.zjNote + '）首选：' + d.head.hero.t + '｜备选：' + d.head.alt.t + (hid !== d.hero ? '｜当前查看：' + v.heroZh + '（' + hid + '）' : ''), '　' + o.heroFit.t);
+    t.push('【个人核心打法】' + o.core.t);
     return t;
   }
   function chartText(ch) {
@@ -1693,15 +1757,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     return t;
   }
   function castText(c) {
-    var t = ['━━ 卦' + c.no + '·' + c.name + (c.heroZh ? '（' + c.heroZh + '）' : '') + ' ━━', '问题（' + c.setAt + ' 定题）：' + c.q, '起卦时间：' + c.timeStr, '铜钱（背=3，字=2）：'];
+    var t = ['━━ 卦' + c.no + '·' + c.name + (c.tacName ? '「' + c.tacName + '」' : '') + ' ━━', '问题（' + c.setAt + ' 定题，起卦前已存档）：' + c.q, '起卦时间：' + c.timeStr, '铜钱（背=3，字=2）：'];
     c.coinText.forEach(function (x) { t.push('　' + x); });
     t.push('【排盘事实】'); chartText(c.chart).forEach(function (x) { t.push('　' + x); });
     t.push('【传统判断·审题取用神】' + c.yongWhy + '（类别：' + c.yongCls.join('、') + '）');
-    t.push('【传统判断·世爻条件】世：' + c.cls.shi + '；应：' + c.cls.ying);
-    t.push('　支持：' + (c.cls.sup.map(function (x) { return x[0] + '〔' + x[1] + '〕'; }).join('；') || '—'));
-    t.push('　阻碍：' + (c.cls.heavy.concat(c.cls.obs).map(function (x) { return x[0] + '〔' + x[1] + '〕'; }).join('；') || '—'));
-    t.push('　不确定：' + (c.cls.unc.join('；') || '—'));
-    t.push('　程序倾向：' + c.cls.label + '（' + c.cls.rule + '）');
+    t.push('【传统判断·世应与原忌】世：' + c.cls.shi + '；应：' + c.cls.ying + '；原神五行：' + c.cls.yuan + '；忌神五行：' + c.cls.ji);
+    t.push('【传统判断·逐级判定】'); c.cls.steps.forEach(function (s) { t.push('　' + s[0] + '　' + s[1]); });
+    t.push('　结论：' + c.cls.label + '（决定步：' + c.cls.key + '）');
+    t.push('　有利条件（列出，不计数）：' + (c.cls.sup.map(function (x) { return x[0] + '〔' + x[1] + '〕'; }).join('；') || '—'));
+    t.push('　不利条件（列出，不计数）：' + (c.cls.heavy.concat(c.cls.obs).map(function (x) { return x[0] + '〔' + x[1] + '〕'; }).join('；') || '—'));
+    t.push('　不确定/不采用：' + (c.cls.unc.join('；') || '—'));
     t.push('【增删卜易 引擎精简输出】'); c.brief.split('\n').forEach(function (x) { t.push('　' + x); });
     t.push('');
     return t;
@@ -1709,29 +1774,39 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   function copyText(sess, heroId) {
     var p = sess.prep, d = sess.deploy, all = allCasts(sess);
     var t = [REVIEW_PROMPT, '', '【' + VER + '｜完整作战分析】', '数据库：' + DB.dbVersion + '（更新 ' + DB.updated + '，' + DB.gameVersion + '）；静态战术规则，游戏更新后可能过时；本页没有接入任何大模型，所有文字来自本地已审规则库。',
-      '三类来源：【排盘事实】= 原始铜钱与排盘；【传统判断】= 按《增删卜易》对各独立占问的倾向解释；【现实战术】= 英雄技能、地图点位、个人熟练度与游戏经验。卦象只作象征性参考，不换算胜率。',
-      '流程：备战（匹配前，不知地图）→ 临阵（地图揭晓后出征）→ 进游戏（攻守切换不起卦）。一事一占（增删 L596、L6927）；每卦先定题后摇卦；全程共 ' + all.length + ' 卦，不重摇；各卦分开看，不投票、不相加。',
-      '英雄池：' + p.inputs.heroes.map(heroZhX).join('、') + '｜熟练度 ' + (d ? d.inputs.prof : p.inputs.prof).map(heroZhX).join(' > ') + ((d ? d.inputs.pref : p.inputs.pref) ? '｜偏好 ' + (d ? d.inputs.pref : p.inputs.pref) : ''), ''];
-    t.push('══ 第一阶段·备战（' + p.createdAt + '）══', '传统参考：' + p.ref.label + '；临场纪律：' + p.ref.discipline, '');
-    all.forEach(function (c) { castText(c).forEach(function (x) { t.push(x); }); });
+      '三类来源：【排盘事实】= 原始铜钱与排盘；【传统判断】= 按《增删卜易》对各独立占问的逐级判定；【现实战术】= 地图点位、英雄官方技能、可执行性与撤退条件。卦象只作象征性参考，不换算胜率。',
+      '流程：先察己（备战一卦，不知地图）→ 再取势（地图揭晓后生成攻/防战术候选，每个候选各起一卦）→ 后择将（现实能力匹配，不起卦）→ 定个人战术。一事一占；每卦先定题后摇卦；全程共 ' + all.length + ' 卦，不重摇；各卦各答各题，不投票、不相加。',
+      '英雄池：' + p.inputs.heroes.map(heroZhX).join('、') + '｜熟练度（仅在条件相同时作辅助）' + (d ? d.inputs.prof : p.inputs.prof).map(heroZhX).join(' > ') + ((d ? d.inputs.pref : p.inputs.pref) ? '｜偏好 ' + (d ? d.inputs.pref : p.inputs.pref) : ''), ''];
+    t.push('══ 一、察己·备战（' + p.createdAt + '）══', '传统参考：' + p.ref.label + '；临场纪律：' + p.ref.discipline, '');
+    castText(p.cast).forEach(function (x) { t.push(x); });
     if (!d) { t.push('（尚未出征：待匹配）'); return t.join('\n'); }
-    var hid = heroId || d.hero, v = d.views[hid];
-    t.push('══ 第二阶段·临阵（地图：' + d.mapName + '）══', '【现实战术·择将】候选（定性分，非统计）：' + d.cands.map(function (x) { return x.zh + ' 熟练度第' + x.prof + '＋适配' + x.fit + '（' + x.fitWhy + '）'; }).join('；'),
-      '是否起择将卦：' + d.compare.why, '择将：' + d.pickWhy, '打法：' + v.style.name + '｜' + v.style.from);
+    var hid = heroId && d.views[heroId] ? heroId : d.hero, v = d.views[hid];
+    t.push('══ 二、取势·战术候选（地图：' + d.mapName + '）══');
     if (d.tier === 'limited') t.push('资料限制：' + d.limitedWhy + '。只用官方点位名（valorant-api），不写路线连接与枪线。', '地图机制：' + d.mech.join('；'));
-    t.push('进攻方案：' + v.atk.first.name + (v.atk.first.routeBoth ? '（' + v.atk.first.routeBoth + '）' : '') + (v.atk.sw ? '｜' + v.atk.sw : ''), '进攻风险枪线：' + v.atk.final.risks.join('；'), '进攻撤退通道：' + v.atk.final.retreats.join('；'));
-    t.push('防守方案：' + v.def.first.name + (v.def.first.posBoth ? '（' + v.def.first.posBoth + '）' : '') + (v.def.sw ? '｜' + v.def.sw : ''), '防守风险枪线：' + v.def.final.risks.join('；'), '防守撤退通道：' + v.def.final.retreats.join('；'), '');
+    t.push('题目（全部在起卦前定好并存档，' + (d.questions[0] ? d.questions[0].setAt : '') + '）：'); d.questions.forEach(function (q) { t.push('　卦' + q.no + '：' + q.q); });
+    ['atk', 'def'].forEach(function (s) {
+      t.push((s === 'atk' ? '【进攻候选】' : '【防守候选】'));
+      d.tac[s].forEach(function (c) { t.push('　' + (c.chosen ? '★主战术 ' : '　') + '「' + c.name + '」' + c.archZh + '｜起点 ' + c.start + '｜撤退条件：' + c.retreat + '｜可执行英雄：' + c.execBy.map(heroZhX).join('、') + '｜卦' + c.no + '：' + c.label + '（' + c.key + '）' + (c.whyNot ? '｜' + c.whyNot : '')); });
+      d.excluded[s].forEach(function (x) { t.push('　✗「' + x.name + '」' + x.archZh + '：' + x.why); });
+      t.push('　综合：' + d.pick[s].why);
+    });
+    t.push('');
+    d.casts.forEach(function (c) { castText(c).forEach(function (x) { t.push(x); }); });
+    t.push('══ 三、择将（' + d.zjNote + '）══');
+    d.heroes.forEach(function (r, i) { t.push('　' + (i + 1) + '. ' + r.zh + '（' + r.id + '）：' + r.why + (r.canAtk ? '' : '｜进攻主战术缺：' + r.missAtk.join('、')) + (r.canDef ? '' : '｜防守主战术缺：' + r.missDef.join('、'))); });
+    t.push('', '══ 四、定个人战术 ══');
     orderText(sess, hid).forEach(function (x) { t.push(x); });
-    t.push('', '各字段来源：'); ['map', 'hero', 'alt'].forEach(function (k) { t.push('· ' + k + '：' + d.head[k].src.join('、')); });
-    Object.keys(v.order).forEach(function (k) { t.push('· ' + k + '：' + v.order[k].src.join('、')); });
-    t.push('', '（卦象不推断敌人站位、不预测地图；不给胜率；战术库为静态规则 ' + DB.dbVersion + '，游戏更新后可能过时。）');
+    if (v.atk) t.push('进攻风险枪线：' + v.atk.risks.join('；'), '进攻撤退通道：' + v.atk.retreats.join('；'));
+    if (v.def) t.push('防守风险枪线：' + v.def.risks.join('；'), '防守撤退通道：' + v.def.retreats.join('；'));
+    t.push('', '各字段来源：'); Object.keys(v.order).forEach(function (k) { t.push('· ' + k + '：' + v.order[k].src.join('、')); });
+    t.push('', '（卦象不推断敌人站位、不预测地图；不给胜率；择将为现实匹配，不是卦象结果；战术库为静态规则 ' + DB.dbVersion + '，游戏更新后可能过时。）');
     return t.join('\n');
   }
 
-  return { VER: VER, KEYS: KEYS, REVIEW_PROMPT: REVIEW_PROMPT, PREP_Q: PREP_Q, validatePrep: validatePrep, validateDeploy: validateDeploy, rankCandidates: rankCandidates,
-    prepare: prepare, deploy: deploy, castHero: castHero, guaOfView: guaOfView, allCasts: allCasts, decideStyle: decideStyle, pickAtk: pickAtk, pickDef: pickDef,
-    classify: classify, cast: cast, copyText: copyText, orderText: orderText, chartText: chartText, castText: castText, fmt: fmt, co: co, refsOf: refsOf, route: route, esc: esc,
-    bjParts: bjParts, tStr: tStr, YONG: YONG, DISC: DISC, MAP: MAP, HERO: HERO, HEROX: HEROX, MAPX: MAPX, heroZhX: heroZhX };
+  return { VER: VER, KEYS: KEYS, REVIEW_PROMPT: REVIEW_PROMPT, PREP_Q: PREP_Q, ZJ_NOTE: ZJ_NOTE, RULE: RULE, validatePrep: validatePrep, validateDeploy: validateDeploy,
+    prepare: prepare, deploy: deploy, allCasts: allCasts, judge: judge, judgeValues: judgeValues, classify: classify, chooseTactic: chooseTactic, matchHeroes: matchHeroes, canExec: canExec,
+    tacticsFor: tacticsFor, allCandidates: allCandidates, heroView: heroView, cast: cast, copyText: copyText, orderText: orderText, chartText: chartText, castText: castText,
+    fmt: fmt, co: co, refsOf: refsOf, route: route, esc: esc, bjParts: bjParts, tStr: tStr, YONG: YONG, DISC: DISC, MAP: MAP, HERO: HERO, HEROX: HEROX, MAPX: MAPX, heroZhX: heroZhX, profOrder: profOrder };
 });
 </script>
 <script id="linzhen-ui">
@@ -1748,7 +1823,7 @@ try{var k0='__lz_t';window.localStorage.setItem(k0,'1');window.localStorage.remo
 function sget(k){try{if(STORE_OK)return window.localStorage.getItem(k);}catch(e){} return MEM.hasOwnProperty(k)?MEM[k]:null;}
 function sset(k,v){try{if(STORE_OK){window.localStorage.setItem(k,v);return true;}}catch(e){} MEM[k]=v;return false;}
 function jget(k,d){try{var v=sget(k);return v?JSON.parse(v):d;}catch(e){return d;}}
-var SK='linzhen_settings_v2', HK='linzhen_sessions_v2', CK='linzhen_current_v2', UK='linzhen_ui_v2', HMAX=15;
+var SK='linzhen_settings_v2', HK='linzhen_sessions_v3', CK='linzhen_current_v3', UK='linzhen_ui_v3', HMAX=15;   // V3：设置沿用 V2；会话结构已变，V2 历史不在 V3 显示（原数据保留在本机，不删除）
 var st=jget(SK,null)||jget('linzhen_settings_v1',null)||{};   // 兼容 V1 设置（不读取 V1 的地图）
 var S={heroes:st.heroes||['Neon','Yoru','Reyna'],prof:st.prof||['Neon','Yoru','Reyna'],pref:st.pref||'',habits:st.habits||[]};
 S.heroes=S.heroes.filter(function(h){return !!L.HEROX(h)});
@@ -1765,7 +1840,7 @@ function setCur(id){sset(CK,id||'');}
 function uiOf(id){var u=jget(UK,{});return u[id]||null;}
 function setUi(id,v){var u=jget(UK,{});u[id]=v;var ks=Object.keys(u);if(ks.length>HMAX*2)delete u[ks[0]];sset(UK,JSON.stringify(u));}
 // ---------- 术语 ----------
-var GL={'世爻':'代表“我自己”的那一爻。自己问自己的事，以世爻为用神（增删 Z06）。','应爻':'与世相对的一爻，这里代表对手一方。','用神':'一卦里代表所问之事的那一爻，先定用神再看旺衰生克。','六亲':'父母、兄弟、子孙、妻财、官鬼，按爻的五行与卦宫五行的生克关系定。','子孙':'六亲之一；《增删》“良将…兵卒，皆以子孙爻为用神”。本页把英雄比作“将”（电竞类比）。','兄弟':'六亲之一；《增删》“占谋事，以此为阻隔之神”。','官鬼':'六亲之一；《增删》“一切拘束我身者”；博戏章“鬼爻克世，灾祸相侵”。','月建':'起卦所在月份的地支，决定各爻旺衰的“纲领”。','日辰':'起卦当日的地支，能生克冲合各爻。','旬空':'当日所在旬缺的两个地支；静而无扶的旬空爻视为暂时无力。','月破':'爻的地支被月建冲；静而无扶为“到底而破”。','日破':'静而休囚的爻被日辰冲。','动爻':'铜钱得老阳(9)或老阴(6)的爻，会变出新爻。','回头克':'动爻变出的爻反过来克本爻，力量受损。','回头生':'动爻变出的爻反过来生本爻，得助。','进神':'动而化出同五行、更进一步的地支，如亥化子。','退神':'动而化出同五行、退一步的地支，如子化亥；斗殴章“世动化退，我心怯焉”。','伏神':'用神不在卦上时，从本宫首卦找出伏藏在某爻之下的爻。','暗动':'静爻旺相而被日辰冲，视为暗中发动。','三合':'申子辰、亥卯未、寅午戌、巳酉丑三支会成一局；本页按《三合章》四种结构严格判定。'};
+var GL={'世爻':'代表“我自己”的那一爻。自己问自己的事，以世爻为用神（增删 Z06）。','应爻':'与世相对的一爻，这里代表对手一方。','用神':'一卦里代表所问之事的那一爻，先定用神再看旺衰生克。','六亲':'父母、兄弟、子孙、妻财、官鬼，按爻的五行与卦宫五行的生克关系定。','原神':'生用神的五行（本页按世爻五行动态确定，不按战术名称指定六亲）。','忌神':'克用神的五行（本页按世爻五行动态确定）。','月建':'起卦所在月份的地支，决定各爻旺衰的“纲领”。','日辰':'起卦当日的地支，能生克冲合各爻。','旬空':'当日所在旬缺的两个地支；静而无扶的旬空爻视为暂时无力。','月破':'爻的地支被月建冲；静而无扶为“到底而破”。','日破':'静而休囚的爻被日辰冲。','动爻':'铜钱得老阳(9)或老阴(6)的爻，会变出新爻。','回头克':'动爻变出的爻反过来克本爻，力量受损。','回头生':'动爻变出的爻反过来生本爻，得助。','进神':'动而化出同五行、更进一步的地支，如亥化子。','退神':'动而化出同五行、退一步的地支，如子化亥；斗殴章“世动化退，我心怯焉”。','择将':'按已定战术，用英雄官方技能与脱身等级做现实匹配；不起卦，不是卦象结果。','伏神':'用神不在卦上时，从本宫首卦找出伏藏在某爻之下的爻。','暗动':'静爻旺相而被日辰冲，视为暗中发动。','三合':'申子辰、亥卯未、寅午戌、巳酉丑三支会成一局；本页按《三合章》四种结构严格判定。'};
 var GRX=new RegExp('('+Object.keys(GL).sort(function(a,b){return b.length-a.length}).join('|')+')','g');
 function T(s){var seen={};return esc(s).replace(GRX,function(m){if(seen[m])return m;seen[m]=1;return '<button type="button" class="term" data-t="'+m+'">'+m+'</button>';});}
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.term');var tip=$('tip');if(t){tip.innerHTML='<b style="color:var(--gold2)">'+esc(t.getAttribute('data-t'))+'</b>：'+esc(GL[t.getAttribute('data-t')])+'<div class="note">点任意处关闭</div>';tip.className='on';e.stopPropagation();return;} if(tip.className==='on')tip.className='';});
@@ -1803,7 +1878,7 @@ function kv(k,t){return '<div class="kv"><b>'+esc(k)+'</b><div>'+T(t)+'</div></d
 function vcls(c){return '<span class="v-'+c.cls.verdict+'">'+esc(c.cls.label)+'</span>';}
 function renderPrep(s,ro){var p=s.prep,c=p.cast,h=[];
  h.push('<h2>【备战 · 察己之势】'+(s.void?' <span class="lim">（已作废）</span>':'')+'</h2>');
- h.push(kv('问题',c.q),kv('卦',p.ref.gua+'　'+c.timeStr),'<div class="kv"><b>传统参考</b><div>'+vcls(c)+'<span class="note">（象征性参考，不是胜率）</span>'+(p.ref.items.length?'<div class="note">'+esc(p.ref.items.join('；'))+'</div>':'')+'</div></div>');
+ h.push(kv('问题',c.q),kv('卦',p.ref.gua+'　'+c.timeStr),'<div class="kv"><b>传统参考</b><div>'+vcls(c)+'<span class="note">（传统象义参考，不是心理测量，也不是胜率）</span>'+(p.ref.items.length?'<div class="note">'+esc(p.ref.items.join('；'))+'</div>':'')+'</div></div>');
  h.push(kv('临场纪律',p.ref.discipline));
  h.push('<div class="note">英雄池：'+esc(p.inputs.prof.map(L.heroZhX).join(' > '))+(p.inputs.pref?'｜偏好 '+esc(p.inputs.pref):'')+'｜不针对地图、英雄、路线｜完整排盘已存档</div>');
  h.push('<details><summary>备战卦完整排盘</summary>'+castBasis(s,c)+'</details>');
@@ -1820,34 +1895,48 @@ function castBasis(s,c){var k=c.cls,h=[];
  h.push(li('问（'+c.setAt+' 定题）：'+c.q),'<div class="note">起卦 '+esc(c.timeStr)+'</div>');
  h.push('<div>'+TAG+'</div><div class="chart">'+esc(c.coinText.join('\n'))+'\n\n'+esc(L.chartText(c.chart).join('\n'))+'</div>');
  h.push('<div style="margin-top:6px">'+TAG2+'</div>',li('审题取用神：'+c.yongWhy),li('世：'+k.shi+'；应：'+k.ying));
- h.push(li('支持：'+(k.sup.map(function(x){return x[0]+'〔'+x[1]+'〕'}).join('；')||'—')),li('阻碍：'+(k.heavy.concat(k.obs).map(function(x){return x[0]+'〔'+x[1]+'〕'}).join('；')||'—')));
- if(k.unc.length)h.push(li('不确定：'+k.unc.join('；')));
- h.push(li('程序倾向：'+k.label),'<div class="note">'+esc(k.rule)+'</div>');
+ h.push(li('原神五行：'+k.yuan+'；忌神五行：'+k.ji+'（按世爻五行动态确定）'));
+ h.push('<div class="steps">'+k.steps.map(function(x){return '<div class="li"><b>'+esc(x[0])+'</b> '+T(x[1])+'</div>'}).join('')+'</div>');
+ h.push('<div class="li">结论：'+vcls(c)+'（决定步：'+esc(k.key)+'）</div>');
+ h.push('<div class="note">有利条件（列出，不计数）：'+esc(k.sup.map(function(x){return x[0]}).join('；')||'—')+'<br>不利条件（列出，不计数）：'+esc(k.heavy.concat(k.obs).map(function(x){return x[0]}).join('；')||'—')+(k.unc.length?'<br>不确定/不采用：'+esc(k.unc.join('；')):'')+'</div>');
+ h.push('<details><summary>判定规则（程序约定）</summary><div class="note">'+esc(k.rule)+'</div></details>');
  h.push('<details><summary>专业细节（《增删卜易》引擎完整输出，按存档铜钱与时间重排）</summary><div class="chart" data-full="'+c.no+'"></div></details>');
  return h.join('');}
+function sec(title,o,keys,sideNo){var h=['<h2>'+title+'</h2>'];keys.forEach(function(x){h.push(kv(x[0],o[x[1]].t));});return h.join('');}
+var ATK_K=[['主战术','atkTac'],['起点与路线','atkPos'],['开局第一步','atkOpen'],['技能使用','atkSkill'],['撤退 / 变招','atkRetreat']];
+var DEF_K=[['主战术','defTac'],['位置','defPos'],['第一枪','defFirst'],['撤退 / 变招','defMove'],['转点条件','defRotate']];
 function renderOrder(s,hid,side){var d=s.deploy,v=d.views[hid],o=v.order,h=[];
- h.push('<h2>【临阵战令】</h2>',kv('地图',d.head.map.t),kv('首选英雄',d.head.hero.t),kv('备选英雄',d.head.alt.t));
- if(hid!==d.hero)h.push(kv('当前英雄',v.heroZh+'（'+v.hero+'）'));
- h.push('<div class="gst" id="guaSt">'+esc(L.guaOfView(s,hid))+'</div>');
- var hasGua=!!v.zjNo||!!(s.extra&&s.extra[hid]);
- if(!hasGua&&!READONLY)h.push('<button class="btn sm" id="castHero" type="button">为该英雄占一卦</button>');
- h.push('<h2>【个人核心打法】</h2><div>'+T(o.core.t)+'</div>');
+ h.push('<h2>【临阵战令】'+esc(d.head.map.t)+'</h2>');
+ if(d.tier==='limited')h.push('<div class="note lim">资料限制：'+esc(d.limitedWhy)+'。以下为通用个人战术，只用官方点位名，未编造路线与枪线。</div>');
+ h.push('<h2>① 心态纪律</h2><div>'+T(o.mind.t)+'</div><div class="ban" style="margin-top:4px">戒：'+esc(o.ban.t)+'</div><span class="src">'+esc(v.risk.basis)+'</span>');
  h.push('<div class="sideTg"><button type="button" data-side="atk" class="'+(side==='atk'?'on':'')+'">当前进攻</button><button type="button" data-side="def" class="'+(side==='def'?'on':'')+'">当前防守</button></div>');
- if(side==='atk'){h.push('<h2>【进攻】</h2>',kv('首选位置',o.atkPos.t),kv('开局第一步',o.atkOpen.t),kv('技能使用',o.atkSkill.t),kv('撤退条件',o.atkRetreat.t));if(v.atk.sw)h.push('<div class="note">'+esc(v.atk.sw)+'</div>');}
- else{h.push('<h2>【防守】</h2>',kv('首选位置',o.defPos.t),kv('第一枪',o.defFirst.t),kv('换位方式',o.defMove.t),kv('转点条件',o.defRotate.t));if(v.def.sw)h.push('<div class="note">'+esc(v.def.sw)+'</div>');}
- h.push('<h2>【临阵戒令】</h2><div class="ban">'+esc(o.ban.t)+'</div><span class="src">'+esc(v.risk.basis)+'</span>');
- if(d.tier==='limited')h.push('<div class="note lim" style="margin-top:6px">资料限制：'+esc(d.limitedWhy)+'。以上为通用个人打法，只用官方点位名，未编造路线与枪线。</div>');
- h.push('<div class="note" style="margin-top:8px">本场共起卦 '+L.allCasts(s).length+' 次，没有重摇｜'+esc(DB.dbVersion)+' 静态规则，游戏更新后可能过时｜不提供胜率｜卦象不推断敌人站位</div>');
+ var A=sec('② 进攻主战术',o,ATK_K),D=sec('③ 防守主战术',o,DEF_K);
+ if(side==='atk')h.push('<div class="cur" data-cur="atk">'+A+'</div><details class="other"><summary>③ 防守主战术（切到防守再看）</summary>'+D+'</details>');
+ else h.push('<details class="other"><summary>② 进攻主战术（切到进攻再看）</summary>'+A+'</details><div class="cur" data-cur="def">'+D+'</div>');
+ h.push('<h2>④ 适合英雄</h2><div class="note">'+esc(d.zjNote)+'：按已定战术，用官方技能与脱身等级匹配；熟练度只在条件相同时排先后。</div>');
+ h.push(kv('首选',d.head.hero.t),kv('备选',d.head.alt.t));
+ if(hid!==d.hero)h.push(kv('当前查看',v.heroZh+'（'+v.hero+'）'));
+ h.push(kv('匹配',o.heroFit.t));
+ if(v.atkNone||v.defNone)h.push('<div class="lim">'+esc(v.heroZh)+'没有能执行本场任一候选'+(v.atkNone?'进攻':'')+(v.atkNone&&v.defNone?'/':'')+(v.defNone?'防守':'')+'战术的技能条件：该侧只按现实纪律打。</div>');
+ h.push('<div class="chips" id="heroSw"></div>');
+ h.push('<h2>⑤ 个人核心打法</h2><div>'+T(o.core.t)+'</div>');
+ h.push('<div class="note" style="margin-top:8px">本场共起卦 '+L.allCasts(s).length+' 次（备战 1 + 战术候选 '+d.nCasts+'），没有重摇；择将与攻守切换不起卦｜'+esc(DB.dbVersion)+' 静态规则，游戏更新后可能过时｜不提供胜率｜卦象不推断敌人站位</div>');
  return h.join('');}
+function tacList(d,s){var h=[];d.tac[s].forEach(function(c){h.push('<div class="li">'+(c.chosen?'★ ':'')+'<b>「'+esc(c.name)+'」</b>'+esc(c.archZh)+'｜起点 '+esc(c.start)+'｜卦'+c.no+'：<span class="v-'+c.verdict+'">'+esc(c.label)+'</span><div class="note">撤退条件：'+esc(c.retreat)+'｜可执行：'+esc(c.execBy.map(L.heroZhX).join('、'))+(c.whyNot?'｜'+esc(c.whyNot):'')+'</div></div>');});
+ d.excluded[s].forEach(function(x){h.push('<div class="li note">✗「'+esc(x.name)+'」'+esc(x.archZh)+'：'+esc(x.why)+'</div>');});
+ h.push('<div class="li">综合：'+T(d.pick[s].why)+'</div>');return h.join('');}
 function renderBasis(s,hid){var d=s.deploy,v=d.views[hid],h=[];
- h.push('<div class="note">一事一占：每卦先定题、后摇卦，各卦只回答自己的问题；分开看，不投票、不相加、不换算胜率。</div>');
- L.allCasts(s).forEach(function(c){h.push('<details class="gua" data-k="'+c.kind+'"><summary>卦'+c.no+'·'+esc(c.name)+(c.heroZh?'（'+esc(c.heroZh)+'）':'')+'：'+vcls(c)+'</summary>'+castBasis(s,c)+'</details>');});
- h.push('<details class="gua" data-k="tactic"><summary>现实战术依据（不起卦）</summary><div>'+TAG3+'</div>');
- h.push(li('候选（定性规则，非统计）：'+d.cands.map(function(x){return x.zh+' 熟练度第'+x.prof+'＋适配'+x.fit+'（'+x.fitWhy+'）'}).join('；')),li('择将卦：'+d.compare.why),li('首选：'+d.pickWhy));
- h.push(li('打法：'+v.style.name+'｜'+v.style.from),li(v.style.note));
- h.push(li('进攻方案：'+v.atk.final.name+(v.atk.sw?'｜'+v.atk.sw:'')),li('进攻风险枪线：'+v.atk.final.risks.join('；')),li('进攻撤退通道：'+v.atk.final.retreats.join('；')));
- h.push(li('防守方案：'+v.def.final.name+(v.def.sw?'｜'+v.def.sw:'')),li('防守风险枪线：'+v.def.final.risks.join('；')),li('防守撤退通道：'+v.def.final.retreats.join('；')));
+ h.push('<div class="note">一事一占：每卦先定题、后摇卦；各卦只回答自己的问题；按逐级判定，不投票、不相加、不换算胜率。</div>');
+ h.push('<details class="gua" data-k="tactic"><summary>战术候选与取舍 '+TAG3+TAG2+'</summary>');
+ h.push('<div class="note">题目在起卦前全部定好并存档（'+esc(d.questions[0]?d.questions[0].setAt:'')+'）</div>');
+ h.push('<div class="lbl">进攻候选</div>'+tacList(d,'atk')+'<div class="lbl">防守候选</div>'+tacList(d,'def'));
  if(d.tier==='limited')h.push(li('地图机制（有出处）：'+d.mech.join('；')));
+ h.push('</details>');
+ L.allCasts(s).forEach(function(c){h.push('<details class="gua" data-k="'+c.kind+'"><summary>卦'+c.no+'·'+esc(c.name)+(c.tacName?'「'+esc(c.tacName)+'」':'')+'：'+vcls(c)+'</summary>'+castBasis(s,c)+'</details>');});
+ h.push('<details class="gua" data-k="hero"><summary>择将匹配（'+esc(d.zjNote)+'）'+TAG3+'</summary>');
+ d.heroes.forEach(function(r,i){h.push(li((i+1)+'. '+r.zh+'（'+r.id+'）：'+r.why+(r.canAtk?'':'｜进攻主战术缺：'+r.missAtk.join('、'))+(r.canDef?'':'｜防守主战术缺：'+r.missDef.join('、'))));});
+ if(v.atk)h.push(li('进攻风险枪线：'+v.atk.risks.join('；')),li('进攻撤退通道：'+v.atk.retreats.join('；')));
+ if(v.def)h.push(li('防守风险枪线：'+v.def.risks.join('；')),li('防守撤退通道：'+v.def.retreats.join('；')));
  h.push(li('临阵戒令来源：'+v.risk.from+'（'+v.risk.basis+'）'));
  h.push('<div class="note">各字段来源：'+esc(Object.keys(v.order).map(function(k){return k+'＝'+v.order[k].src.join('、')}).join('｜'))+'</div></details>');
  return h.join('');}
@@ -1868,13 +1957,11 @@ function render(){
  stage('stOrder');
  var u=uiOf(s.id)||{hero:s.deploy.hero,side:'atk'};if(!s.deploy.views[u.hero])u.hero=s.deploy.hero;
  $('roNote').innerHTML=READONLY?'历史记录（只读） <button class="btn sm" id="backBtn" type="button">返回</button>':'';
- var sw=$('heroSw');sw.innerHTML='';s.deploy.cands.forEach(function(c){var tag=c.id===s.deploy.hero?' · 首选':c.id===s.deploy.altHero?' · 备选':'';
-  var b=chip(c.zh+tag,u.hero===c.id,function(){u.hero=c.id;setUi(s.id,u);render();});b.setAttribute('data-hero',c.id);sw.appendChild(b);});
- $('order').innerHTML=renderOrder(s,u.hero,u.side);$('basis').innerHTML=renderBasis(s,u.hero);bindFull($('basis'),s);
+ $('order').innerHTML=renderOrder(s,u.hero,u.side);
+ var sw=$('heroSw');s.deploy.heroes.forEach(function(c){var tag=c.id===s.deploy.hero?' · 首选':c.id===s.deploy.altHero?' · 备选':'';
+  var b=chip(c.zh+tag+' '+(c.canAtk?'攻✓':'攻×')+(c.canDef?'防✓':'防×'),u.hero===c.id,function(){u.hero=c.id;setUi(s.id,u);render();});b.setAttribute('data-hero',c.id);sw.appendChild(b);});$('basis').innerHTML=renderBasis(s,u.hero);bindFull($('basis'),s);
  Array.prototype.forEach.call($('order').querySelectorAll('[data-side]'),function(b){b.onclick=function(){u.side=b.getAttribute('data-side');setUi(s.id,u);render();};});
- var ch=$('castHero');if(ch)ch.onclick=function(){var r=L.castHero(s,u.hero,optRnd());if(r.error){$('msg').textContent=r.error;return;}
-  if(!r.reused){s.extra=s.extra||{};s.extra[u.hero]=r.cast;putSess(s);}render();if(!r.reused)animate([r.cast]);};
-}
+ }
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='backBtn'){READONLY=false;var c=getSess(curId());VIEW=c&&!c.void?c:null;render();window.scrollTo(0,0);}});
 function optRnd(){return window.__LZ_RND?{rnd:window.__LZ_RND,now:window.__LZ_NOW}:{};}
 // 第一阶段：备战
@@ -1883,7 +1970,7 @@ $('prep').addEventListener('click',function(){
  var v=L.validatePrep(inp);if(!v.ok){$('msg').textContent=v.msg;return;}
  var p;try{p=L.prepare(inp,optRnd());}catch(e){$('msg').textContent='出错：'+e.message;return;}
  if(p.error){$('msg').textContent=p.error;return;}
- var s={id:p.id,prep:p,deploy:null,extra:{},void:false};putSess(s);setCur(s.id);
+ var s={id:p.id,prep:p,deploy:null,void:false};putSess(s);setCur(s.id);
  MAPSEL='';VIEW=s;READONLY=false;render();window.scrollTo(0,0);animate([p.cast]);    // 结果已渲染，动画只是展示
 });
 // 第二阶段：出征
@@ -1904,11 +1991,11 @@ $('copy').addEventListener('click',function(){var s=VIEW;if(!s||!s.deploy)return
 // ---------- 历史 ----------
 function drawHist(){var a=sessions(),el=$('hist');
  if(!a.length){el.innerHTML='<div class="note">暂无记录'+(STORE_OK?'':'（本机存储不可用，记录只在本页有效）')+'</div>';return;}
- el.innerHTML=a.map(function(s){var d=s.deploy;return '<button type="button" data-id="'+esc(s.id)+'">'+esc(s.prep.createdAt.replace('（北京时间）',''))+'｜备战 '+esc(s.prep.ref.label)+'｜'+(s.void?'已作废':d?esc(d.mapZh)+'·'+esc(L.heroZhX(d.hero))+'·'+L.allCasts(s).length+'卦':'待匹配')+'</button>'}).join('')+(STORE_OK?'':'<div class="note">本机存储不可用，记录只在本页有效</div>');
+ el.innerHTML=a.map(function(s){var d=s.deploy;return '<button type="button" data-id="'+esc(s.id)+'">'+esc(s.prep.createdAt.replace('（北京时间）',''))+'｜备战 '+esc(s.prep.ref.label)+'｜'+(s.void?'已作废':d?esc(d.mapZh)+'·攻「'+esc((d.tac.atk.filter(function(x){return x.chosen})[0]||{}).name||'—')+'」·防「'+esc((d.tac.def.filter(function(x){return x.chosen})[0]||{}).name||'—')+'」·'+esc(L.heroZhX(d.hero))+'·'+L.allCasts(s).length+'卦':'待匹配')+'</button>'}).join('')+(STORE_OK?'':'<div class="note">本机存储不可用，记录只在本页有效</div>');
  Array.prototype.forEach.call(el.querySelectorAll('button'),function(b){b.onclick=function(){var s=getSess(b.getAttribute('data-id'));if(!s)return;stopAnim();VIEW=s;READONLY=s.id!==curId()||s.void;MAPSEL='';render();window.scrollTo(0,0);};});}
 $('histBox').addEventListener('toggle',drawHist);
 // ---------- 页脚 ----------
-$('foot').innerHTML='<b>说明</b><br>· 静态战术规则：'+esc(DB.dbVersion)+'（'+esc(DB.updated)+'，'+esc(DB.gameVersion)+'），游戏更新后可能过时。<br>· 本页没有接入任何大模型（LLM），所有文字来自本地已审规则库与《增删卜易》排盘引擎；离线可用，不联网。<br>· 不提供胜率；卦象只作象征性参考，不推断敌人站位、不预测地图。<br>· 图池：'+DB.pool.map(function(id){var m=L.MAPX(id);return esc(m.zh)+(m.tier==='full'?'':'（资料有限·通用打法）')}).join('、')+'。<br>· 英雄覆盖：'+DB.heroes.length+' / '+DB.agentsAll.length+' 名英雄都有专属模板（'+DB.heroes.map(function(h){return esc(h.zh)}).join('、')+'）。'+esc(DB.heroCoverage)+'<br>· 资料来源：'+DB.sources.map(function(x){return esc(x.id+'：'+x.t)}).join('；')+(STORE_OK?'':'<br>· 本机存储不可用：设置与历史只在本页有效。');
+$('foot').innerHTML='<b>说明</b><br>· 静态战术规则：'+esc(DB.dbVersion)+'（'+esc(DB.updated)+'，'+esc(DB.gameVersion)+'），游戏更新后可能过时。<br>· 本页没有接入任何大模型（LLM），所有文字来自本地已审规则库与《增删卜易》排盘引擎；离线可用，不联网。<br>· 不提供胜率；卦象只作象征性参考，不推断敌人站位、不预测地图。<br>· 图池：'+DB.pool.map(function(id){var m=L.MAPX(id);return esc(m.zh)+(m.tier==='full'?'':'（资料有限·通用打法）')}).join('、')+'。<br>· 决策顺序：先察己（备战 1 卦）→ 再取势（每个可执行战术候选各 1 卦，逐级判定，不投票）→ 后择将（现实匹配，不起卦；熟练度只在条件相同时作辅助）→ 定个人战术。<br>· 英雄覆盖：'+DB.heroes.length+' / '+DB.agentsAll.length+' 名英雄都有专属模板与官方技能能力表（'+DB.heroes.map(function(h){return esc(h.zh)}).join('、')+'）。'+esc(DB.heroCoverage)+'<br>· 资料来源：'+DB.sources.map(function(x){return esc(x.id+'：'+x.t)}).join('；')+(STORE_OK?'':'<br>· 本机存储不可用：设置与历史只在本页有效。');
 // ---------- 启动：刷新/重开不起卦，只读存档 ----------
 (function(){var c=getSess(curId());VIEW=c&&!c.void?c:null;render();drawHist();})();
 window.__LZ={L:L,C:C,Z:Z,DB:DB,sessions:sessions,cur:function(){return VIEW},storeOk:function(){return STORE_OK},render:render,animMs:1200};
