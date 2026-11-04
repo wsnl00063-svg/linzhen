@@ -1030,7 +1030,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     // 角色通用打法（英雄库没有逐条模板时用）。只写通用原则，不描述具体技能机制；{abil} 换成该英雄的官方技能名单
     roleTpl: {
       Duelist: { style: '主动', atk: '按你自己对该英雄的熟悉程度，用能进点或脱身的技能处理 {risk0}，打完第一枪按原路退回（官方技能：{abil}；本库未整理其具体用法）', def: '在 {pos} 接一枪就换位，不在原地补第二枪（官方技能：{abil}；本库未整理其具体用法）', risk: '没有确认退路就第一个冲进去', escNote: '本库未整理该英雄的脱身技能：一律按“没有硬脱身”处理' },
-      Initiator: { style: '信息', atk: '先用你能拿信息或能闪光的技能确认 {risk0}，再跟队友进点，不第一个露头（官方技能：{abil}；本库未整理其具体用法）', def: '在 {pos} 先用技能拿信息，再决定接不接第一枪（官方技能：{abil}；本库未整理其具体用法）', risk: '技能交完之前就自己先露头对枪', escNote: '本库未整理该英雄的脱身技能：一律按“没有硬脱身”处理' },
+      Initiator: { style: '信息', atk: '先用你能拿信息或能闪光的技能确认 {risk0}，再进点；如果有队友在前面，就跟在他后面，不第一个露头（官方技能：{abil}；本库未整理其具体用法）', def: '在 {pos} 先用技能拿信息，再决定接不接第一枪（官方技能：{abil}；本库未整理其具体用法）', risk: '技能交完之前就自己先露头对枪', escNote: '本库未整理该英雄的脱身技能：一律按“没有硬脱身”处理' },
       Controller: { style: '稳健', atk: '先用能挡视线的技能挡住 {risk0} 方向，自己在第二、第三位跟进（官方技能：{abil}；本库未整理其具体用法）', def: '在 {pos} 用技能拖慢对方进点，自己不抢第一枪（官方技能：{abil}；本库未整理其具体用法）', risk: '技能放完后单独站在开阔处', escNote: '本库未整理该英雄的脱身技能：一律按“没有硬脱身”处理' },
       Sentinel: { style: '稳健', atk: '把能看身后的技能留在 {retreatPt} 一侧防绕后，自己最后进点（官方技能：{abil}；本库未整理其具体用法）', def: '在 {pos} 先布置技能再站位，等技能触发再交火（官方技能：{abil}；本库未整理其具体用法）', risk: '技能被拆掉后还守在原位不动', escNote: '本库未整理该英雄的脱身技能：一律按“没有硬脱身”处理' }
     },
@@ -1056,27 +1056,27 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
         },
         atk: [
           { id: 'H-A-LONG', threat: 'A Tower', site: 'A', name: 'A长道快进', route: ['A Lobby', 'A Long', 'A Site'], pace: 'fast', type: 'long', safe: 1, suits: ['speed', 'wall', 'smoke'],
-            info: '先确认 {A Long} 尽头有没有人前压，以及 {A Tower} 上有没有人', push: '{A Tower} 被清掉或确认没人，且有队友在 {A Sewer} 同时给压力时再上包点', retreat: '在 {A Long} 中段被先手、或 {A Tower} 有人且没被处理时，退回 {A Lobby}，不在长道里硬拼', alt: 'H-A-SEWER', altWhy: '下水道线路短、出口近，被打时能马上退回 {A Lobby}，比长道暴露时间短' },
+            info: '先确认 {A Long} 尽头有没有人前压，以及 {A Tower} 上有没有人', push: '{A Tower} 被清掉或确认没人时再上包点；如果队友已经在 {A Sewer} 给压力，可以更早上', retreat: '在 {A Long} 中段被先手、或 {A Tower} 有人且没被处理时，退回 {A Lobby}，不在长道里硬拼', alt: 'H-A-SEWER', altWhy: '下水道线路短、出口近，被打时能马上退回 {A Lobby}，比长道暴露时间短' },
           { id: 'H-A-SEWER', threat: 'A Tower', site: 'A', name: 'A下水道短线进点', route: ['A Lobby', 'A Sewer', 'A Site'], pace: 'mid', type: 'close', safe: 2, suits: ['flash', 'stun', 'selfsustain', 'shield', 'explosive'],
-            info: '先确认 {A Sewer} 出口附近有没有近点，再看 {A Tower}', push: '出口近点清掉、队友在 {A Long} 也有动静时上包点', retreat: '出口被堵或技能交完仍无击杀时，退回 {A Lobby}，改走 {A Long} 或转中路', alt: 'H-A-SEWER', altWhy: '' },
+            info: '先确认 {A Sewer} 出口附近有没有近点，再看 {A Tower}', push: '出口近点清掉、{A Tower} 没人看你时上包点；如果 {A Long} 已经打起来，可以更早上', retreat: '出口被堵或技能交完仍无击杀时，退回 {A Lobby}，改走 {A Long} 或转中路', alt: 'H-A-SEWER', altWhy: '' },
           { id: 'H-B-MID', threat: 'B Back', site: 'B', name: '中路庭院打B', route: ['Mid Courtyard', 'B Site'], pace: 'fast', type: 'mid', safe: 1, suits: ['speed', 'explosive', 'stun', 'flash'],
             info: '先看 {Mid Courtyard} 有没有守方前压，听 {B Back} 方向脚步', push: '进 {B Site} 后先清 {B Back}，再看 {A Link}、{C Link} 两个回防口', retreat: '在 {Mid Courtyard} 被两面夹击时退回攻方中路，不站空地', alt: 'H-C-LONG', altWhy: 'C长道与守方回防点距离远，单人可以慢慢拿信息，不必冲进三面受敌的 B 点' },
           { id: 'H-C-LONG', threat: 'C Cubby', site: 'C', name: 'C长道推进', route: ['C Lobby', 'C Long', 'C Site'], pace: 'slow', type: 'long', safe: 2, suits: ['wall', 'smoke', 'lurk', 'nearsight', 'recon'],
             info: '沿 {C Long} 推进时先清 {C Cubby}，再判断包点深处有没有人架长道', push: '{C Cubby} 已清、包点深处的人被技能逼退或已被击杀时再进', retreat: '长道中段被架死时退回 {C Lobby}，或转 {Mid Doors} 走车库', alt: 'H-C-GARAGE', altWhy: '车库线路有掩体、离攻方中路近，打不开可退回中路' },
           { id: 'H-C-GARAGE', threat: 'C Window', site: 'C', name: '中路门→C车库侧打C', route: ['Mid Doors', 'C Garage', 'C Site'], pace: 'mid', type: 'flank', safe: 2, suits: ['lurk', 'teleport', 'flash', 'fake', 'shield'],
-            info: '先确认 {C Garage} 里是否有守方，出车库前注意 {C Window}', push: '车库清空、队友在 {C Long} 吸引注意力时从侧面进点', retreat: '车库里遇到两人以上时退回 {Mid Doors}，不在车库出口硬拼', alt: 'H-C-LONG', altWhy: '改走 C长道，掩体与撤退距离更好控制' }
+            info: '先确认 {C Garage} 里是否有守方，出车库前注意 {C Window}', push: '车库清空后，如果 {C Long} 已经有人在吸引注意力，就从侧面进点；没人配合就先在车库口看住 {C Window}，再找时机', retreat: '车库里遇到两人以上时退回 {Mid Doors}，不在车库出口硬拼', alt: 'H-C-LONG', altWhy: '改走 C长道，掩体与撤退距离更好控制' }
         ],
         def: [
           { id: 'H-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 1,
-            first: '在 {A Tower} 高处架 {A Long} 出口，余光留意 {A Sewer} 出口', fwdText: '', fallback: '被压时从 {A Tower} 退向 {A Link}，与回防队友汇合', rotate: '{A Long}、{A Sewer} 都没动静而 {Mid Courtyard} 脚步很多时，经 {A Link} 往 B 靠', alt: 'H-D-A-TOWER' },
+            first: '在 {A Tower} 高处架 {A Long} 出口，余光留意 {A Sewer} 出口', fwdText: '', fallback: '被压时从 {A Tower} 退向 {A Link}，先保住自己，再找回防的角度', rotate: '{A Long}、{A Sewer} 都没动静而 {Mid Courtyard} 脚步很多时，经 {A Link} 往 B 靠', alt: 'H-D-A-TOWER' },
           { id: 'H-D-A-LONG', site: 'A', name: 'A长道前压拿信息', pos: 'A Long', fwd: 'A Long', safe: 1, info: 3, needEsc: true,
             first: '在 {A Long} 拐角打对方第一个露头的人，打一枪就换位置', fwdText: '可以前压 {A Long} 拿第一下信息，但只打一枪', fallback: '打完立刻退回 {A Site}，再从 {A Link} 方向重新架', rotate: '前压没看到人且听到 B、C 有动静时，退包点后经 {A Link} 支援', alt: 'H-D-A-TOWER' },
           { id: 'H-D-B-BACK', site: 'B', name: '守B后房', pos: 'B Back', fwd: null, safe: 2, info: 1,
-            first: '在 {B Back} 深位接从 {Mid Courtyard} 进来的第一个人', fwdText: '', fallback: '对方多人进点时从 {B Back} 退向 {A Link} 或 {C Link}，等回防', rotate: 'B 是中间点：A 或 C 报多人时，B 位优先去支援', alt: 'H-D-B-BACK' },
+            first: '在 {B Back} 深位接从 {Mid Courtyard} 进来的第一个人', fwdText: '', fallback: '对方多人进点时从 {B Back} 退向 {A Link} 或 {C Link}，活着拖时间，看准对面下包再回来', rotate: 'B 是中间点：A 或 C 报多人时，B 位优先去支援', alt: 'H-D-B-BACK' },
           { id: 'H-D-C-GARAGE', site: 'C', name: '控C车库', pos: 'C Garage', fwd: 'C Garage', safe: 1, info: 3, needEsc: true,
             first: '在 {C Garage} 内架 {Mid Doors}，接中路来的第一个人', fwdText: '可以在 {C Garage} 抢中路门的第一枪，但只在有退路时', fallback: '被压时经 {C Window} 退向 {C Link}', rotate: '中路门长期没人、B 点有大量脚步时经 {C Link} 支援 B', alt: 'H-D-C-SITE' },
           { id: 'H-D-C-SITE', site: 'C', name: '守C包点深位', pos: 'C Site', fwd: null, safe: 3, info: 1,
-            first: '在包点深处架 {C Long} 出口', fwdText: '', fallback: '对方大量进点时退向 {C Link} 等回防', rotate: '{C Long} 没人、车库也没动静时向 {C Link} 靠，准备支援 B', alt: 'H-D-C-SITE' }
+            first: '在包点深处架 {C Long} 出口', fwdText: '', fallback: '对方大量进点时退向 {C Link}，活着拖时间，看准对面下包再回来', rotate: '{C Long} 没人、车库也没动静时向 {C Link} 靠，准备支援 B', alt: 'H-D-C-SITE' }
         ]
       },
       {
@@ -1093,17 +1093,17 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
           { id: 'BD-A-SHORT', threat: 'A Lamps', site: 'A', name: 'A短道清灯房', route: ['A Link', 'A Short', 'A Site'], pace: 'slow', type: 'close', safe: 2, suits: ['flash', 'nearsight', 'stun', 'lurk', 'fake', 'recon'],
             info: '先用技能清 {A Lamps}，再看 {A Tower}', push: '{A Lamps} 清完、{A Cubby} 也看过后再进包点', retreat: '灯房清不掉时退回 {A Link}；需要转点时注意 {A Teleporter} 会发声', alt: 'BD-A-SHORT', altWhy: '' },
           { id: 'BD-B-LONG', threat: 'B Site', site: 'B', name: 'B长道快冲', route: ['B Fountain', 'B Long', 'B Site'], pace: 'fast', type: 'long', safe: 1, suits: ['speed', 'wall', 'smoke'],
-            info: '先确认 {B Long} 有没有被封、包点方向有几个人', push: '队友从 {B Window} 同时给压力，或长道出口已被技能清过时冲点', retreat: '长道被技能封死或出口被架时退回 {B Fountain}', alt: 'BD-B-WINDOW', altWhy: '窗口线可先用技能清窗口与窗下角落，失败也能退回 {B Short}' },
+            info: '先确认 {B Long} 有没有被封、包点方向有几个人', push: '长道出口已被技能清过时冲点；如果队友已经从 {B Window} 给压力，可以更早冲', retreat: '长道被技能封死或出口被架时退回 {B Fountain}', alt: 'BD-B-WINDOW', altWhy: '窗口线可先用技能清窗口与窗下角落，失败也能退回 {B Short}' },
           { id: 'BD-B-WINDOW', threat: 'B Site', site: 'B', name: 'B窗口清点', route: ['B Link', 'B Short', 'B Window', 'B Site'], pace: 'mid', type: 'close', safe: 2, suits: ['flash', 'explosive', 'nearsight', 'teleport', 'fake'],
             info: '先用技能打 {B Window} 后的人，再看窗口正下方的角落', push: '窗口内清空、窗下角落确认后从窗口进点', retreat: '窗口被对方技能封住时退回 {B Short}；可借 {A Teleporter} 的声音做假转点', alt: 'BD-B-WINDOW', altWhy: '' }
         ],
         def: [
           { id: 'BD-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 2,
-            first: '在 {A Tower} 高处看 {A Short} 与 {A Bath} 来路', fwdText: '', fallback: '被技能压住时从塔楼后方退向守方重生点方向，等回防', rotate: '听到 {B Teleporter} 传送声、或 B 侧多人时，及时提醒并准备转点', alt: 'BD-D-A-TOWER' },
+            first: '在 {A Tower} 高处看 {A Short} 与 {A Bath} 来路', fwdText: '', fallback: '被技能压住时从塔楼后方退向守方重生点方向，保住自己，等对面下包后再找角度', rotate: '听到 {B Teleporter} 传送声、或 B 侧多人时，及时提醒并准备转点', alt: 'BD-D-A-TOWER' },
           { id: 'BD-D-A-BATH', site: 'A', name: 'A澡堂出口近点', pos: 'A Site', fwd: 'A Bath', safe: 1, info: 2, needEsc: true,
             first: '在包点近处接 {A Bath} 出来的第一个人', fwdText: '可以靠近 {A Bath} 出口打第一枪，打完立刻换位', fallback: '打完退回包点深处或 {A Tower} 方向', rotate: 'A 长时间没动静、B 侧有传送声时转点', alt: 'BD-D-A-TOWER' },
           { id: 'BD-D-B-SITE', site: 'B', name: '守B包点深位', pos: 'B Site', fwd: null, safe: 3, info: 1,
-            first: '在包点深处架 {B Long} 出口或 {B Window}，二选一，别两边都看', fwdText: '', fallback: '多人进点时退向 {B Elbow}，往 {Defender Side Spawn} 方向等回防', rotate: 'A 报多人或听到 {A Teleporter} 传送声后，判断是否是假打再转', alt: 'BD-D-B-SITE' },
+            first: '在包点深处架 {B Long} 出口或 {B Window}，二选一，别两边都看', fwdText: '', fallback: '多人进点时退向 {B Elbow}，往 {Defender Side Spawn} 方向拉开，等对面下包后再找角度', rotate: 'A 报多人或听到 {A Teleporter} 传送声后，判断是否是假打再转', alt: 'BD-D-B-SITE' },
           { id: 'BD-D-B-WINDOW', site: 'B', name: '控B窗口', pos: 'B Window', fwd: 'B Window', safe: 1, info: 3, needEsc: true,
             first: '在窗口内侧接 {B Short} 来的人', fwdText: '可以在 {B Window} 抢第一枪信息，但窗口两侧都能被打，打一枪就退', fallback: '退回 {B Site}，再经 {B Hall} 方向拉开距离', rotate: '窗口没人且 A 侧报多人时转点', alt: 'BD-D-B-SITE' }
         ]
@@ -1122,7 +1122,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
           { id: 'SS-B-MAIN', threat: 'B Boba', site: 'B', name: 'B大道进点', route: ['B Lobby', 'B Main', 'B Site'], pace: 'fast', type: 'close', safe: 1, suits: ['speed', 'wall', 'explosive', 'selfsustain', 'flash'],
             info: '先看 {B Main} 有无前压，进点前判断 {B Boba} 是否有人', push: '包点柱子两侧清过、{B Boba} 被压住后下包', retreat: '{B Main} 被架死时退回 {B Lobby}，不在大道里换血', alt: 'SS-B-MARKET', altWhy: '从中路拿 {B Market} 可先看门的状态再决定，比直冲大道更可控' },
           { id: 'SS-B-MARKET', threat: 'Mid Top', site: 'B', name: '中路庭院→B市场', route: ['Mid Tiles', 'Mid Courtyard', 'B Market', 'B Site'], pace: 'slow', type: 'mid', safe: 2, suits: ['lurk', 'teleport', 'fake', 'speed', 'wall'],
-            info: '先看 {Mid Top} 有没有守方阻止你拿 {Mid Courtyard}，再确认 {B Market} 的门是开是关', push: '庭院拿稳、{B Market} 清空后与队友从大道同时进 B', retreat: '{Mid Courtyard} 被 {Mid Top} 架住时退回 {Mid Tiles}', alt: 'SS-A-MAIN', altWhy: '改打 A：先拿 {A Elbow}，一步一步推进，撤退路线短' }
+            info: '先看 {Mid Top} 有没有守方阻止你拿 {Mid Courtyard}，再确认 {B Market} 的门是开是关', push: '庭院拿稳、{B Market} 清空后从大道进 B；如果队友也在大道，就跟着一起进，没人就别单独先冲', retreat: '{Mid Courtyard} 被 {Mid Top} 架住时退回 {Mid Tiles}', alt: 'SS-A-MAIN', altWhy: '改打 A：先拿 {A Elbow}，一步一步推进，撤退路线短' }
         ],
         def: [
           { id: 'SS-D-A-SITE', site: 'A', name: '守A包点', pos: 'A Site', fwd: null, safe: 3, info: 1,
@@ -1149,17 +1149,17 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
           { id: 'AB-A-MAIN', threat: 'A Tower', site: 'A', name: 'A大道正面进点', route: ['A Lobby', 'A Main', 'A Site'], pace: 'fast', type: 'close', safe: 1, suits: ['flash', 'speed', 'wall', 'smoke', 'stun'],
             info: '先判断 {A Main} 是否被前压，进点前用技能处理 {A Tower}', push: '{A Tower} 被压住、{A Security} 看过后下包；背后不能是悬崖边', retreat: '{A Main} 被封或被架时退回 {A Lobby}', alt: 'AB-B-MAIN', altWhy: 'B大道有 {B Lobby} 作为退路、背后不是悬崖边，比 A 大道正面冲更好控制' },
           { id: 'AB-A-VENT', threat: 'A Security', site: 'A', name: '中区天桥→A通风口侧进', route: ['Mid Catwalk', 'A Vent', 'A Site'], pace: 'slow', type: 'flank', safe: 1, suits: ['lurk', 'teleport', 'speed', 'fake'],
-            info: '{A Vent} 的门要先打破才能走，破门有声音；先判断守方是否已注意中路', push: '队友在 {A Main} 吸引火力时从通风口侧面进点', retreat: '通风口被守住时退回中路；{Mid Catwalk} 需要跳跃，失败会坠亡', alt: 'AB-B-MAIN', altWhy: '通风口破门有声、{Mid Catwalk} 跳跃失败会坠亡；改走 B大道，退路是 {B Lobby}' },
+            info: '{A Vent} 的门要先打破才能走，破门有声音；先判断守方是否已注意中路', push: '如果 {A Main} 已经打起来、守方注意力在那边，就从通风口侧面进点；没动静就别单独从通风口进', retreat: '通风口被守住时退回中路；{Mid Catwalk} 需要跳跃，失败会坠亡', alt: 'AB-B-MAIN', altWhy: '通风口破门有声、{Mid Catwalk} 跳跃失败会坠亡；改走 B大道，退路是 {B Lobby}' },
           { id: 'AB-B-MAIN', threat: 'B Tower', site: 'B', name: 'B大道进点', route: ['B Lobby', 'B Main', 'B Site'], pace: 'mid', type: 'close', safe: 2, suits: ['flash', 'explosive', 'stun', 'selfsustain', 'shield', 'nearsight', 'recon'],
             info: '先看 {B Main} 有无前压，进点前处理 {B Tower}', push: '{B Tower} 被压住、{B Link} 方向有人看着时下包', retreat: '{B Main} 被架死时退回 {B Lobby}，可借 B 大道的绳索去 {Mid Bend}', alt: 'AB-B-MAIN', altWhy: '' },
           { id: 'AB-B-DANGER', threat: 'B Tower', site: 'B', name: 'B险路绕后进点', route: ['B Lobby', 'B Danger', 'B Site'], pace: 'mid', type: 'flank', safe: 1, suits: ['lurk', 'teleport', 'fake', 'speed'],
-            info: '先确认 {B Danger} 没有陷阱或守方，再配合大道的动静', push: '队友在 {B Main} 给压力时从包点后侧进', retreat: '险路被发现时不要在窄边上对枪，退回 {B Lobby}', alt: 'AB-B-MAIN', altWhy: '险路是窄边，被发现时没有掩体还可能坠亡；改走 B大道，退路是 {B Lobby}' }
+            info: '先确认 {B Danger} 没有陷阱或守方，再听大道有没有交火', push: '如果 {B Main} 已经打起来，就从包点后侧进；没动静就别单独深入', retreat: '险路被发现时不要在窄边上对枪，退回 {B Lobby}', alt: 'AB-B-MAIN', altWhy: '险路是窄边，被发现时没有掩体还可能坠亡；改走 B大道，退路是 {B Lobby}' }
         ],
         def: [
           { id: 'AB-D-A-TOWER', site: 'A', name: '守A瞭望台', pos: 'A Tower', fwd: null, safe: 2, info: 2,
             first: '在 {A Tower} 高处看 {A Main} 出口和包点', fwdText: '', fallback: '被技能压时下到包点，再退向 {A Security}、{A Link}', rotate: '听到 {A Vent} 破门声要立即报点；B 报多人时经 {A Link} 支援', alt: 'AB-D-A-SECURITY' },
           { id: 'AB-D-A-SECURITY', site: 'A', name: 'A保安室后点', pos: 'A Security', fwd: null, safe: 3, info: 1,
-            first: '在 {A Security} 接进点后的第一个人（对方注意力在前方时）', fwdText: '', fallback: '多人进点时退向 {A Link} 等回防', rotate: 'A 无动静、B 报多人时经 {A Link} 去中路/B', alt: 'AB-D-A-SECURITY' },
+            first: '在 {A Security} 接进点后的第一个人（对方注意力在前方时）', fwdText: '', fallback: '多人进点时退向 {A Link}，活着拖时间，看准对面下包再回来', rotate: 'A 无动静、B 报多人时经 {A Link} 去中路/B', alt: 'AB-D-A-SECURITY' },
           { id: 'AB-D-B-TOWER', site: 'B', name: '守B瞭望台', pos: 'B Tower', fwd: null, safe: 2, info: 2,
             first: '在 {B Tower} 高处看 {B Main} 出口', fwdText: '', fallback: '被压时退向 {B Link}，往 {Defender Side Spawn} 方向', rotate: 'A 报多人时经 {B Link} 转点', alt: 'AB-D-B-TOWER' },
           { id: 'AB-D-MID-LIB', site: 'Mid', name: '中区图书馆控中', pos: 'Mid Library', fwd: 'Mid Library', safe: 1, info: 3, needEsc: true,
@@ -1205,7 +1205,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
         duty: ['带护盾打第一枪', '用墙推进拿空间'], risks: ['护盾被骗掉后仍然硬拼', '一次面对多个角度时护盾只挡一下'],
         atk: '贴着 绝对屏障(Contingency) 推过 {exit}，开 战斗心流(Double Tap) 护盾后再看 {risk0}；用 稳态剥离(Undercut) 让对方易伤后再对枪',
         def: '在 {pos} 先开 战斗心流(Double Tap) 护盾再接第一枪；护盾被打掉立刻退',
-        escNote: '没有位移技能，护盾只能挡一下：挡掉之后就该退' },
+        escNote: '没有位移技能，护盾大概挡一下就没了：挡掉之后可以先退' },
       { id: 'Raze', zh: '雷兹', role: '决斗', tags: ['explosive', 'speed'], escape: 'conditional', defStyle: '主动', altStyle: '稳健',
         abil: { Q: ['惊喜翻腾', 'Blast Pack', '投出可粘附表面的炸药包，引爆时击飞范围内物体，完全武装后可伤害敌人'], E: ['彩雷飞溅', 'Paint Shells', '延迟爆炸并产生子弹药，造成范围伤害'], C: ['花车巡游', 'Boom Bot', '放出追踪第一个看到的敌人并爆炸的机器人'], X: ['晚安焰火', 'Showstopper', '发射对范围内所有玩家造成高额伤害的火箭'] },
         duty: ['用爆炸物清近点', '炸药包快速进点'], risks: ['炸药包飞进人群里没有落脚点', '在幽邃地窟边缘用炸药包可能直接坠亡'],
@@ -1217,7 +1217,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       {"id": "Breach", "zh": "铁臂", "role": "先锋", "tags": ["flash", "stun", "explosive"], "escape": "weak", "defStyle": "信息", "altStyle": "稳健", "abil": {"C": ["剧震余波", "Aftershock", "穿墙送出区域，爆炸并连续造成伤害（作用所有玩家）"], "Q": ["闪点爆破", "Flashpoint", "穿墙发射，爆炸闪光看向它的玩家"], "E": ["山崩地陷", "Fault Line", "按住增加距离，松开引爆区域，震荡所有玩家"], "X": ["惊雷卷地", "Rolling Thunder", "向前送出冲击波，震荡并击飞所有玩家"]}, "duty": ["隔墙闪光、震荡，替自己开路", "逼角落的人离开掩体"], "risks": ["技能作用所有玩家，把自己人也闪了震了", "交完技能自己先冲进去", "站在墙边放技能时被对方贴脸"], "atk": "在 {exit} 外的墙后用 闪点爆破(Flashpoint) 穿墙闪 {risk0}，或按住 山崩地陷(Fault Line) 震荡入口后的区域；{risk0} 角落有人不出来就隔墙丢 剧震余波(Aftershock) 逼他走；技能交完再在第二位跟进补枪", "def": "在 {pos} 听到对方在入口集结时，隔墙放 山崩地陷(Fault Line) 或 闪点爆破(Flashpoint) 打断进点，再从掩体边打一枪；这些技能对所有玩家生效，别震到自己人", "escNote": "没有位移技能：技能交完靠掩体，不和被震荡的人一起挤在入口"},
       {"id": "Fade", "zh": "黑梦", "role": "先锋", "tags": ["recon", "nearsight"], "escape": "weak", "defStyle": "信息", "altStyle": "稳健", "abil": {"C": ["黯兽", "Prowler", "可被破坏；向前送出，可按住引导，追逐看到的第一个敌人或魇迹，命中使其近视"], "Q": ["幽爪", "Seize", "投出（可提前落下），落地使敌人耳聋、衰减并被束缚"], "E": ["诡眼", "Haunt", "可被破坏；投出（可提前落下），落地标记并显示范围内、视线内的敌人"], "X": ["夜临", "Nightfall", "向前送出波，使敌人耳聋、衰减并被标记"], "P": ["魇迹", "Terror Trails", "被标记的敌人位置会被魇迹追踪"]}, "duty": ["先找到人在哪", "把躲在角落的人逼出来"], "risks": ["诡眼丢得太显眼被直接打掉", "拿到信息后自己第一个冲进去", "只顾操作技能，被对方直接压上来"], "atk": "过 {exit} 之前把 诡眼(Haunt) 丢向 {risk0}；看到人就放 黯兽(Prowler) 沿魇迹追过去让他近视，再跟着打；有人缩在角落不出来，用 幽爪(Seize) 把他束缚住", "def": "在 {pos} 听到脚步后丢 诡眼(Haunt) 确认人数再决定打不打；对方冲进入口时用 幽爪(Seize) 束缚，自己从掩体后补枪", "escNote": "没有位移技能：拿到信息后先报点、换位，而不是自己先冲"},
       {"id": "Gekko", "zh": "盖可", "role": "先锋", "tags": ["stun", "flash", "explosive"], "escape": "weak", "defStyle": "信息", "altStyle": "稳健", "abil": {"C": ["嗨爆全场", "Mosh Pit", "投出（ALT 抛投），落地区域先持续低伤害，再爆炸造成高伤害（作用所有玩家）"], "Q": ["顽皮搭档", "Wingman", "可被破坏；向前送出，追逐看到的第一个敌人并震荡；ALT 让它在目标包点下包或拆包"], "E": ["炫晕光波", "Dizzy", "可被破坏；投出后向视线内敌人发射等离子，使其致盲"], "X": ["无敌超鲨", "Thrash", "可被破坏；操控后扑击爆炸，拘禁所有玩家"], "P": ["球体回收", "Globule", "技能用后变成球体，靠近互动可回收，短暂冷却后获得新的次数"]}, "duty": ["让技能替自己先进点", "用顽皮搭档下包或拆包，自己在旁边看枪线"], "risks": ["球体不回收，下一回合技能不够", "顽皮搭档下包时自己站在空地上", "技能被打掉还硬进"], "atk": "先放 顽皮搭档(Wingman) 从 {exit} 跑进去探路，碰到人会被震荡；同时丢 炫晕光波(Dizzy) 致盲 {risk0} 后再进；包点清得差不多时用 顽皮搭档 的 ALT 下包，自己在旁边架入口；能回收的球体记得捡", "def": "在 {pos} 对方进点时丢 炫晕光波(Dizzy) 再打一枪；对方下包后把 嗨爆全场(Mosh Pit) 砸在炸弹上逼他们离开；需要拆包时可让 顽皮搭档(Wingman) 去拆，自己看着入口", "escNote": "没有位移技能：让技能先进去，自己不要跟技能一起露头"},
-      {"id": "KAY/O", "zh": "K/O", "role": "先锋", "tags": ["flash", "explosive"], "escape": "weak", "defStyle": "主动", "altStyle": "信息", "abil": {"C": ["碎片溢出", "FRAG/ment", "投出（ALT 抛投），落地爆炸并连续多次脉冲伤害（作用所有玩家）"], "Q": ["闪存过载", "FLASH/drive", "投出（ALT 抛投），延迟后爆炸，闪光看向它的玩家"], "E": ["零点嗅探", "ZERO/point", "可被破坏；投出后在表面脉冲，压制范围内的敌人"], "X": ["无效命令", "NULL/cmd", "立即进入过载并反复发出压制脉冲；过载给战斗兴奋；受到致命伤害时倒地，可被扶起"]}, "duty": ["先压制再进点，抢第一枪", "用碎片溢出逼掉角落"], "risks": ["闪存过载有延迟，丢早了对方已经转头", "零点嗅探被打掉后仍以为对方被压制", "无效命令倒地后指望队友来扶"], "atk": "先把 零点嗅探(ZERO/point) 丢到 {exit} 后面压制里面的人；再用 闪存过载(FLASH/drive) 闪 {risk0}，爆炸后马上进；{risk0} 角落有人不出来，丢 碎片溢出(FRAG/ment) 逼他离开", "def": "在 {pos} 对方挤在入口时丢 碎片溢出(FRAG/ment) 拖住，冲进来的人用 闪存过载(FLASH/drive) 反闪后打一枪就换位", "escNote": "没有位移技能；无效命令期间被打倒还能被扶起，但要有队友在旁边，不能当成退路"},
+      {"id": "KAY/O", "zh": "K/O", "role": "先锋", "tags": ["flash", "explosive"], "escape": "weak", "defStyle": "主动", "altStyle": "信息", "abil": {"C": ["碎片溢出", "FRAG/ment", "投出（ALT 抛投），落地爆炸并连续多次脉冲伤害（作用所有玩家）"], "Q": ["闪存过载", "FLASH/drive", "投出（ALT 抛投），延迟后爆炸，闪光看向它的玩家"], "E": ["零点嗅探", "ZERO/point", "可被破坏；投出后在表面脉冲，压制范围内的敌人"], "X": ["无效命令", "NULL/cmd", "立即进入过载并反复发出压制脉冲；过载给战斗兴奋；受到致命伤害时倒地，可被扶起"]}, "duty": ["先压制再进点，抢第一枪", "用碎片溢出逼掉角落"], "risks": ["闪存过载有延迟，丢早了对方已经转头", "零点嗅探被打掉后仍以为对方被压制", "无效命令倒地后指望队友来扶"], "atk": "先把 零点嗅探(ZERO/point) 丢到 {exit} 后面压制里面的人；再用 闪存过载(FLASH/drive) 闪 {risk0}，爆炸后马上进；{risk0} 角落有人不出来，丢 碎片溢出(FRAG/ment) 逼他离开", "def": "在 {pos} 对方挤在入口时丢 碎片溢出(FRAG/ment) 拖住，冲进来的人用 闪存过载(FLASH/drive) 反闪后打一枪就换位", "escNote": "没有位移技能；无效命令期间被打倒，如果队友在旁边还能被扶起，但不能当成退路"},
       {"id": "Skye", "zh": "斯凯", "role": "先锋", "tags": ["flash", "stun"], "escape": "weak", "defStyle": "信息", "altStyle": "主动", "abil": {"C": ["愈生之息", "Regrowth", "按住治疗范围内视线内的队友，治疗量有限，不能治疗自己"], "Q": ["辟林之虎", "Trailblazer", "可被破坏；操控后扑击爆炸，震荡所有玩家，直接命中对敌人造成伤害"], "E": ["引路之隼", "Guiding Light", "向前送出，可按住引导，再次激活引爆，闪光看向它的玩家"], "X": ["追猎之灵", "Seekers", "可被破坏；最多放出三个，追逐最近的三个敌人，命中使其近视并减速"]}, "duty": ["用辟林之虎先探路", "自己引闪光自己跟进"], "risks": ["以为能给自己回血，残血继续打", "操控辟林之虎时本人站在空地", "闪光引爆时机不对，闪到自己"], "atk": "先操控 辟林之虎(Trailblazer) 从 {exit} 进去看 {risk0}，有人就扑上去震荡；再把 引路之隼(Guiding Light) 引过拐角引爆，闪光后马上跟进；愈生之息(Regrowth) 不能奶自己，残血就退", "def": "在 {pos} 先用 辟林之虎(Trailblazer) 沿对方来路探有没有人前压；对方进点时把 引路之隼(Guiding Light) 引到入口引爆再打", "escNote": "没有位移技能，也不能给自己回血：受伤先退到掩体"},
       {"id": "Sova", "zh": "猎枭", "role": "先锋", "tags": ["recon", "explosive"], "escape": "weak", "defStyle": "信息", "altStyle": "稳健", "abil": {"C": ["枭型无人机", "Owl Drone", "可被破坏；操控后射出飞镖，命中后反复显示敌人位置"], "Q": ["雷击箭", "Shock Bolt", "射出后碰到表面爆炸，伤害所有玩家；可蓄力，ALT 增加最多两次反弹"], "E": ["寻敌箭", "Recon Bolt", "可被破坏；射出后反复显示附近范围内、视线内的敌人；可蓄力、反弹"], "X": ["狂猎之怒", "Hunter's Fury", "射出伤害区域，可再射两次；被命中的敌人对猎枭显形"]}, "duty": ["远处先拿信息", "用雷击箭逼人换位"], "risks": ["射箭时站在对方能看到的位置", "寻敌箭显示了人，自己却第一个冲", "操控无人机时本人被摸"], "atk": "在 {retreatPt} 一侧先射 寻敌箭(Recon Bolt) 看 {exit} 后面有没有人；{risk0} 有人就用 雷击箭(Shock Bolt) 逼他换位；进点前再用 枭型无人机(Owl Drone) 确认一次，自己不第一个露头", "def": "在 {pos} 听到对方集结时射 寻敌箭(Recon Bolt) 看人数；对方挤在入口时用 雷击箭(Shock Bolt) 打伤害，再从掩体接第一枪", "escNote": "没有位移技能：射箭的位置要安全，射完立刻回掩体"},
       {"id": "Tejo", "zh": "钛狐", "role": "先锋", "tags": ["recon", "stun", "explosive"], "escape": "weak", "defStyle": "信息", "altStyle": "稳健", "abil": {"C": ["潜袭爬虫", "Stealth Drone", "可被破坏；操控后显示并压制附近范围内、视线内的敌人"], "Q": ["特快专递", "Special Delivery", "发射（ALT 带一次弹跳），碰面爆炸，震荡并伤害所有玩家"], "E": ["精准投放", "Guided Salvo", "打开战术地图选定位置，发射导弹到达后反复脉冲伤害所有玩家"], "X": ["末日审判", "Armageddon", "打开战术地图设定并转向，放出对所有玩家造成高伤害的冲击波"]}, "duty": ["用爬虫先看、先压制", "用地图导弹逼人离开位置"], "risks": ["打开战术地图时身边没人看着", "导弹打在自己人身上", "爬虫被打掉后仍按旧信息冲"], "atk": "先放 潜袭爬虫(Stealth Drone) 去 {exit} 后面看并压制；确认 {risk0} 有人，就打开战术地图用 精准投放(Guided Salvo) 打他的位置逼走；进点时 特快专递(Special Delivery) 震荡入口再跟进", "def": "在 {pos} 对方下包后用 精准投放(Guided Salvo) 打炸弹附近阻止他们守包；入口挤人时丢 特快专递(Special Delivery) 震荡后打一枪", "escNote": "没有位移技能：打开战术地图选点前先躲到安全角落"},
@@ -1290,13 +1290,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     // 资料不足地图：只用官方名（X Main / X Lobby / X Site / Defender Side Spawn），不写路线连接与枪线
     limitedTac: {
       atk: [
-        { arch: 'rush', name: '主通道快节奏跟进', start: 'mains', open: '跟第一波一起过主通道，进点后马上贴掩体，不在通道里停留', push: '第一波技能交出、入口近点已清时立即进点', retreat: '主通道出口被架死、或第一波技能没有效果时，退回进攻方大厅一侧，不在通道里硬拼', safe: 1 },
-        { arch: 'clear', name: '大厅慢节奏拿信息再进', start: 'lobbies', open: '先在大厅一侧用技能或队友技能确认入口后的近点，再决定进不进', push: '入口近点清掉、至少知道包点里大概几个人时再进', retreat: '技能交完仍没清掉近点时，留在大厅不进，等队友或转另一包点', safe: 2 },
-        { arch: 'flank', name: '另一包点主通道牵制', start: 'otherMain', open: '队伍打一个包点时，你在另一个包点的主通道制造动静、看住身后，不单人深入', push: '队友已经进点、对方开始回防时，再从侧面转过去补枪', retreat: '被两人以上压住时立即退回进攻方一侧，不在侧路一换一', safe: 2 }
+        { arch: 'rush', name: '主通道快节奏跟进', start: 'mains', open: '快速过主通道，进点后马上贴掩体，不在通道里停留；如果没人和你一起冲，就别单独第一个进', push: '入口近点被技能清过、确认已清时进点', retreat: '主通道出口被架死、或交出的技能没有效果时，退回进攻方大厅一侧，不在通道里硬拼', safe: 1 },
+        { arch: 'clear', name: '大厅慢节奏拿信息再进', start: 'lobbies', open: '先在大厅一侧用技能确认入口后的近点，再决定进不进', push: '入口近点清掉、至少知道包点里大概几个人时再进', retreat: '技能交完仍没清掉近点时，留在大厅不进，或转另一包点', safe: 2 },
+        { arch: 'flank', name: '另一包点主通道牵制', start: 'otherMain', open: '在另一个包点的主通道制造动静、看住身后，不单人深入；如果没人在别处打，就别单独牵制，改去主攻方向', push: '如果队友已经进点、对方开始回防，可以从侧面转过去补枪', retreat: '被两人以上压住时立即退回进攻方一侧，不在侧路一换一', safe: 2 }
       ],
       def: [
-        { arch: 'contact', name: '包点入口接一枪即退', start: 'siteEdge', first: '在包点靠主通道出口一侧的掩体边接第一枪，打完立刻换位', fallback: '对方多人进点时，往守方重生点方向拉开，等队友回防', rotate: '另一包点报多人、你这边长时间没有动静时，经守方一侧回防', safe: 1 },
-        { arch: 'anchor', name: '包点深位拖延', start: 'siteDeep', first: '站在包点深处、靠近撤退方向的掩体，不看主通道出口正前方', fallback: '用技能拖住进点的人，打不过就往守方重生点方向退，保枪等回防', rotate: '确认对方全部在另一包点后再回防，不提前离开', safe: 3 },
+        { arch: 'contact', name: '包点入口接一枪即退', start: 'siteEdge', first: '在包点靠主通道出口一侧的掩体边接第一枪，打完立刻换位', fallback: '对方多人进点时，往守方重生点方向拉开，先保住自己再找回防的角度', rotate: '另一包点报多人、你这边长时间没有动静时，经守方一侧回防', safe: 1 },
+        { arch: 'anchor', name: '包点深位拖延', start: 'siteDeep', first: '站在包点深处、靠近撤退方向的掩体，不看主通道出口正前方', fallback: '用技能拖住进点的人，打不过就往守方重生点方向退，活着找下一次机会', rotate: '确认对方全部在另一包点后再回防，不提前离开', safe: 3 },
         { arch: 'info', name: '守方重生点一侧机动补防', start: 'spawnSide', first: '在两个包点之间、靠守方重生点一侧，先听脚步、看技能，再决定去哪边', fallback: '遇到多人时不接战，退回守方重生点方向报点', rotate: '哪边先报多人就往哪边补，补防时走守方一侧，不穿对方控制的区域', safe: 2 }
       ]
     },
@@ -1314,31 +1314,31 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       rush: { cond: '本回合你的「{cap}」在手，并且前几回合 {threat} 方向没有人提前架住 {entry} 一带时，才按快攻抢点执行。',
         invalid: '{entry} 一带被技能封死、一露头就被先手，或 {threat} 已经提前有人架住：对方在针对这条快攻线，这回合就可以不按快攻打（不必等输几回合）。',
         counter: '被针对时：本回合不第一个冲，等对方先交出技能再出；或改走{alt}。',
-        stop: '拿到首杀或人数领先后，可以借对方缺人抢更深的位置，但以包点为界——站稳守下包，不单人追出包点。' },
+        stop: '拿到首杀、入口后没人补枪时，可以抢更深一点的位置，但以包点为界——站稳守下包，不单人追出包点。' },
       burst: { cond: '本回合你能先手压制入口的技能「{cap}」在手，并且已知道 {entry} 后近点大概有没有人时，才近身爆发进点。',
         invalid: '入口近点用技能也清不掉，或进 {entry} 就吃到 {threat} 的交叉火力：近身爆发这回合不再适用。',
         counter: '被针对时：把压制技能留到对方露头再用，不先手乱交；或改走{alt}。',
-        stop: '入口打开、人数领先后可以再往深处清一步，清完就停，等队友补位，不单人连续清角。' },
+        stop: '入口打开、身后安全时，可以再往深处清一步；清完就停，不单人连续清角。' },
       clear: { cond: '本回合你有清点或拿信息的技能「{cap}」，或已知道 {entry} 后近点的大概情况时，按慢节奏清点执行；什么信息都没有时先在 {start} 等，不空手进。',
         invalid: '技能交完 {threat} 仍有人，或对方开始从 {entry} 反压过来抓你：继续慢打只会被拖时间，原定方案不适用。',
         counter: '被反压时退回 {start} 让对方先露头再打；或转去{alt}，不在 {entry} 硬换技能。',
         stop: '近点已清、入口没有第二条枪线时，可以用技能直接抢更深的位置；到位就守下包，不单人往深处找人。' },
-      flank: { cond: '只有队伍正在另一侧施压、而你能用「{cap}」看住身后时，才走 {route} 这条侧路。',
+      flank: { cond: '你能用「{cap}」看住身后时，可以走 {route} 这条侧路；如果另一侧已经有人在打，侧路更容易拿到人，没人配合就只牵制、不深入。',
         invalid: '侧路遇到两人以上、身后出现脚步，或到 {entry} 就被提前架住：侧路已被针对，这回合就可以改。',
-        counter: '被针对时改为跟主队同一方向进点，或改走{alt}；不在侧路一换一。',
-        stop: '侧路拿到击杀、对面回防时可以换角度再拖住回防的人；身后没确认安全就不继续深入。' },
+        counter: '被针对时换一条路进，或改走{alt}；不在侧路一换一。',
+        stop: '侧路拿到击杀、对面往你这边来时，可以换个角度再拖住来的人；身后没确认安全就不继续深入。' },
       contact: { cond: '只有你的脱身手段「{cap}」在手、从 {fwd} 撤回 {pos} 的路线没被技能封住时，才前点接触。',
         invalid: '对方先用技能清 {fwd}、或撤回 {pos} 的路被技能封住：前点接触已被针对，可以马上改守 {pos} 或换时机。',
         counter: '被针对时本回合不去前点，在 {pos} 等对方交出技能后再接第一枪；或换到{altPos}。',
         stop: '前点拿到首杀、后面没人跟上时，可以换角度再守一枪；听到第二个人就撤，不追出去。' },
       anchor: { cond: '对方进点前你在 {pos} 的掩体完整、拖延技能「{cap}」在手时，守住这条枪线等对方先暴露。',
         invalid: '对方用技能把你从 {pos} 清出来、或从你身后绕过来：死守这一个角度不再适用，可以马上换位。',
-        counter: '被针对时换到{altPos}，或先往撤退方向拉开，等回防的人到了再一起打。',
-        stop: '拖住进点的人、回防到了（人数领先）时，可以用技能封他们下包或撤走的路一起夹；不追出包点。' },
+        counter: '被针对时换到{altPos}，或先往撤退方向拉开，活着找下一次机会。',
+        stop: '拖住进点的人、对面交了技能时，可以用技能封他们下包的位置；如果队友已经回到包点，可以一起夹；不追出包点。' },
       info: { cond: '在 {pos} 先用「{cap}」或脚步声拿信息，确认对方主攻方向后再决定去哪边。',
         invalid: '你在 {pos} 被先手，或补防要走的路线被对方先卡住：这个信息位已被针对，可以马上改站位。',
         counter: '被针对时改为开局就站到一个包点的安全位，不在中间等；或换到{altPos}。',
-        stop: '确认对面主攻另一个点、我方人数领先时，可以走守方一侧去夹击；不穿对方控制的区域。' }
+        stop: '确认对面主攻另一个点时，可以走守方一侧去补；如果队友已经在那边打起来，可以从侧面帮忙；不穿对方控制的区域。' }
     },
     archLine: { rush: '快节奏抢先手', burst: '近身先手进点', clear: '先拿信息再进点', flank: '侧路牵制看身后', contact: '前点接一枪即退', anchor: '守住枪线等对方先暴露', info: '先拿信息再补防' },
 
@@ -1482,7 +1482,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var nm = function (i) { return POS[i] + '爻' + S(Ls[i].qin) + Ls[i].zhi + Ls[i].wx; };
     var trig = [];
     if (si < 0 || yi < 0) { var a0 = {}; DIMS.forEach(function (d) { a0[d[0]] = '未审（用神不成立）'; });
-      return { shi: '待复核', label: SHI_LABEL.待复核, verdict: '待解', ev: [], triggers: ['T0 世应不明，用神不成立'], audit: a0, main: '卦势「待复核」：T0', step: 'T0', chain: ['T0 用神不成立'], plus: [], minus: [], minorPlus: [], minorMinus: [], notes: [], rule: RULE }; }
+      return { shi: '待复核', label: SHI_LABEL.待复核, verdict: '待解', ev: [], triggers: ['T0 世应不明，用神不成立'], audit: a0, main: '卦势「待复核」：T0', step: 'T0', chain: ['T0 用神不成立'], plus: [], minus: [], minorPlus: [], minorMinus: [], notes: [], rels: [], rule: RULE }; }
     var f = F[si], ls = Ls[si], g = F[yi], ly = Ls[yi], swx = ls.wx;
     var yuanWx = Object.keys(SH).filter(function (w) { return SH[w] === swx; })[0], jiWx = Object.keys(KE).filter(function (w) { return KE[w] === swx; })[0];
     var ev = [];
@@ -1521,7 +1521,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       if (!b.hs && !b.jin && !b.hk && !b.tui && !b.kong && !b.po && b.cs !== '绝' && b.cs !== '墓') E('变爻', '?', '辅', '轻', '世动化' + b.zhi + b.wx + '，无回头生克、进退、空破墓绝', 'Z25');
     } else E('变爻', '?', '辅', '轻', '世爻不动，无变爻作用于用神', 'Z25', '程序约定');
     // —— 原神忌神 ——
-    var gens = [], kills = [], doubt = [];
+    var gens = [], kills = [], doubt = [], killInfo = [], weakGen = [], weakKill = [];
     Ls.forEach(function (l, j) {
       if (j === si) return; var fj = F[j], act = l.moving || fj.an; if (!act) return;
       var tag = nm(j) + (l.moving ? '发动' : '暗动');
@@ -1529,19 +1529,20 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
         var bad = l.moving && fj.b && (fj.b.hk || fj.b.po || fj.b.cs === '绝');
         var ok = fj.an || (l.moving && (fj.strong || fj.help || fj.kong));
         if (ok && !bad) gens.push(E('原忌', '+', '主', '重', tag + '生世（原神有力）', 'Z30；L822“元神动而生扶”' + (fj.an ? '；Z33 暗动' : '')));
-        else E('原忌', '?', '辅', '轻', tag + '生世，但' + (bad ? '化回头克/化破/化绝' : '休囚无扶') + '，生之无力', 'L899、L862–869（原神有力无力）');
+        else { E('原忌', '?', '辅', '轻', tag + '生世，但' + (bad ? '化回头克/化破/化绝' : '休囚无扶') + '，生之无力', 'L899、L862–869（原神有力无力）'); weakGen.push(tag + '生世，但' + (bad ? '化回头克/化破/化绝' : '休囚无扶') + '，生之无力'); }
       }
       if (ke(l.wx, swx)) {
         var why = '';
         if (l.moving && fj.b && (fj.b.hk || fj.b.po || fj.b.cs === '绝')) why = '忌神动而化克/化破/化绝，无力（L929）';
         else if (l.moving && !fj.strong && !fj.help && (fj.d.ke || fj.m.ke)) why = '忌神动而休囚、被日月克，无力（L917–933）';
         else if (l.moving && fj.b && fj.b.tui && !fj.strong) why = '忌神衰而化退，无力（L917–933）';
-        if (why) E('原忌', '?', '辅', '轻', tag + '克世：' + why, 'Z29');
-        else kills.push(E('原忌', '-', '主', '重', tag + '克世（忌神' + (l.moving ? '动' : '暗动') + '）', l.moving ? 'Z10；L822“忌神动而克害”' : 'Z33 暗动之忌'));
+        if (why) { E('原忌', '?', '辅', '轻', tag + '克世：' + why, 'Z29'); weakKill.push(tag + '克世，但' + why); }
+        else { kills.push(E('原忌', '-', '主', '重', tag + '克世（忌神' + (l.moving ? '动' : '暗动') + '）', l.moving ? 'Z10；L822“忌神动而克害”' : 'Z33 暗动之忌')); killInfo.push({ tag: tag, fj: fj, mv: l.moving, j: j }); }
       }
     });
+    var sanheRel = [];
     (res.sanhe || []).forEach(function (h) {
-      if (h.kind === '成局') { if (sheng(h.wx, swx)) gens.push(E('原忌', '+', '主', '重', '三合' + h.g + h.wx + '局生世', 'Z42 成局')); else if (ke(h.wx, swx)) kills.push(E('原忌', '-', '主', '重', '三合' + h.g + h.wx + '局克世', 'Z42 成局')); }
+      if (h.kind === '成局') { if (sheng(h.wx, swx)) sanheRel.push(['生', '三合' + h.g + h.wx + '局生世']); else if (ke(h.wx, swx)) sanheRel.push(['克', '三合' + h.g + h.wx + '局克世']); if (sheng(h.wx, swx)) gens.push(E('原忌', '+', '主', '重', '三合' + h.g + h.wx + '局生世', 'Z42 成局')); else if (ke(h.wx, swx)) kills.push(E('原忌', '-', '主', '重', '三合' + h.g + h.wx + '局克世', 'Z42 成局')); }
       else if (h.kind === '存疑') { E('原忌', '?', '辅', '轻', '三合' + h.g + h.wx + '局成局存疑，不用', 'Z42', '程序约定'); if (sheng(h.wx, swx) || ke(h.wx, swx)) doubt.push(h.g + h.wx + '局'); }
     });
     if (!gens.length && !kills.length) E('原忌', '?', '辅', '轻', '无有力原神、忌神发动', 'L822', '原书明确');
@@ -1577,6 +1578,53 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     if (hasRootSrc && kills.length && gens.length) { kills.forEach(function (x) { x.d = '+'; x.w = '中'; x.t += '，但与原神同动，接续相生'; x.src += '；L931“忌神与元神同动”、L948'; }); rescue.push('忌神与原神同动 → 接续生世（L931、L948）'); }
     if (hkWeak) rescue.push('化回头克而化出之爻空破 → 克力减为中等（传统引申）');
     if (f.m.po && !poEnd) rescue.push('月破而' + (ls.moving ? '动' : '得生助') + ' → 非到底之破（Z36）');
+
+    // —— 关系记录（P-LZ13 v3，V4.2.1）：逐条写“谁生谁克、有无救应、克者是否受制、化回头克/化退、月日对世爻做了什么”；只记关系，不打分、不分级 ——
+    var mz = String((r.pillars || {}).month || '').slice(-1), dz = String((r.pillars || {}).day || '').slice(-1), sz = ls.zhi + swx;
+    var rels = [], RL = function (k, gk, t, src, hk) { var o = { k: k, g: gk, t: t, src: src }; if (hk) o.hk = true; rels.push(o); return o; };
+    var mzT = '月建' + mz, dzT = '日辰' + dz;
+    if (jia) RL('克', '日月夹伤', mzT + (f.m.po ? '冲' : '克') + '、' + dzT + (f.ripo ? '冲' : '克') + '世爻' + sz + '，日月夹伤，原神之生也不作救', 'L935、L948');
+    else {
+      if (f.m.lin) RL('生', '月临', mzT + '临世爻' + sz, '博戏章 L6668');
+      else if (f.m.sh) RL('生', '月生', mzT + '生世爻' + sz, 'Z15');
+      else if (f.m.fu) RL('生', '月扶', mzT + '扶世爻' + sz + '（同五行）', 'Z15');
+      else if (f.strong) RL('生', '月旺', '世爻' + sz + f.ws + '于月令', 'Z14/Z15');
+      if (f.d.lin) RL('生', '日临', dzT + '临世爻' + sz, '博戏章 L6668');
+      else if (f.d.sh) RL('生', '日生', dzT + '生世爻' + sz, 'Z15');
+      else if (f.d.fu) RL('生', '日扶', dzT + '扶世爻' + sz + '（同五行）', 'Z15');
+      if (kM) RL('克', '月克', mzT + '克世爻' + sz, '斗殴争竞章 L7296');
+      if (kD) RL('克', '日克', dzT + '克世爻' + sz, '斗殴争竞章 L7296');
+      if (poEnd) RL('克', '月破', mzT + '冲世爻' + sz + '，世爻静而无生助，到底月破', 'Z36；L640');
+      if (f.ripo) RL('克', '日破', dzT + '冲静而休囚的世爻' + sz + '，为日破', 'Z19');
+    }
+    if (f.m.po && !poEnd) RL('救', '月破非到底', mzT + '冲世爻为月破，但' + (ls.moving ? '世爻发动' : '得日辰或动爻生助') + '，不是到底之破', 'Z36');
+    if (f.kongReal) RL('克', '真空', '世爻' + sz + '真空（' + f.kongS + '）', 'Z34；L1984');
+    else if (f.kong) RL('注', '旬空不真', '世爻旬空，但' + f.kongS + '，不作真空', 'L1984');
+    if (b) {
+      var bz = '世爻' + sz + '动化' + b.zhi + b.wx;
+      if (b.hs) RL('生', '化回头生', bz + '，回头生', 'Z25；L648');
+      if (b.jin) RL('生', '化进', '世爻动化进神', 'Z25/Z27');
+      if (hkFull) RL('克', '回头克', bz + '，回头克（旺相亦不宜）', 'L1296、L1828', true);
+      if (hkWeak) RL('杂', '回头克遇空破', bz + '回头克，但化出之爻' + (b.kong ? '旬空' : '月破') + '，克力减到什么程度需逐爻细看', '传统引申');
+      if (b.tui) RL('克', '化退', '世爻动化退神', '斗殴争竞章 L7296');
+      if (b.kong && !b.hk) RL('克', '化空', '世爻动化空', 'L2112');
+      if (b.cs === '绝' || b.cs === '墓') RL('克', '化' + b.cs, '世爻动化' + b.cs, 'L2112');
+      if (b.po && !b.hk) RL('克', '化破', '世爻动化月破', 'L4911（传统引申）');
+    }
+    var jiyuan = !jia && hasRootSrc && kills.length && gens.length;
+    if (!jia) gens.forEach(function (x) { if (/^三合/.test(x.t)) return; RL('生', '原神', x.t.replace(/，但与原神同动.*$/, ''), 'Z30；L822'); });
+    weakGen.forEach(function (t) { RL('制', '原神无力', t + '（不算生扶）', 'L899、L862–869'); });
+    killInfo.forEach(function (o) {
+      if (jiyuan) { RL('救', '原忌接续', o.tag + '克世，但与原神同动：忌神生原神、原神生世爻，接续相生', 'L931、L948'); return; }
+      var fj = o.fj, cx = [];
+      if (fj.kong) cx.push('旬空'); if (fj.m.po) cx.push('月破'); if (o.mv && fj.d.ch) cx.push('逢日冲'); if (fj.m.he) cx.push('逢月合'); if (fj.d.he) cx.push('逢日合');
+      var mk = (fj.mvK || []).filter(function (j) { return j !== o.j; }), mh = (fj.mvH || []).filter(function (j) { return j !== o.j; });
+      if (mk.length) cx.push('被' + mk.map(function (j) { return POS[j]; }).join('、') + '爻动克'); if (mh.length) cx.push('被' + mh.map(function (j) { return POS[j]; }).join('、') + '爻动合');
+      if (cx.length) RL('杂', '克者受牵', o.tag + '克世，但这个忌神自身' + cx.join('、') + '——克力是否被冲散、合住或制住，需逐爻细看', '传统引申（冲散、合住、制忌各家取舍不一）');
+      else RL('克', '忌神动克', o.tag + '克世', o.mv ? 'Z10；L822' : 'Z33');
+    });
+    weakKill.forEach(function (t) { RL('制', '克者被制', t, 'Z29；L917–933'); });
+    sanheRel.forEach(function (x) { if (x[0] === '生') { if (!jia) RL('生', '局生', x[1], 'Z42'); } else if (jiyuan) RL('救', '原忌接续', x[1] + '，但与原神同动，接续相生', 'L931、L948'); else RL('克', '局克', x[1], 'Z42'); });
     // —— 根气 ——
     var nMonDay = (rootM ? 1 : 0) + (rootD ? 1 : 0);
     var rootLv = jia ? 0 : (f.m.lin || f.d.lin || nMonDay === 2 || (b && b.hs) || (gens.length && nMonDay >= 1)) ? 2 : (nMonDay || gens.length || (b && b.jin)) ? 1 : 0;
@@ -1597,7 +1645,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     audit.原忌 = '原神五行 ' + yuanWx + '（生世）、忌神五行 ' + jiWx + '（克世）｜' + audit.原忌;
     audit.世应 = '世 ' + nm(si) + '，应 ' + nm(yi) + '｜' + audit.世应;
     return { shi: shi, label: SHI_LABEL[shi], verdict: SHI_CSS[shi], step: sy.step, chain: sy.chain, main: main, triggers: trig, ev: ev, root: rootLv > 0, rootLv: rootLv, strongRoot: rootLv === 2, jia: jia, rescue: rescue,
-      plus: P, minus: M, minorPlus: sP, minorMinus: sM, notes: sN, audit: audit, hkFull: hkFull, heavyT: tt(heavy), midT: tt(mid), rootWhy: rootWhy, shiLine: nm(si), yingLine: nm(yi), yuan: yuanWx + '（生世）', ji: jiWx + '（克世）', rule: RULE };
+      plus: P, minus: M, minorPlus: sP, minorMinus: sM, notes: sN, audit: audit, hkFull: hkFull, heavyT: tt(heavy), midT: tt(mid), rootWhy: rootWhy, rels: rels, shiLine: nm(si), yingLine: nm(yi), yuan: yuanWx + '（生世）', ji: jiWx + '（克世）', rule: RULE };
   }
   var classify = function (r, res) { return judge(r, res); };
 
@@ -1695,45 +1743,44 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   }
   function tacQ(mx, side, t) { return '本场在' + mx.zh + '（' + mx.id + '）' + (side === 'atk' ? '进攻' : '防守') + '阶段，我采取方案' + t.slot + '（「' + t.name + '」，' + t.slotZh + '：' + t.brief + '），对个人发挥是否有利？'; }
 
-  // ---------- 两卦比较 P-LZ13 v2（V4.2）：不读卦势标签、不排标签等级；逐卦取出“根气—伤克—救解”的具体证据，比较两卦证据之间的关系 ----------
-  // 程序约定：根气 0 无 / 1 有 / 2 强；伤克 0 无 / 1 中等（月日克、化退、化空破墓绝、化出空破之回头克）/ 2 重（到底月破、日破、真空、有力忌神动克、三合局克）/ 3 完整回头克。
-  // “致命缺陷”（传统引申，按 P-LZ11 的主次关系）：完整回头克（L1296、L1828）；无根而受伤（L935）；根气一般而受重伤（Z10）。
-  var INJ_ZH = ['无伤克', '中等制约', '重伤', '完整回头克'], ROOT_ZH = ['无根', '有根', '根气强'];
-  function profileOf(c) {
-    var k = c.cls || {}, ev = k.ev || [], tt = function (a) { return a.map(function (x) { return x.t; }); };
-    var heavy = k.heavyT || tt(ev.filter(function (x) { return x.d === '-' && x.tier === '主' && x.w === '重'; }));
-    var mid = k.midT || tt(ev.filter(function (x) { return x.d === '-' && x.tier === '主' && x.w === '中'; }));
-    var root = typeof k.rootLv === 'number' ? k.rootLv : (k.strongRoot ? 2 : k.root ? 1 : 0);
-    var hk = !!k.hkFull, inj = hk ? 3 : heavy.length ? 2 : mid.length ? 1 : 0;
-    var fatal = hk ? '化回头克（L1296、L1828：旺相亦不宜回头克）' : root === 0 && inj > 0 ? '用神无根而受' + INJ_ZH[inj] + '（L935）' : root === 1 && inj >= 2 ? '根气一般而受重伤（Z10）' : '';
-    var trig = k.triggers || [];
-    return { no: c.no, slot: c.slot, root: root, rootWhy: k.rootWhy || '', inj: inj, heavy: heavy, mid: mid, rescue: k.rescue || [], fatal: fatal, review: trig.length > 0, triggers: trig,
-      plus: tt(k.plus || []), minorPlus: tt(k.minorPlus || []), minorMinus: tt(k.minorMinus || []) };
+  // ---------- 两卦比较 P-LZ13 v3（V4.2.1）：只比“关系”，不打分、不分级、不求和、不比较档位 ----------
+  // 每卦取 judge() 记录的关系：生（谁生扶世爻）/ 克（未解的克伤：月日克、日月夹伤、到底月破、日破、真空、完整回头克、化退空破墓绝、忌神动克、局克）/
+  // 救（忌原接续、月破非到底）/ 制（克者自身被制、原神生之无力）/ 杂（克者旬空月破逢冲逢合被克、回头克遇空破——生克制化交错，需细看）。
+  // 只有两种结果：明确倾向（一卦在所列关系上更好，且没有反证）；待复核（关系交叉或复杂，按现实可执行性取）。宁可多待复核。
+  function hasIn(arr, v) { for (var i = 0; i < arr.length; i++) if (arr[i] === v) return true; return false; }
+  function legacyG(t) { return /临月建/.test(t) ? '月临' : /临日辰/.test(t) ? '日临' : /月建生/.test(t) ? '月生' : /日辰生/.test(t) ? '日生' : /月建扶/.test(t) ? '月扶' : /日辰扶/.test(t) ? '日扶' : /于月令/.test(t) ? '月旺' : /回头生/.test(t) ? '化回头生' : /进神/.test(t) ? '化进' : /三合/.test(t) ? '局生' : '原神'; }
+  function legacyRels(k) {
+    return (k.ev || []).filter(function (x) { return x.tier === '主' && x.d !== '?'; }).map(function (x) {
+      if (x.d === '+') return /接续相生/.test(x.t) ? { k: '救', g: '原忌接续', t: x.t } : { k: '生', g: legacyG(x.t), t: x.t };
+      return /克力减/.test(x.t) ? { k: '杂', g: '回头克遇空破', t: x.t } : { k: '克', g: x.t, t: x.t, hk: /回头克/.test(x.t) };
+    });
   }
+  function relProfile(c) {
+    var k = c.cls || {}, R = k.rels || legacyRels(k), by = function (z) { return R.filter(function (x) { return x.k === z; }); };
+    return { no: c.no, slot: c.slot, review: !!(k.triggers || []).length, triggers: k.triggers || [], sup: by('生'), harm: by('克'), save: by('救'), ctl: by('制'), mix: by('杂'),
+      hk: R.some(function (x) { return x.k === '克' && x.hk; }) };
+  }
+  function relTx(a) { return a.map(function (x) { return x.t; }).join('；'); }
   function profText(x) {
     return '卦' + x.no + '（方案' + x.slot + '）：' + (x.review ? '待复核（' + x.triggers[0] + '）' :
-      '根气' + ROOT_ZH[x.root].replace('根气', '') + (x.rootWhy ? '（' + x.rootWhy + '）' : '') + '；伤克' + (x.heavy.length ? '·重 ' + x.heavy.join('、') : '') + (x.mid.length ? '·中 ' + x.mid.join('、') : '') + (!x.heavy.length && !x.mid.length ? '：无' : '') +
-      (x.rescue.length ? '；救解：' + x.rescue.join('；') : '') + (x.fatal ? '；致命缺陷：' + x.fatal : '') + (x.minorMinus.length || x.minorPlus.length ? '；次要（只修饰）：' + x.minorPlus.concat(x.minorMinus).join('、') : ''));
+      '生扶——' + (x.sup.length ? relTx(x.sup) : '无') + '｜克伤——' + (x.harm.length ? relTx(x.harm) : '没有未解的克伤') +
+      (x.save.length ? '｜救应——' + relTx(x.save) : '') + (x.ctl.length ? '｜受制/无力——' + relTx(x.ctl) : '') + (x.mix.length ? '｜需细看——' + relTx(x.mix) : ''));
   }
   function compareCasts(a, b) {
-    var A = profileOf(a), B = profileOf(b), ev = [profText(A), profText(B)];
-    var out = function (o) { o.ev = ev; o.pa = A; o.pb = B; o.why = ev.join('｜') + '——' + o.rel; return o; };
-    if (A.review || B.review) return out({ dist: false, kind: 'expert', review: true, rel: [A, B].filter(function (x) { return x.review; }).map(function (x) { return '卦' + x.no + '自身证据对立或过于复杂'; }).join('，') + '，两卦无法可靠比较（待复核）' });
-    if (!!A.fatal !== !!B.fatal) {
-      var W = A.fatal ? B : A, Lz = A.fatal ? A : B;
-      if (W.root >= 1) return out({ dist: true, better: W.slot, strength: 'clear', rel: '卦' + Lz.no + '有' + Lz.fatal + '，卦' + W.no + '用神有根、没有同等伤克——差别在主证据，倾向方案' + W.slot });
-      return out({ dist: true, better: W.slot, strength: 'lean', rel: '卦' + Lz.no + '有' + Lz.fatal + '；卦' + W.no + '虽无根（无扶），但没有受伤——无伤胜于受伤，只是轻度倾向方案' + W.slot });
-    }
-    if (A.fatal && B.fatal) return out({ dist: false, kind: 'bothBad', review: true, rel: '两卦都有致命缺陷（' + A.fatal + '／' + B.fatal + '），哪一个更轻程序不擅断（待复核）' });
-    var dr = A.root - B.root, di = B.inj - A.inj;
-    if (!dr && !di) return out({ dist: false, kind: 'same', review: false, rel: '两卦根气同为「' + ROOT_ZH[A.root] + '」、伤克同为「' + INJ_ZH[A.inj] + '」，主证据关系相当，分不出高下' + (A.minorMinus.length !== B.minorMinus.length || A.minorPlus.length !== B.minorPlus.length ? '（次要证据只修饰，不据以取舍）' : '') });
-    if ((dr >= 0 && di >= 0) || (dr <= 0 && di <= 0)) {
-      var aW = dr > 0 || di > 0, X = aW ? A : B, Y = aW ? B : A, d1 = Math.abs(dr), d2 = Math.abs(di);
-      var clear = (X.root >= 1 && Y.root === 0) || (X.inj === 0 && Y.inj >= 2);
-      return out({ dist: true, better: X.slot, strength: clear ? 'clear' : 'lean', rel: '卦' + X.no + (d1 ? '根气更足（' + ROOT_ZH[X.root] + '对' + ROOT_ZH[Y.root] + '）' : '根气相当') + '，' + (d2 ? '伤克更轻（' + INJ_ZH[X.inj] + '对' + INJ_ZH[Y.inj] + '）' : '伤克相当') + '——一项占优、另一项不落后，' + (clear ? '差别在主证据，倾向方案' : '只是轻度倾向方案') + X.slot });
-    }
-    var R = dr > 0 ? A : B, I = dr > 0 ? B : A;
-    return out({ dist: false, kind: 'cross', review: true, rel: '卦' + R.no + '根气更足但伤克更重（' + INJ_ZH[R.inj] + '），卦' + I.no + '伤克更轻但根气较弱（' + ROOT_ZH[I.root] + '）——根与伤此消彼长，旺能否胜制要看具体爻位与时令，程序不擅断（待复核）' });
+    var A = relProfile(a), B = relProfile(b), ev = [profText(A), profText(B)];
+    var out = function (o) { o.ev = ev; o.pa = A; o.pb = B; o.strength = o.dist ? 'clear' : ''; o.why = o.rel; return o; };
+    var rv = function (kind, rel) { return out({ dist: false, review: true, kind: kind, rel: rel + '（待复核）' }); };
+    if (A.review || B.review) return rv('expert', [A, B].filter(function (x) { return x.review; }).map(function (x) { return '卦' + x.no + '自身证据对立或过于复杂'; }).join('，') + '，两卦无法可靠比较');
+    var Mx = [A, B].filter(function (x) { return x.mix.length; });
+    if (Mx.length) return rv('complex', Mx.map(function (x) { return '卦' + x.no; }).join('、') + '有需细看的关系（见上）——生克制化交错，程序不硬判');
+    var hA = !!A.harm.length, hB = !!B.harm.length;
+    if (hA && hB) return rv('bothHarm', '两卦用神都受克（见上），哪一处更重、有无暗中救应，需逐爻细看');
+    if (!hA && !hB) return rv('noHarm', '两卦用神都没有未解的克伤；生扶来源不同，程序不比多寡，分不出高下');
+    var Lz = hA ? A : B, W = hA ? B : A, gW = W.sup.map(function (y) { return y.g; });
+    if (Lz.hk) return out({ dist: true, better: W.slot, kind: 'hk', rel: '卦' + Lz.no + '世爻化回头克（L1296、L1828：旺相亦不宜回头克），卦' + W.no + '没有未解的克伤——倾向方案' + W.slot });
+    var extra = Lz.sup.filter(function (y) { return !hasIn(gW, y.g); });
+    if (extra.length) return rv('cross', '卦' + W.no + '没有克伤，但卦' + Lz.no + '有卦' + W.no + '没有的生扶，同时又有克伤（见上）——生与克交叉，旺能否胜制程序不硬判');
+    return out({ dist: true, better: W.slot, kind: 'oneHarm', rel: '卦' + Lz.no + '有克伤且没有救应（见上）；卦' + W.no + '没有克伤' + (Lz.sup.length ? '，卦' + Lz.no + '的生扶来源卦' + W.no + '也都有' : '') + '，另一卦也没有反证——倾向方案' + W.slot });
   }
   var PREF_ARCH = { 主动: ['rush', 'burst', 'contact'], 稳健: ['clear', 'anchor'], 信息: ['flank', 'info', 'clear'] };
   // 现实可执行性（与卦象、世爻强弱无关）：撤退难度（稳妥度）→ 英雄池里能独立执行的英雄数 → 你的打法偏好 → 程序约定默认信息先行（B）。
@@ -1753,9 +1800,9 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var a = ok[0], b = ok[1], rel = compareCasts(a, b);
     var relS = { kind: rel.kind || '', strength: rel.strength || '', review: !!rel.review, ev: rel.ev, rel: rel.rel };
     if (rel.dist) { var w = rel.better === a.slot ? a : b;
-      return { chosen: w.tid, mode: 'trad', strength: rel.strength, rel: relS, why: rel.why + '，取方案' + w.slot + '「' + w.name + '」（赛前倾向；两方案都已通过现实可执行性检查；实战以实时信息为准）。', short: '卦' + a.no + '｜卦' + b.no + ' → ' + (rel.strength === 'clear' ? '主证据可区分' : '证据轻度倾向') + '，取方案' + w.slot }; }
+      return { chosen: w.tid, mode: 'trad', strength: rel.strength, rel: relS, why: '按上面的两卦关系倾向方案' + w.slot + '「' + w.name + '」（赛前倾向；两方案都已通过现实可执行性检查；实战以实时信息为准）。', short: '卦' + a.no + '｜卦' + b.no + ' → 关系明确，倾向方案' + w.slot }; }
     var rp = realPick(ok, pref);
-    return { chosen: rp.top.tid, mode: 'reality', rel: relS, why: '传统卦象分不出高下' + (rel.review ? '（待复核）' : '') + '（' + rel.why + '）。不硬判，按现实可执行性取方案' + rp.top.slot + '「' + rp.top.name + '」：' + rp.why + '。', short: '卦' + a.no + '｜卦' + b.no + ' → 传统卦象分不出高下' + (rel.review ? '（待复核）' : '') + '，按现实取方案' + rp.top.slot };
+    return { chosen: rp.top.tid, mode: 'reality', rel: relS, why: '传统卦象分不出高下（待复核，关系见上）。不硬判，按现实可执行性取方案' + rp.top.slot + '「' + rp.top.name + '」：' + rp.why + '。', short: '卦' + a.no + '｜卦' + b.no + ' → 传统卦象分不出高下（待复核），按现实取方案' + rp.top.slot };
   }
 
   // ---------- 择将（现实匹配，不是卦象结果；不起卦） ----------
@@ -1782,7 +1829,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var m = mx.tier === 'full' ? MAP(mx.id) : null, p = t.plan;
     if (m && p && p.alt && p.alt !== p.id) { var q = byId(side === 'atk' ? m.atk : m.def, p.alt);
       if (q) return '现实转势（不起卦）：' + (side === 'atk' ? '同一包点打不开时改走「' + q.name + '」（' + route(m.id, q.route) + '）' + (p.altWhy ? '——' + fmt(m.id, p.altWhy) : '') : '这里守不住时改为「' + q.name + '」（' + co(m.id, q.pos) + '）'); }
-    return other ? '转势：看到原计划不适用的信号（入口被封、退路被控、同一位置被针对）就可以改用已占问的方案' + other.slot + '「' + other.name + '」（' + other.brief + '），不必等输几回合，不重新起卦。' : '变招：看到原计划不适用的信号就放慢节奏、跟队友同一方向行动，不单人尝试。';
+    return other ? '转势：看到原计划不适用的信号（入口被封、退路被控、同一位置被针对）就可以改用已占问的方案' + other.slot + '「' + other.name + '」（' + other.brief + '），不必等输几回合，不重新起卦。' : '变招：看到原计划不适用的信号就放慢节奏，换个入口或晚几秒再打，不单人硬冲。';
   }
   function flexOf(mx, side, t, hid) {
     var tpl = DB.flexTpl[t.arch], m = mx.tier === 'full' ? MAP(mx.id) : null, p = t.plan, ctx;
@@ -1830,10 +1877,10 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     focus: '每回合开局先确认自己这回合只做的一件事（看哪条路、何时转点），不跟着感觉乱走。',
     pressure: '被同一位置、同一个人击杀后，下一回合换位置或换时机，不赌气在同一处再对枪。',
     adjust: '不顺时一次只调整一件事（站位或时机），不同时改变多项打法。',
-    lead: '拿到优势（首杀或人数领先）后按止损线收手：不单人追残血、不再换危险枪位。',
+    lead: '拿到首杀后不单人追残血；如果现在人数领先，就按止损线收手，不再换危险枪位。',
     tempo: '没拿到信息前不连续往前走：一次前探没有收获，就回到掩体重新判断。',
     escape: '退路技能用掉之后，不再主动露头对枪。',
-    tilt: '接连先倒下后，下一回合先跟队友同一方向行动、打完再找机会，不急于证明枪法。',
+    tilt: '接连先倒下后，下一回合先打稳一点的位置、拿到信息再找机会，不急于证明枪法。',
     expert: '实时信息优先于赛前计划：每回合按看到的信息决定打法，不拿卦象替代判断。',
     general: '实时信息优先于赛前计划；每次交火前先确认退路，打完就执行撤退或换位。'
   };
@@ -1886,7 +1933,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   function actOf(arch, ci, o) {
     var c = ci.zh, k = ci.kind;
     switch (arch) {
-      case 'rush': return k === 'move' ? '没问题就用' + c + '冲过空旷段，跟第一波直接进' + o.site + '，进点马上贴掩体' : '没问题就先放' + c + '挡住视线，跟第一波直接冲进' + o.site + '，进点马上贴掩体';
+      case 'rush': return k === 'move' ? '没问题就用' + c + '冲过空旷段，直接进' + o.site + '，进点马上贴掩体' : '没问题就先放' + c + '挡住视线，直接冲进' + o.site + '，进点马上贴掩体';
       case 'burst': return '先用' + c + '压住' + o.entry + '出口，紧跟着进去打近身';
       case 'clear': return k === 'recon' ? '用' + c + '把' + o.threat + '看清楚，确认了再进' : '用' + c + '清' + o.threat + '，清完再进';
       case 'flank': return (k === 'recon' || k === 'trap' ? '用' + c + '看住身后' : k === 'decoy' ? '用' + c + '先骗一下' : c ? '留着' + c + '随时撤' : '先想好退路') + '，只牵制，拿到人就回';
@@ -1936,36 +1983,44 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   function liveOf(mx, side, t, hid, other) {
     var A = t.arch, c = liveCtx(mx, side, t, other);
     var push = abK(hid, ['move', 'vision', 'blind', 'cc']), hit = abK(hid, ['blind', 'cc', 'dmg', 'recon', 'vision']), hold = abK(hid, ['cc', 'dmg', 'trap', 'vision', 'blind']), look = abK(hid, ['recon', 'trap', 'blind', 'cc']);
-    var ch, tu;
+    var ch, more, tu;
+    // V4.2.1：每条都是“如果看到……，可以……”；不假设击杀即人数领先；队友只作条件（个人排位现实）
     switch (A) {
-      case 'rush': ch = { cond: c.entry + (/出口$/.test(c.entry) ? '' : '出口') + '第一个人倒下、' + c.threat + '没人补枪', act: U(push, (c.grab ? '直接抢下' : '直接进') + c.deep, (c.grab ? '直接抢下' : '直接进') + c.deep), limit: '站稳就守包，不追出包点' };
-        tu = [{ k: 'blocked', sig: c.entry + '被封死', act: '等技能散了再进，或改走' + c.altE }, { k: 'alone', sig: '队友先倒只剩你', act: '退回' + c.start + '保枪' }]; break;
-      case 'burst': ch = { cond: c.entry + '后的近点被压住、对面交出了关键技能', act: '立刻跟进' + c.site + '，再往' + c.threat + '清一步', limit: '清完就停，等队友补位再动' };
-        tu = [{ k: 'targeted', sig: '对面连着在' + c.threat + '等你', act: U(hit, '先交再进', '换个时间再进') }, { k: 'blocked', sig: c.entry + '被封死', act: '改走' + c.altE }]; break;
-      case 'clear': ch = { cond: c.threat + '确认没人或被打掉、' + c.entry + '没有第二条枪线', act: U(push, (c.grab ? '抢下' : '进到') + c.deep, (c.grab ? '直接抢下' : '直接进到') + c.deep), limit: '只到这里，下包后守住' };
-        tu = [{ k: 'blocked', sig: '技能交完' + c.threat + '还有人', act: '退回' + c.start + '等对面先露头' }, { k: 'pushed', sig: '对面从' + c.entry + '反压', act: U(hold, '拖一下，转去' + c.altE, '别接，转去' + c.altE) }]; break;
-      case 'flank': ch = { cond: '侧路拿到人、对面开始往你这边回防', act: U(hit, '再拖住回防的人', '换个角度再拖住回防的人'), limit: '身后没确认安全，就不往' + c.site + '深处走' };
-        tu = [{ k: 'behind', sig: '身后出现脚步或技能', act: '先回头处理身后，不再往前' }, { k: 'targeted', sig: '侧路每次都被提前架住', act: '改跟主队同一方向进' }]; break;
-      case 'contact': ch = { cond: '在' + c.pos + '打掉一个、后面没人跟上（我方人数领先）', act: '换个角度再守一枪', limit: '不追出去，听到第二个人就回' + c.siteN };
-        tu = [{ k: 'targeted', sig: '对面连着先用技能清' + c.pos, act: '换到' + c.altPos + '，或晚几秒再露头' }, { k: 'cutoff', sig: '回' + c.siteN + '的路被技能封住', act: '别守前点，开局就站' + c.siteN }];
-        if (c.siteN === c.pos) { ch.limit = '不追出去，听到第二个人就往' + c.spawn + '撤'; tu[1] = { k: 'cutoff', sig: '有人绕到你身后', act: '提前往' + c.spawn + '方向拉开' }; } break;
-      case 'anchor': ch = { cond: '进点的人被拖住、队友回防到了（我方人数领先）', act: U(hold, '封住他们下包或撤走的路一起夹', '卡住他们下包的位置一起夹'), limit: '只在' + c.siteN + '里收，不追出包点' };
-        tu = [{ k: 'targeted', sig: '对面连着把你从' + c.pos + '清出来', act: '换到' + c.altPos }, { k: 'outnumbered', sig: '多人一起压进来', act: U(hold, '拖一下再往' + c.spawn + '方向退，等回防', '往' + c.spawn + '方向退，等回防') }]; break;
-      case 'info': ch = { cond: '确认对面主攻另一个点、我方人数领先', act: '走守方一侧去补，' + U(look, '和队友夹击', '和队友夹击'), limit: '不穿对方控制的区域，补到位就守' };
-        tu = [{ k: 'targeted', sig: '补防的路每次都被先卡住', act: '开局直接站一个包点，不在中间等' }, { k: 'far', sig: '一个点报多人、你离得远', act: '别穿中路，走' + c.spawn + '一侧去补' }]; break;
+      case 'rush': ch = { cond: c.threat + '的人倒了、没人补枪', act: '可以' + U(push, (c.grab ? '抢下' : '直接进') + c.deep), limit: '站稳就守包' };
+        more = ['如果对面关键技能已经交掉、入口没有第二条枪线，可以趁空档早点进' + c.site, '站稳以后不单人追出' + c.site];
+        tu = [{ k: 'blocked', sig: c.entry + '被技能封住', act: '就等技能散了再进，或改走' + c.altE }, { k: 'alone', sig: '如果只剩你一个', act: '时间还够就找角度慢慢打；时间不够又没技能，可以退回' + c.start + '保枪' }]; break;
+      case 'burst': ch = { cond: '对面交出了关键技能', act: '可以立刻跟进' + c.site, limit: '再清一步就停' };
+        more = ['如果' + c.threat + '清掉了、身后安全，可以再往深处清一步；清完就停，不单人连续清角'];
+        tu = [{ k: 'targeted', sig: '对面连着在' + c.threat + '等你', act: '就' + U(hit, '先交再进', '换个时间再进') }, { k: 'blocked', sig: c.entry + '被封死', act: '就改走' + c.altE }]; break;
+      case 'clear': ch = { cond: c.threat + '确认没人或被打掉', act: '可以' + U(push, (c.grab ? '抢下' : '进到') + c.deep), limit: '到位就下包守住' };
+        more = ['如果' + c.entry + '还有第二条枪线，先别进，等它被清掉或换路'];
+        tu = [{ k: 'blocked', sig: '技能交完' + c.threat + '还有人', act: '就退回' + c.start + '等对面先露头' }, { k: 'pushed', sig: '对面从' + c.entry + '反压', act: '就' + U(hold, '拖一下再转去' + c.altE, '别接，转去' + c.altE) }]; break;
+      case 'flank': ch = { cond: '侧路拿到人、对面往你这边来', act: '可以' + U(hit, '拖住来的人', '换个角度拖住来的人'), limit: '身后不安全就不进' + c.site };
+        more = ['如果队友已经在另一边打起来，你拖住来的人就够了；如果没人配合，拿到人就回，别一个人往' + c.site + '深处摸'];
+        tu = [{ k: 'behind', sig: '身后出现脚步或技能', act: '就先回头处理身后，不再往前' }, { k: 'targeted', sig: '侧路每次都被提前架住', act: '就换另一条路进，或晚几秒再走侧路' }]; break;
+      case 'contact': ch = { cond: '在' + c.pos + '打掉一个、后面没人跟', act: '可以换个角度再守一枪', limit: '听到第二个人就回' + c.siteN };
+        more = ['如果现在人数领先，不用再冒险接枪，守住回' + c.siteN + '的路就行'];
+        tu = [{ k: 'targeted', sig: '对面连着先用技能清' + c.pos, act: '就换到' + c.altPos + '，或晚几秒再露头' }, { k: 'cutoff', sig: '回' + c.siteN + '的路被技能封住', act: '就别守前点，开局站' + c.siteN }];
+        if (c.siteN === c.pos) { ch.limit = '听到第二个人就往' + c.spawn + '撤'; more = ['如果现在人数领先，不用再冒险接枪，守住自己的位置就行']; tu[1] = { k: 'cutoff', sig: '有人绕到你身后', act: '就提前往' + c.spawn + '方向拉开' }; } break;
+      case 'anchor': ch = { cond: '进点的人被你拖住、对面交了技能', act: '可以' + U(hold, '封住他们下包的位置', '卡住他们下包的位置'), limit: '只在' + c.siteN + '里打' };
+        more = ['如果队友已经回到包点，可以和他们一起夹；如果没人回来，就继续拖时间，不出去找人', '如果现在人数领先，守住下包和拆包的位置就够了'];
+        tu = [{ k: 'targeted', sig: '对面连着把你从' + c.pos + '清出来', act: '就换到' + c.altPos }, { k: 'outnumbered', sig: '多人一起压进来', act: '就' + U(hold, '拖一下再往' + c.spawn + '方向拉开', '往' + c.spawn + '方向拉开') + '，活着找下一次机会' }]; break;
+      case 'info': ch = { cond: '确认对面主攻另一个点、路上没人卡', act: '可以从' + c.pos + '走守方一侧去补', limit: '到位先守' };
+        more = ['如果队友已经在那边打起来，可以' + U(look, '配合着从侧面打', '从侧面帮忙') + '；如果没人在打，先守住包点等对面露头', '补防时不穿对方控制的区域'];
+        tu = [{ k: 'targeted', sig: '补防的路每次都被先卡住', act: '就开局直接站一个包点，不在中间等' }, { k: 'far', sig: '一个点报多人、你离得远', act: '就别穿中路，走' + c.spawn + '一侧去补' }]; break;
     }
-    var chance = ch.cond + '时，' + ch.act + '；' + ch.limit + '。';
-    var turn = tu.map(function (x) { return x.sig + '，就' + x.act; }).join('；') + '。';
-    return { chance: nsp(chance), chanceParts: ch, turn: nsp(turn), turnSigs: tu };
+    var chance = '如果' + ch.cond + '，' + ch.act + '；' + ch.limit + '。';
+    var line = function (x) { return x.sig + '，' + x.act; };
+    return { chance: nsp(chance), chanceParts: ch, chanceMore: nsp(more.join('；') + '。'), turn: nsp(line(tu[0]) + '。'), turnMore: nsp(tu.slice(1).map(line).join('；') + '。'), turnSigs: tu };
   }
   function plainSide(mx, side, t, hid, other) {
     var ci = capInfo(hid, t.arch), mapId = mx.id, A = t.arch, where = plainWhere(mx, side, t), how, h = HEROX(hid);
     if (t.generic) {
-      var gfirst = { rush: '跟第一波一起过主通道', clear: '先在大厅等，不空手进', flank: '在另一条主通道弄出动静', contact: '在入口边的掩体接第一枪', anchor: '站包点深处的掩体，不看出口正面', info: '站两个包点中间先听' }[A];
+      var gfirst = { rush: '快速过主通道，不在通道里停留', clear: '先在大厅等，不空手进', flank: '在另一条主通道弄出动静', contact: '在入口边的掩体接第一枪', anchor: '站包点深处的掩体，不看出口正面', info: '站两个包点中间先听' }[A];
       var o0 = { site: '包点', entry: '入口', threat: '入口后的近点', pos: '入口', fwd: '' };
       how = gfirst + '；' + actOf(A, ci, o0) + '。';
       var lv0 = liveOf(mx, side, t, hid, other);
-      return { where: where, how: nsp(how), chance: lv0.chance, chanceParts: lv0.chanceParts, turn: lv0.turn, turnSigs: lv0.turnSigs, skill: nsp(fill(mapId, side === 'atk' ? h.atk : h.def, { exit: '包点入口', risk0: '入口后的近点', retreatPt: '进点前的通道', pos: '你守的位置' })) };
+      return { where: where, how: nsp(how), chance: lv0.chance, chanceParts: lv0.chanceParts, chanceMore: lv0.chanceMore, turn: lv0.turn, turnMore: lv0.turnMore, turnSigs: lv0.turnSigs, skill: nsp(fill(mapId, side === 'atk' ? h.atk : h.def, { exit: '包点入口', risk0: '入口后的近点', retreatPt: '进点前的通道', pos: '你守的位置' })) };
     }
     var p = t.plan;
     if (side === 'atk') {
@@ -1978,17 +2033,21 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     }
     var sk = side === 'atk' ? fill(mapId, h.atk, { exit: '{' + p.route[p.route.length - 2] + '}', risk0: '{' + p.threat + '}', retreatPt: '{' + p.route[0] + '}' }) : fill(mapId, h.def, { pos: '{' + p.pos + '}' });
     var lv = liveOf(mx, side, t, hid, other);
-    return { where: where, how: nsp(how) + (mx.id === 'Abyss' && capsOf(hid).move ? '位移别冲出边界。' : ''), chance: lv.chance, chanceParts: lv.chanceParts, turn: lv.turn, turnSigs: lv.turnSigs, skill: nsp(sk) };
+    return { where: where, how: nsp(how) + (mx.id === 'Abyss' && capsOf(hid).move ? '位移别冲出边界。' : ''), chance: lv.chance, chanceParts: lv.chanceParts, chanceMore: lv.chanceMore, turn: lv.turn, turnMore: lv.turnMore, turnSigs: lv.turnSigs, skill: nsp(sk) };
   }
-  // 跟队打法：这位英雄做不了本场已占问的任何方案时（不起卦）
+  // 辅助打法：这位英雄做不了本场已占问的任何方案时（不起卦）；队友只作条件
   function plainFollow(mx, side, main, hid) {
     var h = HEROX(hid), slot = ['C', 'Q', 'E'].filter(function (k) { return h.abil[k]; })[0], sk = zhAbil(h, slot) || '技能';
-    var where = main ? plainWhere(mx, side, main) : (side === 'atk' ? '跟队友同一条路' : '队友守的那个点');
-    return { where: where, how: side === 'atk' ? '跟在队友后面走这条路，用' + sk + '帮队友开路或拿信息，不第一个进。' : '和队友守同一个点，用' + sk + '帮忙拖时间，不单独去前点。',
-      chance: side === 'atk' ? '队友打开入口、对面交出技能时，用' + sk + '跟进补枪；不第一个进，不单独追人。' : '队友回防到了、我方人数领先时，用' + sk + '一起夹；只在包点里打，不追出去。',
-      chanceParts: side === 'atk' ? { cond: '队友打开入口、对面交出技能', act: '用' + sk + '跟进补枪', limit: '不第一个进，不单独追人' } : { cond: '队友回防到了、我方人数领先', act: '用' + sk + '一起夹', limit: '只在包点里打，不追出去' },
-      turn: side === 'atk' ? '队友倒了或入口被封，就退回起点保枪；对面连着针对你这条路，就换到队友另一侧。' : '多人压过来，就往回防方向退等队友；对面连着先清你的位置，就换个掩体。',
-      turnSigs: side === 'atk' ? [{ k: 'alone', sig: '队友倒了或入口被封', act: '退回起点保枪' }, { k: 'targeted', sig: '对面连着针对你这条路', act: '换到队友另一侧' }] : [{ k: 'outnumbered', sig: '多人压过来', act: '往回防方向退等队友' }, { k: 'targeted', sig: '对面连着先清你的位置', act: '换个掩体' }], skill: fill(mx.id, side === 'atk' ? h.atk : h.def, { exit: '入口', risk0: '入口近点', retreatPt: '起点', pos: '你守的位置' }), follow: true };
+    var where = main ? plainWhere(mx, side, main) : (side === 'atk' ? '要打的那个包点的主通道' : '包点里安全的掩体');
+    var cp = side === 'atk' ? { cond: '入口已被打开、对面交出了技能', act: '可以用' + sk + '跟进补枪', limit: '不第一个进' } : { cond: '进点的人被拖住、你还有技能', act: '可以用' + sk + '封住下包位置', limit: '只在包点里打' };
+    var tu = side === 'atk' ? [{ k: 'blocked', sig: '入口被技能封住', act: '就退回起点，等技能散了再找时机' }, { k: 'alone', sig: '如果只剩你一个', act: '时间不够又没技能，可以退回起点保枪；还有时间就找角度慢慢打' }]
+      : [{ k: 'outnumbered', sig: '多人压过来', act: '就往守方重生点方向拉开，活着找下一次机会' }, { k: 'targeted', sig: '对面连着先清你的位置', act: '就换个掩体' }];
+    var line = function (x) { return x.sig + '，' + x.act; };
+    return { where: where, how: side === 'atk' ? '如果有人在前面，就用' + sk + '帮他开路；没人在前面就先用' + sk + '拿信息，不第一个进。' : '站包点里安全的位置，用' + sk + '拖时间，不单独去前点。',
+      chance: '如果' + cp.cond + '，' + cp.act + '；' + cp.limit + '。', chanceParts: cp,
+      chanceMore: side === 'atk' ? '如果队友已经进点，可以跟进补枪；如果没人配合，就不单独追人。' : '如果队友已经回到包点，可以一起守；如果没人回来，就继续拖时间，不追出去。',
+      turn: line(tu[0]) + '。', turnMore: tu.slice(1).map(line).join('；') + '。', turnSigs: tu,
+      skill: fill(mx.id, side === 'atk' ? h.atk : h.def, { exit: '入口', risk0: '入口近点', retreatPt: '起点', pos: '你守的位置' }), follow: true };
   }
   // ---------- 本场记住（句库 + 条件选择；由具体证据、习惯、方案与英雄共同决定；不按吉凶机械对应） ----------
   var REM = {
@@ -1996,12 +2055,12 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     focus: ['每回合开局先想好只做一件事，再动。', '先定这回合看哪条路，别跟着感觉乱走。'],
     adjust: ['不顺时一次只改一件事：要么换位置，要么换时机。', '计划对不上就先换个时机出，别同时把位置、节奏全改了。'],
     pressure: ['被同一个位置打死，下回合换位置或换时机，别赌气再对。', '同一个人连杀你两次，就别再和他对同一条枪线。'],
-    lead: ['有优势就收，不要连续硬拼。', '拿到首杀就守住，别追残血。', '人数领先就守包，别再出去找人。'],
+    lead: ['有优势就收，不要连续硬拼。', '拿到首杀就守住，别追残血。', '如果现在人数领先，就守包，别再出去找人。'],
     tempo: ['先拿信息，别一开局就赌枪。', '没看到人之前别连续往前走，探一次没收获就回掩体。'],
     decisive: ['有机会果断打，失去机会立即换位。', '打完一枪就走，别贪第二枪。'],
     escape: ['{esc}用掉之后，别再主动露头对枪。', '没有退路的枪不打，先看好往哪撤再开枪。'],
-    tilt: ['接连先倒下时，下回合先跟队友走，别急着证明枪法。'],
-    hold: ['守住就是赢，对面没露头别出去找人。'],
+    tilt: ['接连先倒下时，下回合先打稳一点的位置，别急着证明枪法。'],
+    hold: ['守住自己的位置就够了，对面没露头别出去找人。'],
     back: ['侧路拿到人就回，别一个人往深处摸。'],
     live: ['看到什么打什么，赛前计划对不上就按眼前信息走。']
   };
@@ -2078,13 +2137,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var av = pa.t ? atkView(mx, pa.t, hid, otherOf('atk', pa.t)) : null, dv = pd.t ? defView(mx, pd.t, hid, otherOf('def', pd.t)) : null;
     var rem = remember(X.prep, hid, pa.t, pd.t, X.habits, mx), risk = { text: rem.t, basis: rem.basis, from: rem.from, dom: rem.dom };
     var mkP = function (side, p) { var main = X[side + 'Main'];
-      if (!p.t) { var f0 = plainFollow(mx, side, main, hid); f0.note = h.zh + '做不了本场已定的打法，改成跟队打（现实替代，没有起卦）'; return f0; }
+      if (!p.t) { var f0 = plainFollow(mx, side, main, hid); f0.note = h.zh + '做不了本场已定的打法，改成辅助打法（现实替代，没有起卦）'; return f0; }
       var x = plainSide(mx, side, p.t, hid, otherOf(side, p.t)); x.note = p.isMain ? '' : h.zh + '做不了首选打法，换成这套（不重新起卦）'; x.tid = p.t.tid; return x; };
     var plain = { atk: mkP('atk', pa), def: mkP('def', pd), remember: rem.t };
     var lib = '英雄库 ' + h.id + '（官方技能）', tacLib = function (t) { return t.generic ? '通用打法（资料限制，只用官方点位名）' : '战术库 ' + t.tid; };
     var sideShi = function (side, p) {
       var pk = X.pick[side];
-      if (!p.t) return '无可执行方案：' + h.zh + '缺少' + p.miss.join('、') + '，两个已占问方案都执行不了。提示转势：换回首选英雄，或只按现实纪律跟队友同一方向行动（不起卦）。';
+      if (!p.t) return '无可执行方案：' + h.zh + '缺少' + p.miss.join('、') + '，两个已占问方案都执行不了。提示转势：换回首选英雄，或只按现实纪律打稳妥的位置（不起卦）。';
       var c = castOf(p.t);
       return pk.short + (p.isMain ? '' : '｜' + h.zh + '执行不了首选「' + X[side + 'Main'].name + '」（缺' + p.miss.join('、') + '），改按已占问的方案' + p.t.slot + '（卦' + c.no + '「' + c.cls.shi + '」），不重新起卦');
     };
@@ -2111,6 +2170,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       atkInvalid: { t: av ? av.flex.invalid : '—', src: ['现实战术'] },
       atkCounter: { t: av ? av.flex.counter : '—', src: ['现实战术'] },
       atkStop: { t: av ? av.flex.stop : '—', src: ['现实战术'] },
+      atkChanceMore: { t: plain.atk.chanceMore || '—', src: ['现实战术'] },
+      atkTurnMore: { t: plain.atk.turnMore || '—', src: ['现实战术'] },
       defShi: { t: sideShi('def', pd), src: ['传统判断：各卦主势（主证据比较）', '程序约定 P-LZ11/P-LZ13'] },
       defPlan: { t: planLine(pd), src: pd.t ? ['现实战术：' + tacLib(pd.t)] : [] },
       defPos: { t: dv ? dv.pos : '—', src: dv ? [tacLib(pd.t)] : [] },
@@ -2122,6 +2183,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       defInvalid: { t: dv ? dv.flex.invalid : '—', src: ['现实战术'] },
       defCounter: { t: dv ? dv.flex.counter : '—', src: ['现实战术'] },
       defStop: { t: dv ? dv.flex.stop : '—', src: ['现实战术'] },
+      defChanceMore: { t: plain.def.chanceMore || '—', src: ['现实战术'] },
+      defTurnMore: { t: plain.def.turnMore || '—', src: ['现实战术'] },
       ban: { t: risk.text, src: [risk.basis, risk.from] },
       live: { t: LIVE + '：看到的信息与上面的条件不符时，按“打不顺”的信号转势，不必等卦象。', src: ['程序约定'] }
     };
@@ -2153,8 +2216,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var rows = matchHeroes(pool, prof, atkMain, defMain), rowOf = {};
     rows.forEach(function (r) { rowOf[r.id] = r; });
     var hero = rows[0].id, alt = rows[1] ? rows[1].id : '';
-    var shiLine = '察己：' + (prep ? '「' + prep.ref.shi + '」' + prep.ref.label : '未备战（只给通用纪律）') + '｜进攻取' + (atkMain ? '「' + atkMain.name + '」（' + (pick.atk.mode === 'trad' ? (pick.atk.strength === 'clear' ? '卦象主证据可区分' : '卦象证据轻度倾向') : pick.atk.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
-      '｜防守取' + (defMain ? '「' + defMain.name + '」（' + (pick.def.mode === 'trad' ? (pick.def.strength === 'clear' ? '卦象主证据可区分' : '卦象证据轻度倾向') : pick.def.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
+    var shiLine = '察己：' + (prep ? '「' + prep.ref.shi + '」' + prep.ref.label : '未备战（只给通用纪律）') + '｜进攻取' + (atkMain ? '「' + atkMain.name + '」（' + (pick.atk.mode === 'trad' ? '卦象关系明确' : pick.atk.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
+      '｜防守取' + (defMain ? '「' + defMain.name + '」（' + (pick.def.mode === 'trad' ? '卦象关系明确' : pick.def.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
       '｜主线：' + [atkMain ? '进攻' + DB.archLine[atkMain.arch] : '', defMain ? '防守' + DB.archLine[defMain.arch] : ''].filter(Boolean).join('，') + '。（象征性参考，' + LIVE + '）';
     var X = { T: T, byTid: byTid, castByTid: castByTid, atkMain: atkMain, defMain: defMain, pick: pick, prep: prep, habits: habits, rowOf: rowOf, hero: hero, shiLine: shiLine };
     var views = {};
@@ -2162,7 +2225,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var cand = function (s) { return T[s].cands.map(function (t) { var c = castByTid[t.tid], chosen = pick[s].chosen === t.tid;
       return { tid: t.tid, slot: t.slot, slotZh: t.slotZh, name: t.name, archZh: t.archZh, arch: t.arch, start: t.start, route: t.route, brief: t.brief, retreat: t.retreat, safe: t.safe, execBy: t.execBy, skipped: t.skipped,
         no: c.no, shi: c.cls.shi, label: c.cls.label, verdict: c.cls.verdict, main: c.cls.main, chosen: chosen,
-        whyNot: chosen ? '' : '未选：' + (pick[s].mode === 'trad' ? '卦' + c.no + '的根气与伤克证据关系不如首选方案（' + (pick[s].rel ? pick[s].rel.rel : '') + '）' : '卦象分不出高下，现实上首选方案更合理（' + (pick[s].why.split('：').slice(-1)[0] || '').replace(/。$/, '') + '）') + '；打不顺时可改用，不重新起卦' }; }); };
+        whyNot: chosen ? '' : '未选：' + (pick[s].mode === 'trad' ? '卦' + c.no + '在两卦生克关系上不如首选方案（见两卦关系）' : '卦象分不出高下，现实上首选方案更合理（' + (pick[s].why.split('：').slice(-1)[0] || '').replace(/。$/, '') + '）') + '；打不顺时可改用，不重新起卦' }; }); };
     return { app: VER, dbVersion: DB.dbVersion, dbUpdated: DB.updated, gameVersion: DB.gameVersion, prepId: prep ? sess.id : '', direct: !prep, createdAt: casts.length ? casts[0].timeStr : tStr(bjParts(nowFn())),
       map: mx.id, mapZh: mx.zh, mapName: mapName, tier: mx.tier, limitedWhy: mx.tier === 'limited' ? mx.m.why : '', mech: mx.tier === 'limited' ? mx.m.mech.map(function (x) { return fmt(mx.id, x); }) : [],
       inputs: { map: mx.id, heroes: pool, prof: prof, pref: pref, habits: habits },
@@ -2179,9 +2242,9 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   // ---------- 文本 ----------
   var ORDER_ROWS = {
     atk: [['atkShi', '进攻之势'], ['atkPlan', '首选打法'], ['atkPos', '主位置'], ['atkFirst', '第一步'], ['atkCore', '核心打法'], ['atkCont', '什么时候继续'], ['atkRetreat', '什么时候撤退'],
-      ['atkCond', '使用前提'], ['atkInvalid', '转势信号'], ['atkCounter', '被针对时'], ['atkStop', '借势边界']],
+      ['atkCond', '使用前提'], ['atkInvalid', '转势信号'], ['atkCounter', '被针对时'], ['atkStop', '借势边界'], ['atkChanceMore', '有机会·其他情况'], ['atkTurnMore', '打不顺·其他信号']],
     def: [['defShi', '防守之势'], ['defPlan', '首选打法'], ['defPos', '主位置'], ['defFirst', '第一枪'], ['defCore', '核心打法'], ['defSwap', '什么时候换位'], ['defRotate', '什么时候转点'],
-      ['defCond', '使用前提'], ['defInvalid', '转势信号'], ['defCounter', '被针对时'], ['defStop', '借势边界']]
+      ['defCond', '使用前提'], ['defInvalid', '转势信号'], ['defCounter', '被针对时'], ['defStop', '借势边界'], ['defChanceMore', '有机会·其他情况'], ['defTurnMore', '打不顺·其他信号']]
   };
   var PLAIN_ROWS = [['where', '去哪'], ['how', '怎么打'], ['chance', '有机会'], ['turn', '打不顺']];
   var PLAIN_ROWS_V41 = [['where', '去哪'], ['how', '怎么打'], ['change', '什么时候变招']];   // V4.1 旧记录只读显示
@@ -2198,9 +2261,9 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   function orderText(sess, heroId) {
     var d = sess.deploy, hid = heroId && d.views[heroId] ? heroId : d.hero, v = d.views[hid], o = v.order, t = plainText(sess, hid);
     t.push('', '【详细战术（依据）】', '【本场之势】' + o.shi.t, '【首选英雄】' + o.hero.t + '｜备选：' + d.head.alt.t, '　为什么：' + o.heroWhy.t);
-    t.push('【进攻细则】'); ORDER_ROWS.atk.forEach(function (x) { t.push('　' + x[1] + '：' + o[x[0]].t); });
+    t.push('【进攻细则】'); ORDER_ROWS.atk.forEach(function (x) { if (o[x[0]]) t.push('　' + x[1] + '：' + o[x[0]].t); });
     t.push('　技能用法：' + v.plain.atk.skill);
-    t.push('【防守细则】'); ORDER_ROWS.def.forEach(function (x) { t.push('　' + x[1] + '：' + o[x[0]].t); });
+    t.push('【防守细则】'); ORDER_ROWS.def.forEach(function (x) { if (o[x[0]]) t.push('　' + x[1] + '：' + o[x[0]].t); });
     t.push('　技能用法：' + v.plain.def.skill);
     t.push('【本场记住·来源】' + o.ban.src.join('｜'), '【实时优先】' + o.live.t);
     return t;
@@ -2241,6 +2304,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       t.push('══ ' + z[1] + '（地图：' + d.mapName + '）══');
       d.tac[s].forEach(function (c) { t.push('　' + (c.chosen ? '★首选 ' : '　') + '方案' + c.slot + '·' + c.slotZh + '「' + c.name + '」' + c.archZh + '｜' + c.brief + '｜撤退条件：' + c.retreat + '｜可执行英雄：' + c.execBy.map(heroZhX).join('、') + '｜卦' + c.no + '：' + c.main + (c.whyNot ? '｜' + c.whyNot : '') + (c.skipped.length ? '｜顺延说明：' + c.skipped.join('；') + '不可执行' : '')); });
       d.excluded[s].forEach(function (x) { t.push('　✗方案' + x.slot + '：' + x.why); });
+      var rlc = d.pick[s].rel; if (rlc && rlc.ev) { t.push('　两卦生克关系（逐条列关系，不打分、不分级）：'); rlc.ev.forEach(function (x) { t.push('　· ' + x); }); t.push('　→ ' + rlc.rel); }
       t.push('　取势：' + d.pick[s].why);
       d.casts.filter(function (c) { return c.side === s; }).forEach(function (c) { castText(c).forEach(function (x) { t.push(x); }); });
     });
@@ -2259,7 +2323,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   return { VER: VER, KEYS: KEYS, REVIEW_PROMPT: REVIEW_PROMPT, PREP_Q: PREP_Q, ZJ_NOTE: ZJ_NOTE, RULE: RULE, TRIG: TRIG, LIVE: LIVE, HONEST: HONEST, validatePrep: validatePrep, validateDeploy: validateDeploy,
     prepare: prepare, deploy: deploy, newDirect: newDirect, allCasts: allCasts, judge: judge, judgeValues: judgeValues, classify: classify, chooseTactic: chooseTactic, compareCasts: compareCasts, realPick: realPick,
     matchHeroes: matchHeroes, canExec: canExec, plansFor: plansFor, allCandidates: allCandidates, heroView: heroView, cast: cast, copyText: copyText, orderText: orderText, chartText: chartText, castText: castText,
-    banTheme: banTheme, prepBan: prepBan, ORDER_ROWS: ORDER_ROWS, PLAIN_ROWS: PLAIN_ROWS, PLAIN_ROWS_V41: PLAIN_ROWS_V41, plainRows: plainRows, liveOf: liveOf, profileOf: profileOf, plainText: plainText, synth: synth, remember: remember, REM: REM, DIMS: DIMS, AUDIT_ROWS: AUDIT_ROWS, SHI_LABEL: SHI_LABEL,
+    banTheme: banTheme, prepBan: prepBan, ORDER_ROWS: ORDER_ROWS, PLAIN_ROWS: PLAIN_ROWS, PLAIN_ROWS_V41: PLAIN_ROWS_V41, plainRows: plainRows, liveOf: liveOf, profileOf: relProfile, relProfile: relProfile, profText: profText, plainText: plainText, synth: synth, remember: remember, REM: REM, DIMS: DIMS, AUDIT_ROWS: AUDIT_ROWS, SHI_LABEL: SHI_LABEL,
     fmt: fmt, co: co, refsOf: refsOf, route: route, esc: esc, bjParts: bjParts, tStr: tStr, YONG: YONG, DISC: DISC, MAP: MAP, HERO: HERO, HEROX: HEROX, MAPX: MAPX, heroZhX: heroZhX, profOrder: profOrder };
 });
 </script>
@@ -2371,13 +2435,13 @@ function renderOrder(s,hid,side){var d=s.deploy,v=d.views[hid],h=[];
  return h.join('');}
 function tacList(d,s){var h=[];d.tac[s].forEach(function(c){h.push('<div class="li">'+(c.chosen?'★ ':'')+'<b>方案'+c.slot+'·'+esc(c.slotZh)+'「'+esc(c.name)+'」</b>'+esc(c.archZh)+'｜'+esc(c.brief)+'｜卦'+c.no+'：<span class="v-'+c.verdict+'">「'+esc(c.shi)+'」</span><div class="note">撤退条件：'+esc(c.retreat)+'｜可执行：'+esc(c.execBy.map(L.heroZhX).join('、'))+(c.whyNot?'｜'+esc(c.whyNot):'')+(c.skipped.length?'｜顺延：'+esc(c.skipped.join('；'))+'不可执行':'')+'</div></div>');});
  d.excluded[s].forEach(function(x){h.push('<div class="li note">✗ '+esc(x.why)+'</div>');});
- var rl=d.pick[s].rel;if(rl&&rl.ev)h.push('<div class="li" data-k="rel-'+s+'">两卦证据关系（不按卦势标签排等级）：'+rl.ev.map(function(x){return '<div class="note">· '+esc(x)+'</div>';}).join('')+'<div class="note">→ '+esc(rl.rel)+(rl.review?'（待复核：按现实可执行性取方案）':rl.strength==='lean'?'（轻度倾向，实时信息优先）':'')+'</div></div>');
+ var rl=d.pick[s].rel;if(rl&&rl.ev)h.push('<div class="li" data-k="rel-'+s+'">两卦生克关系（逐条列关系，不打分、不分级）：'+rl.ev.map(function(x){return '<div class="note">· '+esc(x)+'</div>';}).join('')+'<div class="note">→ '+esc(rl.rel)+(rl.review?(/待复核/.test(rl.rel)?'':'（待复核）')+'；按现实可执行性取方案':rl.strength==='lean'?'（轻度倾向，实时信息优先）':'')+'</div></div>');
  h.push('<div class="li">取势：'+T(d.pick[s].why)+'</div>');return h.join('');}
 function renderBasis(s,hid){var d=s.deploy,v=d.views[hid],o=v.order,h=[];
  h.push('<div class="note">一事一占：每卦先定题、后摇卦；各卦只回答自己的问题；先把每卦八项证据分主次综合出卦势，再比较两方案，不打分、不投票、不换算胜率。本场共起卦 '+L.allCasts(s).length+' 次（'+(s.prep?'备战 1':'未备战 0')+' + 进攻 '+d.casts.filter(function(c){return c.side==='atk'}).length+' + 防守 '+d.casts.filter(function(c){return c.side==='def'}).length+'），没有重摇；换英雄、攻守切换、复制、刷新都不起卦。</div>');
  h.push('<details class="gua" data-k="detail"><summary>详细战术（内部方案名、使用前提、被针对时、技能用法） '+TAG3+'</summary>');
  h.push(kv('本场之势',o.shi.t),kv('为什么选'+v.heroZh,o.heroWhy.t));
- [['atk','进攻细则'],['def','防守细则']].forEach(function(z){h.push('<div class="lbl">'+z[1]+'</div>');L.ORDER_ROWS[z[0]].forEach(function(x){h.push(kv(x[1],o[x[0]].t,x[0]));});h.push(kv('技能用法',v.plain[z[0]].skill));});
+ [['atk','进攻细则'],['def','防守细则']].forEach(function(z){h.push('<div class="lbl">'+z[1]+'</div>');L.ORDER_ROWS[z[0]].forEach(function(x){if(o[x[0]])h.push(kv(x[1],o[x[0]].t,x[0]));});h.push(kv('技能用法',v.plain[z[0]].skill));});
  h.push(kv('本场记住·来源',v.risk.from+'（'+v.risk.basis+'）'),kv('实时优先',o.live.t),'</details>');
  if(s.prep)h.push(prepBasis(s));
  h.push('<details class="gua" data-k="tactic"><summary>辨势与取势（进攻 / 防守各两方案） '+TAG3+TAG2+'</summary>');
