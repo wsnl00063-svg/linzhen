@@ -1019,13 +1019,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     limitedMaps: [
       { id: 'Lotus', zh: '莲华古城', en: 'LOTUS', alias: '', sites: ['A', 'B', 'C'], src: ['API', 'PN', 'VS'],
         why: '12.05 版本 A 侧改动后，没能找到可交叉核对的 A 侧路线、枪线文字资料，不给具体路线与站位',
-        mech: ['A、C 两侧各有一扇旋转门（{A Door}、{C Door}），开门有声音、转动需要时间（VS）', '{A Main} 旁有一面可破坏墙通往 {A Link}（VS）', '可从 {A Top} 经 {A Drop} 安静落入 A 包点（VS）', '{C Waterfall} 是守方高处位置（VS）'] },
+        mech: ['A、C 两侧各有一扇旋转门（{A Door}、{C Door}），开门有声音、转动需要时间（VS）', '{A Main} 旁有一面可破坏墙通往 {A Link}（VS）', '可从 {A Top} 经 {A Drop} 安静落入 A 包点（VS）', '{C Waterfall} 是守方高处位置（VS）'],
+        suits: { rush: ['speed', 'wall'], clear: ['recon', 'flash', 'lurk'], flank: ['lurk', 'teleport'], burst: ['flash', 'stun'], contact: ['teleport', 'speed'], anchor: ['trap', 'recon'], info: ['recon', 'lurk'] } },
       { id: 'Corrode', zh: '盐海矿镇', en: 'CORRODE', alias: '', sites: ['A', 'B'], src: ['API', 'PN', 'VS'],
         why: '13.08 刚改动守方回防路径与中路，缺少改动后的可靠路线、枪线资料，不给具体路线与站位',
-        mech: ['13.08：守方进入 A、B 包点后侧的路径缩短，回防更快（PN）', '13.08：{Mid Stairs} 的半墙改为金属并外移约 1 米；{Mid Bottom} 箱子调整（PN）', '13.08：A 下包区调整，从 {A Link} 打下包后的效果变弱（PN）'] },
+        mech: ['13.08：守方进入 A、B 包点后侧的路径缩短，回防更快（PN）', '13.08：{Mid Stairs} 的半墙改为金属并外移约 1 米；{Mid Bottom} 箱子调整（PN）', '13.08：A 下包区调整，从 {A Link} 打下包后的效果变弱（PN）'],
+        suits: { rush: ['speed', 'wall', 'smoke'], clear: ['flash', 'stun', 'smoke'], flank: ['lurk', 'fake'], burst: ['flash', 'stun', 'smoke'], contact: ['speed', 'flash'], anchor: ['smoke', 'wall'], info: ['recon', 'smoke'] } },
       { id: 'Summit', zh: '天枢云阙', en: 'SUMMIT', alias: '', sites: ['A', 'B'], src: ['API', 'PN', 'VS'],
         why: '13.00 新图，可落下墙等机制的具体枪线资料不足，不给具体路线与站位',
-        mech: ['A 包点、中路、B 包点各有一面可落下的墙，射击附近开关触发，落下后本回合不再升起（VS）', '{Mid Fountain} 是中路分向两个包点的枢纽（VS）'] }
+        mech: ['A 包点、中路、B 包点各有一面可落下的墙，射击附近开关触发，落下后本回合不再升起（VS）', '{Mid Fountain} 是中路分向两个包点的枢纽（VS）'],
+        suits: { rush: ['speed', 'smoke'], clear: ['stun', 'flash', 'wall'], flank: ['lurk', 'teleport'], burst: ['flash', 'stun', 'wall'], contact: ['teleport', 'speed'], anchor: ['wall', 'trap'], info: ['recon', 'wall'] } }
     ],
     // 角色通用打法（英雄库没有逐条模板时用）。只写通用原则，不描述具体技能机制；{abil} 换成该英雄的官方技能名单
     roleTpl: {
@@ -1067,15 +1070,15 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先确认 {C Garage} 里是否有守方，出车库前注意 {C Window}', push: '车库清空后，如果 {C Long} 已经有人在吸引注意力，就从侧面进点；没人配合就先在车库口看住 {C Window}，再找时机', retreat: '车库里遇到两人以上时退回 {Mid Doors}，不在车库出口硬拼', alt: 'H-C-LONG', altWhy: '改走 C长道，掩体与撤退距离更好控制' }
         ],
         def: [
-          { id: 'H-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 1,
+          { id: 'H-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 1, suits: ['smoke', 'recon'],
             first: '在 {A Tower} 高处架 {A Long} 出口，余光留意 {A Sewer} 出口', fwdText: '', fallback: '被压时从 {A Tower} 退向 {A Link}，先保住自己，再找回防的角度', rotate: '{A Long}、{A Sewer} 都没动静而 {Mid Courtyard} 脚步很多时，经 {A Link} 往 B 靠', alt: 'H-D-A-TOWER' },
-          { id: 'H-D-A-LONG', site: 'A', name: 'A长道前压拿信息', pos: 'A Long', fwd: 'A Long', safe: 1, info: 3, needEsc: true,
+          { id: 'H-D-A-LONG', site: 'A', name: 'A长道前压拿信息', pos: 'A Long', fwd: 'A Long', safe: 1, info: 3, needEsc: true, suits: ['speed', 'flash'],
             first: '在 {A Long} 拐角打对方第一个露头的人，打一枪就换位置', fwdText: '可以前压 {A Long} 拿第一下信息，但只打一枪', fallback: '打完立刻退回 {A Site}，再从 {A Link} 方向重新架', rotate: '前压没看到人且听到 B、C 有动静时，退包点后经 {A Link} 支援', alt: 'H-D-A-TOWER' },
-          { id: 'H-D-B-BACK', site: 'B', name: '守B后房', pos: 'B Back', fwd: null, safe: 2, info: 1,
+          { id: 'H-D-B-BACK', site: 'B', name: '守B后房', pos: 'B Back', fwd: null, safe: 2, info: 1, suits: ['recon', 'lurk'],
             first: '在 {B Back} 深位接从 {Mid Courtyard} 进来的第一个人', fwdText: '', fallback: '对方多人进点时从 {B Back} 退向 {A Link} 或 {C Link}，活着拖时间，看准对面下包再回来', rotate: 'B 是中间点：A 或 C 报多人时，B 位优先去支援', alt: 'H-D-B-BACK' },
-          { id: 'H-D-C-GARAGE', site: 'C', name: '控C车库', pos: 'C Garage', fwd: 'C Garage', safe: 1, info: 3, needEsc: true,
+          { id: 'H-D-C-GARAGE', site: 'C', name: '控C车库', pos: 'C Garage', fwd: 'C Garage', safe: 1, info: 3, needEsc: true, suits: ['flash', 'speed'],
             first: '在 {C Garage} 内架 {Mid Doors}，接中路来的第一个人', fwdText: '可以在 {C Garage} 抢中路门的第一枪，但只在有退路时', fallback: '被压时经 {C Window} 退向 {C Link}', rotate: '中路门长期没人、B 点有大量脚步时经 {C Link} 支援 B', alt: 'H-D-C-SITE' },
-          { id: 'H-D-C-SITE', site: 'C', name: '守C包点深位', pos: 'C Site', fwd: null, safe: 3, info: 1,
+          { id: 'H-D-C-SITE', site: 'C', name: '守C包点深位', pos: 'C Site', fwd: null, safe: 3, info: 1, suits: ['wall', 'smoke', 'trap'],
             first: '在包点深处架 {C Long} 出口', fwdText: '', fallback: '对方大量进点时退向 {C Link}，活着拖时间，看准对面下包再回来', rotate: '{C Long} 没人、车库也没动静时向 {C Link} 靠，准备支援 B', alt: 'H-D-C-SITE' }
         ]
       },
@@ -1098,13 +1101,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先用技能打 {B Window} 后的人，再看窗口正下方的角落', push: '窗口内清空、窗下角落确认后从窗口进点', retreat: '窗口被对方技能封住时退回 {B Short}；可借 {A Teleporter} 的声音做假转点', alt: 'BD-B-WINDOW', altWhy: '' }
         ],
         def: [
-          { id: 'BD-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 2,
+          { id: 'BD-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 2, suits: ['recon', 'smoke'],
             first: '在 {A Tower} 高处看 {A Short} 与 {A Bath} 来路', fwdText: '', fallback: '被技能压住时从塔楼后方退向守方重生点方向，保住自己，等对面下包后再找角度', rotate: '听到 {B Teleporter} 传送声、或 B 侧多人时，及时提醒并准备转点', alt: 'BD-D-A-TOWER' },
-          { id: 'BD-D-A-BATH', site: 'A', name: 'A澡堂出口近点', pos: 'A Site', fwd: 'A Bath', safe: 1, info: 2, needEsc: true,
+          { id: 'BD-D-A-BATH', site: 'A', name: 'A澡堂出口近点', pos: 'A Site', fwd: 'A Bath', safe: 1, info: 2, needEsc: true, suits: ['flash', 'stun'],
             first: '在包点近处接 {A Bath} 出来的第一个人', fwdText: '可以靠近 {A Bath} 出口打第一枪，打完立刻换位', fallback: '打完退回包点深处或 {A Tower} 方向', rotate: 'A 长时间没动静、B 侧有传送声时转点', alt: 'BD-D-A-TOWER' },
-          { id: 'BD-D-B-SITE', site: 'B', name: '守B包点深位', pos: 'B Site', fwd: null, safe: 3, info: 1,
+          { id: 'BD-D-B-SITE', site: 'B', name: '守B包点深位', pos: 'B Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'smoke'],
             first: '在包点深处架 {B Long} 出口或 {B Window}，二选一，别两边都看', fwdText: '', fallback: '多人进点时退向 {B Elbow}，往 {Defender Side Spawn} 方向拉开，等对面下包后再找角度', rotate: 'A 报多人或听到 {A Teleporter} 传送声后，判断是否是假打再转', alt: 'BD-D-B-SITE' },
-          { id: 'BD-D-B-WINDOW', site: 'B', name: '控B窗口', pos: 'B Window', fwd: 'B Window', safe: 1, info: 3, needEsc: true,
+          { id: 'BD-D-B-WINDOW', site: 'B', name: '控B窗口', pos: 'B Window', fwd: 'B Window', safe: 1, info: 3, needEsc: true, suits: ['flash', 'teleport'],
             first: '在窗口内侧接 {B Short} 来的人', fwdText: '可以在 {B Window} 抢第一枪信息，但窗口两侧都能被打，打一枪就退', fallback: '退回 {B Site}，再经 {B Hall} 方向拉开距离', rotate: '窗口没人且 A 侧报多人时转点', alt: 'BD-D-B-SITE' }
         ]
       },
@@ -1125,15 +1128,15 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先看 {Mid Top} 有没有守方阻止你拿 {Mid Courtyard}，再确认 {B Market} 的门是开是关', push: '庭院拿稳、{B Market} 清空后从大道进 B；如果队友也在大道，就跟着一起进，没人就别单独先冲', retreat: '{Mid Courtyard} 被 {Mid Top} 架住时退回 {Mid Tiles}', alt: 'SS-A-MAIN', altWhy: '改打 A：先拿 {A Elbow}，一步一步推进，撤退路线短' }
         ],
         def: [
-          { id: 'SS-D-A-SITE', site: 'A', name: '守A包点', pos: 'A Site', fwd: null, safe: 3, info: 1,
+          { id: 'SS-D-A-SITE', site: 'A', name: '守A包点', pos: 'A Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'wall'],
             first: '在包点架 {A Main} 出口', fwdText: '', fallback: '多人进点时退向 {A Alley} 或 {A Link}', rotate: 'A 没动静、B 报多人时经守方重生点方向支援', alt: 'SS-D-A-SITE' },
-          { id: 'SS-D-A-ELBOW', site: 'A', name: '前控A拐角', pos: 'A Elbow', fwd: 'A Elbow', safe: 1, info: 3, needEsc: true,
+          { id: 'SS-D-A-ELBOW', site: 'A', name: '前控A拐角', pos: 'A Elbow', fwd: 'A Elbow', safe: 1, info: 3, needEsc: true, suits: ['flash', 'stun', 'speed'],
             first: '在 {A Elbow} 接 {A Main} 来的第一个人', fwdText: '可以在 {A Elbow} 抢第一枪，打一枪就退', fallback: '打完退回 {A Site} 再往 {A Alley} 拉开', rotate: '前点长时间没人时退回包点，准备支援', alt: 'SS-D-A-SITE' },
-          { id: 'SS-D-B-MARKET', site: 'B', name: '控B市场', pos: 'B Market', fwd: 'B Market', safe: 2, info: 3,
+          { id: 'SS-D-B-MARKET', site: 'B', name: '控B市场', pos: 'B Market', fwd: 'B Market', safe: 2, info: 3, suits: ['trap', 'recon', 'lurk'],
             first: '在 {B Market} 接 {Mid Courtyard} 来的人，可用门控制视野', fwdText: '可以在 {B Market} 接中路第一枪；门关着时不必冒头', fallback: '被压时退回 {B Site}，再往 {B Boba}', rotate: '中路没人、A 报多人时转点', alt: 'SS-D-B-SITE' },
-          { id: 'SS-D-B-SITE', site: 'B', name: '守B包点', pos: 'B Site', fwd: null, safe: 3, info: 1,
+          { id: 'SS-D-B-SITE', site: 'B', name: '守B包点', pos: 'B Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'wall', 'smoke'],
             first: '利用包点柱子架 {B Main} 出口', fwdText: '', fallback: '多人进点时退向 {B Boba}', rotate: 'B 没动静、A 报多人时支援', alt: 'SS-D-B-SITE' },
-          { id: 'SS-D-MID-TOP', site: 'Mid', name: '中区坡顶控中', pos: 'Mid Top', fwd: 'Mid Top', safe: 1, info: 3, needEsc: true,
+          { id: 'SS-D-MID-TOP', site: 'Mid', name: '中区坡顶控中', pos: 'Mid Top', fwd: 'Mid Top', safe: 1, info: 3, needEsc: true, suits: ['speed', 'teleport'],
             first: '在 {Mid Top} 阻止对方拿 {Mid Courtyard}', fwdText: '可以在 {Mid Top} 抢中路第一枪，打完就撤', fallback: '被压时退向守方重生点方向', rotate: '中路被拿下后马上报点并回 A 或 B', alt: 'SS-D-B-MARKET' }
         ]
       },
@@ -1156,13 +1159,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先确认 {B Danger} 没有陷阱或守方，再听大道有没有交火', push: '如果 {B Main} 已经打起来，就从包点后侧进；没动静就别单独深入', retreat: '险路被发现时不要在窄边上对枪，退回 {B Lobby}', alt: 'AB-B-MAIN', altWhy: '险路是窄边，被发现时没有掩体还可能坠亡；改走 B大道，退路是 {B Lobby}' }
         ],
         def: [
-          { id: 'AB-D-A-TOWER', site: 'A', name: '守A瞭望台', pos: 'A Tower', fwd: null, safe: 2, info: 2,
+          { id: 'AB-D-A-TOWER', site: 'A', name: '守A瞭望台', pos: 'A Tower', fwd: null, safe: 2, info: 2, suits: ['recon', 'smoke'],
             first: '在 {A Tower} 高处看 {A Main} 出口和包点', fwdText: '', fallback: '被技能压时下到包点，再退向 {A Security}、{A Link}', rotate: '听到 {A Vent} 破门声要立即报点；B 报多人时经 {A Link} 支援', alt: 'AB-D-A-SECURITY' },
-          { id: 'AB-D-A-SECURITY', site: 'A', name: 'A保安室后点', pos: 'A Security', fwd: null, safe: 3, info: 1,
+          { id: 'AB-D-A-SECURITY', site: 'A', name: 'A保安室后点', pos: 'A Security', fwd: null, safe: 3, info: 1, suits: ['trap', 'recon'],
             first: '在 {A Security} 接进点后的第一个人（对方注意力在前方时）', fwdText: '', fallback: '多人进点时退向 {A Link}，活着拖时间，看准对面下包再回来', rotate: 'A 无动静、B 报多人时经 {A Link} 去中路/B', alt: 'AB-D-A-SECURITY' },
-          { id: 'AB-D-B-TOWER', site: 'B', name: '守B瞭望台', pos: 'B Tower', fwd: null, safe: 2, info: 2,
+          { id: 'AB-D-B-TOWER', site: 'B', name: '守B瞭望台', pos: 'B Tower', fwd: null, safe: 2, info: 2, suits: ['recon', 'smoke'],
             first: '在 {B Tower} 高处看 {B Main} 出口', fwdText: '', fallback: '被压时退向 {B Link}，往 {Defender Side Spawn} 方向', rotate: 'A 报多人时经 {B Link} 转点', alt: 'AB-D-B-TOWER' },
-          { id: 'AB-D-MID-LIB', site: 'Mid', name: '中区图书馆控中', pos: 'Mid Library', fwd: 'Mid Library', safe: 1, info: 3, needEsc: true,
+          { id: 'AB-D-MID-LIB', site: 'Mid', name: '中区图书馆控中', pos: 'Mid Library', fwd: 'Mid Library', safe: 1, info: 3, needEsc: true, suits: ['teleport', 'speed'],
             first: '在 {Mid Library} 接 {Mid Bottom} 来的人，书架做掩体', fwdText: '可以在 {Mid Library} 抢中路第一枪；窄视线适合精准武器', fallback: '被压时经 {B Link} 回 B', rotate: '中路没人时回 B 或去 A 支援', alt: 'AB-D-B-TOWER' }
         ]
       }
@@ -1270,15 +1273,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       Killjoy: { trap: 'Q', dmg: 'C', cc: 'X' }, Sage: { vision: 'C', cc: 'Q', heal: 'E' }, Veto: { trap: 'Q', move: 'C', blind: 'Q', heal: 'X' },
       Vyse: { trap: 'Q', blind: 'E', cc: 'C' }
     },
-    // 战术原型：need = 必须满足的条件组（每组至少满足一项；esc:* 指英雄库里的脱身等级），pref = 加分能力（只用于同等可执行时的匹配深度）
+    // 战术原型：need = 必须满足的条件组（每组至少满足一项；esc:* 指英雄库里的脱身等级），pref = 加分能力（只在点位也分不出高下时计入匹配深度）。
+    // suits = 这条打法典型点位要的英雄标签。具体路线自带 suits 时以路线为准；这里只给没有路线 suits 的通用打法兜底。
     tacArch: {
-      rush: { side: 'atk', zh: '快攻抢点', need: [['move', 'vision']], pref: ['blind', 'cc'], why: '要快速通过开阔段：需要位移或能遮挡视线的技能' },
-      clear: { side: 'atk', zh: '稳步清点', need: [['blind', 'cc', 'dmg', 'recon']], pref: ['vision', 'heal'], why: '要用技能一步步清近点：需要致盲、控制、区域伤害或侦察之一' },
-      burst: { side: 'atk', zh: '近身爆发进点', need: [['blind', 'cc', 'dmg']], pref: ['heal', 'move'], why: '狭窄入口近身交火：需要能先手压制入口的技能' },
-      flank: { side: 'atk', zh: '侧路牵制·绕后', need: [['recon', 'trap', 'decoy', 'esc:strong']], pref: ['move', 'blind'], why: '一个人走侧路：需要能独自拿信息/看住身后，或有可靠的位移脱身' },
-      contact: { side: 'def', zh: '前点接触即退', need: [['esc:strong', 'esc:conditional']], pref: ['blind', 'cc', 'move'], why: '前点打一枪就要退得回来：英雄库脱身等级须为“可靠”或“有条件”' },
-      anchor: { side: 'def', zh: '包点深位拖延', need: [['trap', 'vision', 'cc', 'dmg']], pref: ['heal', 'blind'], why: '守在包点深处拖时间：需要陷阱、封视线、控制或区域伤害之一' },
-      info: { side: 'def', zh: '信息位·机动补防', need: [['recon', 'trap', 'move']], pref: ['blind', 'cc'], why: '先拿信息再补防：需要侦察、陷阱警报或位移之一' }
+      rush: { side: 'atk', zh: '快攻抢点', need: [['move', 'vision']], pref: ['blind', 'cc'], suits: ['speed', 'wall', 'smoke'], why: '要快速通过开阔段：需要位移或能遮挡视线的技能' },
+      clear: { side: 'atk', zh: '稳步清点', need: [['blind', 'cc', 'dmg', 'recon']], pref: ['vision', 'heal'], suits: ['flash', 'recon', 'stun'], why: '要用技能一步步清近点：需要致盲、控制、区域伤害或侦察之一' },
+      burst: { side: 'atk', zh: '近身爆发进点', need: [['blind', 'cc', 'dmg']], pref: ['heal', 'move'], suits: ['flash', 'explosive', 'stun', 'shield'], why: '狭窄入口近身交火：需要能先手压制入口的技能' },
+      flank: { side: 'atk', zh: '侧路牵制·绕后', need: [['recon', 'trap', 'decoy', 'esc:strong']], pref: ['move', 'blind'], suits: ['lurk', 'teleport', 'fake'], why: '一个人走侧路：需要能独自拿信息/看住身后，或有可靠的位移脱身' },
+      contact: { side: 'def', zh: '前点接触即退', need: [['esc:strong', 'esc:conditional']], pref: ['blind', 'cc', 'move'], suits: ['speed', 'teleport'], why: '前点打一枪就要退得回来：英雄库脱身等级须为“可靠”或“有条件”' },
+      anchor: { side: 'def', zh: '包点深位拖延', need: [['trap', 'vision', 'cc', 'dmg']], pref: ['heal', 'blind'], suits: ['trap', 'smoke'], why: '守在包点深处拖时间：需要陷阱、封视线、控制或区域伤害之一' },
+      info: { side: 'def', zh: '信息位·机动补防', need: [['recon', 'trap', 'move']], pref: ['blind', 'cc'], suits: ['recon', 'trap', 'lurk'], why: '先拿信息再补防：需要侦察、陷阱警报或位移之一' }
     },
     // 每张完整战术地图：攻 / 防 各 2–3 个原型 → 现有路线（起点、撤退条件各不相同；构建时断言）
     tactics: {
@@ -1684,7 +1688,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var hits = [], miss = [];
     A.need.forEach(function (g) { var m = g.filter(function (x) { return hasItem(h, x); }); if (m.length) m.forEach(function (x) { hits.push(x); }); else miss.push(needText(g)); });
     var ph = (A.pref || []).filter(function (x) { return hasItem(h, x); });
-    return { ok: !miss.length, hits: hits, prefHits: ph, miss: miss, depth: hits.length + ph.length };
+    // 每组「至少一项」只算 1。同一组里多出来的技能不再加分，否则技能标签多的英雄会压过真正贴合点位的英雄。
+    return { ok: !miss.length, hits: hits, prefHits: ph, miss: miss, depth: (miss.length ? 0 : A.need.length) + ph.length };
   }
   function capLine(hid, arch) { var h = HEROX(hid), e = canExec(hid, arch); if (!e.ok) return ''; return '此打法需要「' + ARCH[arch].need.map(needText).join('」+「') + '」，你用：' + e.hits.map(function (x) { return itemText(h, x); }).join('；') + (e.prefHits.length ? '；加分：' + e.prefHits.map(function (x) { return itemText(h, x); }).join('；') : '') + '。'; }
   // 灵活条件里的 {cap}：该英雄满足此打法的第一个技能（官方技能名）
@@ -1703,8 +1708,9 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       siteEdge: '包点靠主通道出口一侧的掩体（' + sites.join(' / ') + '）', siteDeep: '包点深处、靠近撤退方向（' + sites.join(' / ') + '）', spawnSide: '{Defender Side Spawn} 一侧、两个包点之间' }[t.start];
     String(startT).replace(/\{([^{}]+)\}/g, function (_, k) { refs.push(k); return ''; });
     var A = ARCH[t.arch];
+    var suits = (mx.m.suits && mx.m.suits[t.arch]) || A.suits || [];
     return { tid: mapId + '-G-' + side.toUpperCase() + '-' + t.arch, side: side, arch: t.arch, archZh: A.zh, name: t.name, generic: true, safe: t.safe,
-      start: fmt(mapId, startT), brief: A.zh + '｜起点：' + fmt(mapId, startT), route: fmt(mapId, startT), lim: t, refs: refs,
+      start: fmt(mapId, startT), brief: A.zh + '｜起点：' + fmt(mapId, startT), route: fmt(mapId, startT), lim: t, refs: refs, suits: suits,
       retreat: side === 'atk' ? t.retreat : t.fallback, plan: null };
   }
   function fullCand(mx, side, arch, pid) {
@@ -1806,17 +1812,35 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   }
 
   // ---------- 择将（现实匹配，不是卦象结果；不起卦） ----------
+  // 硬约束：先要能执行已定打法（技能）。在此之上，两侧点位标签都贴合的优先于只贴一侧的；
+  // 能力匹配项只在点位分不出高下时作辅助；熟练度只打破剩余平局，不主导。
   var ZJ_NOTE = '择将为现实匹配，不是卦象结果；六爻不计算哪位英雄最优';
+  function posList(t) {
+    if (!t) return [];
+    if (t.plan && t.plan.suits && t.plan.suits.length) return t.plan.suits;
+    if (t.suits && t.suits.length) return t.suits;
+    var A = ARCH[t.arch];
+    return (A && A.suits) || [];
+  }
+  function posHits(hid, t) {
+    var h = HERO(hid), tags = (h && h.tags) || [], list = posList(t), n = 0;
+    if (!h || !list.length) return 0;
+    for (var i = 0; i < list.length; i++) if (tags.indexOf(list[i]) >= 0) n++;
+    return n;
+  }
   function matchHeroes(pool, prof, atkMain, defMain) {
     var rows = pool.map(function (hid) {
       var a = atkMain ? canExec(hid, atkMain.arch) : { ok: false, depth: 0, miss: [] }, d = defMain ? canExec(hid, defMain.arch) : { ok: false, depth: 0, miss: [] };
-      return { id: hid, zh: heroZhX(hid), canAtk: a.ok, canDef: d.ok, tier: (a.ok ? 1 : 0) + (d.ok ? 1 : 0), depth: (a.ok ? a.depth : 0) + (d.ok ? d.depth : 0), prof: prof.indexOf(hid) + 1, missAtk: a.miss, missDef: d.miss };
+      var pa = posHits(hid, atkMain), pd = posHits(hid, defMain);
+      return { id: hid, zh: heroZhX(hid), canAtk: a.ok, canDef: d.ok, tier: (a.ok ? 1 : 0) + (d.ok ? 1 : 0), depth: (a.ok ? a.depth : 0) + (d.ok ? d.depth : 0),
+        posBoth: (atkMain && defMain) ? Math.min(pa, pd) : pa + pd, posSum: pa + pd, prof: prof.indexOf(hid) + 1, missAtk: a.miss, missDef: d.miss };
     });
-    rows.sort(function (x, y) { return (y.tier - x.tier) || (y.depth - x.depth) || (x.prof - y.prof); });
+    rows.sort(function (x, y) { return (y.tier - x.tier) || (y.posBoth - x.posBoth) || (y.posSum - x.posSum) || (y.depth - x.depth) || (x.prof - y.prof); });
     rows.forEach(function (r, i) {
       var nx = rows[i + 1], pv = rows[i - 1];
-      r.tieProf = !!((nx && nx.tier === r.tier && nx.depth === r.depth) || (pv && pv.tier === r.tier && pv.depth === r.depth));
-      r.why = (r.tier === 2 ? '攻防两个首选打法都能执行' : r.canAtk ? '只能执行进攻首选打法' : r.canDef ? '只能执行防守首选打法' : '两个首选打法都不能执行') + '｜能力匹配项 ' + r.depth + (r.tieProf ? '｜与相邻英雄能力条件相同，按熟练度第' + r.prof + '排先后（只在都可行时作辅助）' : '');
+      function same(o) { return o && o.tier === r.tier && o.posBoth === r.posBoth && o.posSum === r.posSum && o.depth === r.depth; }
+      r.tieProf = !!(same(nx) || same(pv));
+      r.why = (r.tier === 2 ? '攻防两个首选打法都能执行' : r.canAtk ? '只能执行进攻首选打法' : r.canDef ? '只能执行防守首选打法' : '两个首选打法都不能执行') + '｜点位适配 ' + r.posBoth + '（两侧合计 ' + r.posSum + '）｜能力匹配项 ' + r.depth + (r.tieProf ? '｜与相邻英雄能力与点位条件相同，按熟练度第' + r.prof + '排先后（只在都可行时作辅助）' : '');
     });
     return rows;
   }
