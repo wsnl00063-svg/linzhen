@@ -123,7 +123,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
 <body>
 <div class="wrap">
 <h1>六爻·临阵</h1>
-<div class="sub">无畏契约 · 玩谁 · 去哪 · 怎么打 · 借势 · 转势</div>
+<div class="sub">无畏契约 · 去哪 · 怎么打 · 何时换 · 借势 · 转势</div>
 
 <!-- 匹配前：备战（可跳过） -->
 <section id="stPrep">
@@ -140,11 +140,10 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
  <div class="maps" id="maps"></div>
  <button class="go" id="deploy" type="button" disabled>⚔️ 出征</button>
  <div class="entry" id="mapNote"></div>
- <div class="card"><details id="setBox"><summary>我的英雄池 <span class="note" id="setSum"></span></summary>
+ <div class="card"><details id="setBox"><summary>我用的英雄 <span class="note" id="setSum"></span></summary>
+  <div class="note">可选。点一下只用来写技能那一句，不选也能出征。程序不推荐英雄。</div>
   <div id="heroes"></div>
-  <details id="moreSet"><summary>更多：熟练度 / 偏好 / 常犯的问题</summary>
-   <div class="lbl" style="margin-top:6px">熟练度排序 <small>（只在能力条件相同时排先后）</small></div>
-   <div class="prof" id="prof"></div>
+  <details id="moreSet"><summary>更多：偏好 / 常犯的问题</summary>
    <div class="lbl" style="margin-top:8px">打法偏好 <small>（只在卦象分不出高下时参考）</small></div>
    <div class="chips" id="pref"></div>
    <div class="lbl" style="margin-top:8px">我常犯的问题</div>
@@ -1019,13 +1018,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     limitedMaps: [
       { id: 'Lotus', zh: '莲华古城', en: 'LOTUS', alias: '', sites: ['A', 'B', 'C'], src: ['API', 'PN', 'VS'],
         why: '12.05 版本 A 侧改动后，没能找到可交叉核对的 A 侧路线、枪线文字资料，不给具体路线与站位',
-        mech: ['A、C 两侧各有一扇旋转门（{A Door}、{C Door}），开门有声音、转动需要时间（VS）', '{A Main} 旁有一面可破坏墙通往 {A Link}（VS）', '可从 {A Top} 经 {A Drop} 安静落入 A 包点（VS）', '{C Waterfall} 是守方高处位置（VS）'] },
+        mech: ['A、C 两侧各有一扇旋转门（{A Door}、{C Door}），开门有声音、转动需要时间（VS）', '{A Main} 旁有一面可破坏墙通往 {A Link}（VS）', '可从 {A Top} 经 {A Drop} 安静落入 A 包点（VS）', '{C Waterfall} 是守方高处位置（VS）'],
+        suits: { rush: ['speed', 'wall'], clear: ['recon', 'flash', 'lurk'], flank: ['lurk', 'teleport'], burst: ['flash', 'stun'], contact: ['teleport', 'speed'], anchor: ['trap', 'recon'], info: ['recon', 'lurk'] } },
       { id: 'Corrode', zh: '盐海矿镇', en: 'CORRODE', alias: '', sites: ['A', 'B'], src: ['API', 'PN', 'VS'],
         why: '13.08 刚改动守方回防路径与中路，缺少改动后的可靠路线、枪线资料，不给具体路线与站位',
-        mech: ['13.08：守方进入 A、B 包点后侧的路径缩短，回防更快（PN）', '13.08：{Mid Stairs} 的半墙改为金属并外移约 1 米；{Mid Bottom} 箱子调整（PN）', '13.08：A 下包区调整，从 {A Link} 打下包后的效果变弱（PN）'] },
+        mech: ['13.08：守方进入 A、B 包点后侧的路径缩短，回防更快（PN）', '13.08：{Mid Stairs} 的半墙改为金属并外移约 1 米；{Mid Bottom} 箱子调整（PN）', '13.08：A 下包区调整，从 {A Link} 打下包后的效果变弱（PN）'],
+        suits: { rush: ['speed', 'wall', 'smoke'], clear: ['flash', 'stun', 'smoke'], flank: ['lurk', 'fake'], burst: ['flash', 'stun', 'smoke'], contact: ['speed', 'flash'], anchor: ['smoke', 'wall'], info: ['recon', 'smoke'] } },
       { id: 'Summit', zh: '天枢云阙', en: 'SUMMIT', alias: '', sites: ['A', 'B'], src: ['API', 'PN', 'VS'],
         why: '13.00 新图，可落下墙等机制的具体枪线资料不足，不给具体路线与站位',
-        mech: ['A 包点、中路、B 包点各有一面可落下的墙，射击附近开关触发，落下后本回合不再升起（VS）', '{Mid Fountain} 是中路分向两个包点的枢纽（VS）'] }
+        mech: ['A 包点、中路、B 包点各有一面可落下的墙，射击附近开关触发，落下后本回合不再升起（VS）', '{Mid Fountain} 是中路分向两个包点的枢纽（VS）'],
+        suits: { rush: ['speed', 'smoke'], clear: ['stun', 'flash', 'wall'], flank: ['lurk', 'teleport'], burst: ['flash', 'stun', 'wall'], contact: ['teleport', 'speed'], anchor: ['wall', 'trap'], info: ['recon', 'wall'] } }
     ],
     // 角色通用打法（英雄库没有逐条模板时用）。只写通用原则，不描述具体技能机制；{abil} 换成该英雄的官方技能名单
     roleTpl: {
@@ -1067,15 +1069,15 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先确认 {C Garage} 里是否有守方，出车库前注意 {C Window}', push: '车库清空后，如果 {C Long} 已经有人在吸引注意力，就从侧面进点；没人配合就先在车库口看住 {C Window}，再找时机', retreat: '车库里遇到两人以上时退回 {Mid Doors}，不在车库出口硬拼', alt: 'H-C-LONG', altWhy: '改走 C长道，掩体与撤退距离更好控制' }
         ],
         def: [
-          { id: 'H-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 1,
+          { id: 'H-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 1, suits: ['smoke', 'recon'],
             first: '在 {A Tower} 高处架 {A Long} 出口，余光留意 {A Sewer} 出口', fwdText: '', fallback: '被压时从 {A Tower} 退向 {A Link}，先保住自己，再找回防的角度', rotate: '{A Long}、{A Sewer} 都没动静而 {Mid Courtyard} 脚步很多时，经 {A Link} 往 B 靠', alt: 'H-D-A-TOWER' },
-          { id: 'H-D-A-LONG', site: 'A', name: 'A长道前压拿信息', pos: 'A Long', fwd: 'A Long', safe: 1, info: 3, needEsc: true,
+          { id: 'H-D-A-LONG', site: 'A', name: 'A长道前压拿信息', pos: 'A Long', fwd: 'A Long', safe: 1, info: 3, needEsc: true, suits: ['speed', 'flash'],
             first: '在 {A Long} 拐角打对方第一个露头的人，打一枪就换位置', fwdText: '可以前压 {A Long} 拿第一下信息，但只打一枪', fallback: '打完立刻退回 {A Site}，再从 {A Link} 方向重新架', rotate: '前压没看到人且听到 B、C 有动静时，退包点后经 {A Link} 支援', alt: 'H-D-A-TOWER' },
-          { id: 'H-D-B-BACK', site: 'B', name: '守B后房', pos: 'B Back', fwd: null, safe: 2, info: 1,
+          { id: 'H-D-B-BACK', site: 'B', name: '守B后房', pos: 'B Back', fwd: null, safe: 2, info: 1, suits: ['recon', 'lurk'],
             first: '在 {B Back} 深位接从 {Mid Courtyard} 进来的第一个人', fwdText: '', fallback: '对方多人进点时从 {B Back} 退向 {A Link} 或 {C Link}，活着拖时间，看准对面下包再回来', rotate: 'B 是中间点：A 或 C 报多人时，B 位优先去支援', alt: 'H-D-B-BACK' },
-          { id: 'H-D-C-GARAGE', site: 'C', name: '控C车库', pos: 'C Garage', fwd: 'C Garage', safe: 1, info: 3, needEsc: true,
+          { id: 'H-D-C-GARAGE', site: 'C', name: '控C车库', pos: 'C Garage', fwd: 'C Garage', safe: 1, info: 3, needEsc: true, suits: ['flash', 'speed'],
             first: '在 {C Garage} 内架 {Mid Doors}，接中路来的第一个人', fwdText: '可以在 {C Garage} 抢中路门的第一枪，但只在有退路时', fallback: '被压时经 {C Window} 退向 {C Link}', rotate: '中路门长期没人、B 点有大量脚步时经 {C Link} 支援 B', alt: 'H-D-C-SITE' },
-          { id: 'H-D-C-SITE', site: 'C', name: '守C包点深位', pos: 'C Site', fwd: null, safe: 3, info: 1,
+          { id: 'H-D-C-SITE', site: 'C', name: '守C包点深位', pos: 'C Site', fwd: null, safe: 3, info: 1, suits: ['wall', 'smoke', 'trap'],
             first: '在包点深处架 {C Long} 出口', fwdText: '', fallback: '对方大量进点时退向 {C Link}，活着拖时间，看准对面下包再回来', rotate: '{C Long} 没人、车库也没动静时向 {C Link} 靠，准备支援 B', alt: 'H-D-C-SITE' }
         ]
       },
@@ -1098,13 +1100,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先用技能打 {B Window} 后的人，再看窗口正下方的角落', push: '窗口内清空、窗下角落确认后从窗口进点', retreat: '窗口被对方技能封住时退回 {B Short}；可借 {A Teleporter} 的声音做假转点', alt: 'BD-B-WINDOW', altWhy: '' }
         ],
         def: [
-          { id: 'BD-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 2,
+          { id: 'BD-D-A-TOWER', site: 'A', name: '守A塔楼', pos: 'A Tower', fwd: null, safe: 3, info: 2, suits: ['recon', 'smoke'],
             first: '在 {A Tower} 高处看 {A Short} 与 {A Bath} 来路', fwdText: '', fallback: '被技能压住时从塔楼后方退向守方重生点方向，保住自己，等对面下包后再找角度', rotate: '听到 {B Teleporter} 传送声、或 B 侧多人时，及时提醒并准备转点', alt: 'BD-D-A-TOWER' },
-          { id: 'BD-D-A-BATH', site: 'A', name: 'A澡堂出口近点', pos: 'A Site', fwd: 'A Bath', safe: 1, info: 2, needEsc: true,
+          { id: 'BD-D-A-BATH', site: 'A', name: 'A澡堂出口近点', pos: 'A Site', fwd: 'A Bath', safe: 1, info: 2, needEsc: true, suits: ['flash', 'stun'],
             first: '在包点近处接 {A Bath} 出来的第一个人', fwdText: '可以靠近 {A Bath} 出口打第一枪，打完立刻换位', fallback: '打完退回包点深处或 {A Tower} 方向', rotate: 'A 长时间没动静、B 侧有传送声时转点', alt: 'BD-D-A-TOWER' },
-          { id: 'BD-D-B-SITE', site: 'B', name: '守B包点深位', pos: 'B Site', fwd: null, safe: 3, info: 1,
+          { id: 'BD-D-B-SITE', site: 'B', name: '守B包点深位', pos: 'B Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'smoke'],
             first: '在包点深处架 {B Long} 出口或 {B Window}，二选一，别两边都看', fwdText: '', fallback: '多人进点时退向 {B Elbow}，往 {Defender Side Spawn} 方向拉开，等对面下包后再找角度', rotate: 'A 报多人或听到 {A Teleporter} 传送声后，判断是否是假打再转', alt: 'BD-D-B-SITE' },
-          { id: 'BD-D-B-WINDOW', site: 'B', name: '控B窗口', pos: 'B Window', fwd: 'B Window', safe: 1, info: 3, needEsc: true,
+          { id: 'BD-D-B-WINDOW', site: 'B', name: '控B窗口', pos: 'B Window', fwd: 'B Window', safe: 1, info: 3, needEsc: true, suits: ['flash', 'teleport'],
             first: '在窗口内侧接 {B Short} 来的人', fwdText: '可以在 {B Window} 抢第一枪信息，但窗口两侧都能被打，打一枪就退', fallback: '退回 {B Site}，再经 {B Hall} 方向拉开距离', rotate: '窗口没人且 A 侧报多人时转点', alt: 'BD-D-B-SITE' }
         ]
       },
@@ -1125,15 +1127,15 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先看 {Mid Top} 有没有守方阻止你拿 {Mid Courtyard}，再确认 {B Market} 的门是开是关', push: '庭院拿稳、{B Market} 清空后从大道进 B；如果队友也在大道，就跟着一起进，没人就别单独先冲', retreat: '{Mid Courtyard} 被 {Mid Top} 架住时退回 {Mid Tiles}', alt: 'SS-A-MAIN', altWhy: '改打 A：先拿 {A Elbow}，一步一步推进，撤退路线短' }
         ],
         def: [
-          { id: 'SS-D-A-SITE', site: 'A', name: '守A包点', pos: 'A Site', fwd: null, safe: 3, info: 1,
+          { id: 'SS-D-A-SITE', site: 'A', name: '守A包点', pos: 'A Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'wall'],
             first: '在包点架 {A Main} 出口', fwdText: '', fallback: '多人进点时退向 {A Alley} 或 {A Link}', rotate: 'A 没动静、B 报多人时经守方重生点方向支援', alt: 'SS-D-A-SITE' },
-          { id: 'SS-D-A-ELBOW', site: 'A', name: '前控A拐角', pos: 'A Elbow', fwd: 'A Elbow', safe: 1, info: 3, needEsc: true,
+          { id: 'SS-D-A-ELBOW', site: 'A', name: '前控A拐角', pos: 'A Elbow', fwd: 'A Elbow', safe: 1, info: 3, needEsc: true, suits: ['flash', 'stun', 'speed'],
             first: '在 {A Elbow} 接 {A Main} 来的第一个人', fwdText: '可以在 {A Elbow} 抢第一枪，打一枪就退', fallback: '打完退回 {A Site} 再往 {A Alley} 拉开', rotate: '前点长时间没人时退回包点，准备支援', alt: 'SS-D-A-SITE' },
-          { id: 'SS-D-B-MARKET', site: 'B', name: '控B市场', pos: 'B Market', fwd: 'B Market', safe: 2, info: 3,
+          { id: 'SS-D-B-MARKET', site: 'B', name: '控B市场', pos: 'B Market', fwd: 'B Market', safe: 2, info: 3, suits: ['trap', 'recon', 'lurk'],
             first: '在 {B Market} 接 {Mid Courtyard} 来的人，可用门控制视野', fwdText: '可以在 {B Market} 接中路第一枪；门关着时不必冒头', fallback: '被压时退回 {B Site}，再往 {B Boba}', rotate: '中路没人、A 报多人时转点', alt: 'SS-D-B-SITE' },
-          { id: 'SS-D-B-SITE', site: 'B', name: '守B包点', pos: 'B Site', fwd: null, safe: 3, info: 1,
+          { id: 'SS-D-B-SITE', site: 'B', name: '守B包点', pos: 'B Site', fwd: null, safe: 3, info: 1, suits: ['trap', 'wall', 'smoke'],
             first: '利用包点柱子架 {B Main} 出口', fwdText: '', fallback: '多人进点时退向 {B Boba}', rotate: 'B 没动静、A 报多人时支援', alt: 'SS-D-B-SITE' },
-          { id: 'SS-D-MID-TOP', site: 'Mid', name: '中区坡顶控中', pos: 'Mid Top', fwd: 'Mid Top', safe: 1, info: 3, needEsc: true,
+          { id: 'SS-D-MID-TOP', site: 'Mid', name: '中区坡顶控中', pos: 'Mid Top', fwd: 'Mid Top', safe: 1, info: 3, needEsc: true, suits: ['speed', 'teleport'],
             first: '在 {Mid Top} 阻止对方拿 {Mid Courtyard}', fwdText: '可以在 {Mid Top} 抢中路第一枪，打完就撤', fallback: '被压时退向守方重生点方向', rotate: '中路被拿下后马上报点并回 A 或 B', alt: 'SS-D-B-MARKET' }
         ]
       },
@@ -1156,13 +1158,13 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
             info: '先确认 {B Danger} 没有陷阱或守方，再听大道有没有交火', push: '如果 {B Main} 已经打起来，就从包点后侧进；没动静就别单独深入', retreat: '险路被发现时不要在窄边上对枪，退回 {B Lobby}', alt: 'AB-B-MAIN', altWhy: '险路是窄边，被发现时没有掩体还可能坠亡；改走 B大道，退路是 {B Lobby}' }
         ],
         def: [
-          { id: 'AB-D-A-TOWER', site: 'A', name: '守A瞭望台', pos: 'A Tower', fwd: null, safe: 2, info: 2,
+          { id: 'AB-D-A-TOWER', site: 'A', name: '守A瞭望台', pos: 'A Tower', fwd: null, safe: 2, info: 2, suits: ['recon', 'smoke'],
             first: '在 {A Tower} 高处看 {A Main} 出口和包点', fwdText: '', fallback: '被技能压时下到包点，再退向 {A Security}、{A Link}', rotate: '听到 {A Vent} 破门声要立即报点；B 报多人时经 {A Link} 支援', alt: 'AB-D-A-SECURITY' },
-          { id: 'AB-D-A-SECURITY', site: 'A', name: 'A保安室后点', pos: 'A Security', fwd: null, safe: 3, info: 1,
+          { id: 'AB-D-A-SECURITY', site: 'A', name: 'A保安室后点', pos: 'A Security', fwd: null, safe: 3, info: 1, suits: ['trap', 'recon'],
             first: '在 {A Security} 接进点后的第一个人（对方注意力在前方时）', fwdText: '', fallback: '多人进点时退向 {A Link}，活着拖时间，看准对面下包再回来', rotate: 'A 无动静、B 报多人时经 {A Link} 去中路/B', alt: 'AB-D-A-SECURITY' },
-          { id: 'AB-D-B-TOWER', site: 'B', name: '守B瞭望台', pos: 'B Tower', fwd: null, safe: 2, info: 2,
+          { id: 'AB-D-B-TOWER', site: 'B', name: '守B瞭望台', pos: 'B Tower', fwd: null, safe: 2, info: 2, suits: ['recon', 'smoke'],
             first: '在 {B Tower} 高处看 {B Main} 出口', fwdText: '', fallback: '被压时退向 {B Link}，往 {Defender Side Spawn} 方向', rotate: 'A 报多人时经 {B Link} 转点', alt: 'AB-D-B-TOWER' },
-          { id: 'AB-D-MID-LIB', site: 'Mid', name: '中区图书馆控中', pos: 'Mid Library', fwd: 'Mid Library', safe: 1, info: 3, needEsc: true,
+          { id: 'AB-D-MID-LIB', site: 'Mid', name: '中区图书馆控中', pos: 'Mid Library', fwd: 'Mid Library', safe: 1, info: 3, needEsc: true, suits: ['teleport', 'speed'],
             first: '在 {Mid Library} 接 {Mid Bottom} 来的人，书架做掩体', fwdText: '可以在 {Mid Library} 抢中路第一枪；窄视线适合精准武器', fallback: '被压时经 {B Link} 回 B', rotate: '中路没人时回 B 或去 A 支援', alt: 'AB-D-B-TOWER' }
         ]
       }
@@ -1270,15 +1272,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       Killjoy: { trap: 'Q', dmg: 'C', cc: 'X' }, Sage: { vision: 'C', cc: 'Q', heal: 'E' }, Veto: { trap: 'Q', move: 'C', blind: 'Q', heal: 'X' },
       Vyse: { trap: 'Q', blind: 'E', cc: 'C' }
     },
-    // 战术原型：need = 必须满足的条件组（每组至少满足一项；esc:* 指英雄库里的脱身等级），pref = 加分能力（只用于同等可执行时的匹配深度）
+    // 战术原型：need = 必须满足的条件组（每组至少满足一项；esc:* 指英雄库里的脱身等级），pref = 加分能力（只在点位也分不出高下时计入匹配深度）。
+    // suits = 这条打法典型点位要的英雄标签。具体路线自带 suits 时以路线为准；这里只给没有路线 suits 的通用打法兜底。
     tacArch: {
-      rush: { side: 'atk', zh: '快攻抢点', need: [['move', 'vision']], pref: ['blind', 'cc'], why: '要快速通过开阔段：需要位移或能遮挡视线的技能' },
-      clear: { side: 'atk', zh: '稳步清点', need: [['blind', 'cc', 'dmg', 'recon']], pref: ['vision', 'heal'], why: '要用技能一步步清近点：需要致盲、控制、区域伤害或侦察之一' },
-      burst: { side: 'atk', zh: '近身爆发进点', need: [['blind', 'cc', 'dmg']], pref: ['heal', 'move'], why: '狭窄入口近身交火：需要能先手压制入口的技能' },
-      flank: { side: 'atk', zh: '侧路牵制·绕后', need: [['recon', 'trap', 'decoy', 'esc:strong']], pref: ['move', 'blind'], why: '一个人走侧路：需要能独自拿信息/看住身后，或有可靠的位移脱身' },
-      contact: { side: 'def', zh: '前点接触即退', need: [['esc:strong', 'esc:conditional']], pref: ['blind', 'cc', 'move'], why: '前点打一枪就要退得回来：英雄库脱身等级须为“可靠”或“有条件”' },
-      anchor: { side: 'def', zh: '包点深位拖延', need: [['trap', 'vision', 'cc', 'dmg']], pref: ['heal', 'blind'], why: '守在包点深处拖时间：需要陷阱、封视线、控制或区域伤害之一' },
-      info: { side: 'def', zh: '信息位·机动补防', need: [['recon', 'trap', 'move']], pref: ['blind', 'cc'], why: '先拿信息再补防：需要侦察、陷阱警报或位移之一' }
+      rush: { side: 'atk', zh: '快攻抢点', need: [['move', 'vision']], pref: ['blind', 'cc'], suits: ['speed', 'wall', 'smoke'], why: '要快速通过开阔段：需要位移或能遮挡视线的技能' },
+      clear: { side: 'atk', zh: '稳步清点', need: [['blind', 'cc', 'dmg', 'recon']], pref: ['vision', 'heal'], suits: ['flash', 'recon', 'stun'], why: '要用技能一步步清近点：需要致盲、控制、区域伤害或侦察之一' },
+      burst: { side: 'atk', zh: '近身爆发进点', need: [['blind', 'cc', 'dmg']], pref: ['heal', 'move'], suits: ['flash', 'explosive', 'stun', 'shield'], why: '狭窄入口近身交火：需要能先手压制入口的技能' },
+      flank: { side: 'atk', zh: '侧路牵制·绕后', need: [['recon', 'trap', 'decoy', 'esc:strong']], pref: ['move', 'blind'], suits: ['lurk', 'teleport', 'fake'], why: '一个人走侧路：需要能独自拿信息/看住身后，或有可靠的位移脱身' },
+      contact: { side: 'def', zh: '前点接触即退', need: [['esc:strong', 'esc:conditional']], pref: ['blind', 'cc', 'move'], suits: ['speed', 'teleport'], why: '前点打一枪就要退得回来：英雄库脱身等级须为“可靠”或“有条件”' },
+      anchor: { side: 'def', zh: '包点深位拖延', need: [['trap', 'vision', 'cc', 'dmg']], pref: ['heal', 'blind'], suits: ['trap', 'smoke'], why: '守在包点深处拖时间：需要陷阱、封视线、控制或区域伤害之一' },
+      info: { side: 'def', zh: '信息位·机动补防', need: [['recon', 'trap', 'move']], pref: ['blind', 'cc'], suits: ['recon', 'trap', 'lurk'], why: '先拿信息再补防：需要侦察、陷阱警报或位移之一' }
     },
     // 每张完整战术地图：攻 / 防 各 2–3 个原型 → 现有路线（起点、撤退条件各不相同；构建时断言）
     tactics: {
@@ -1411,8 +1414,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
 
   // ---------- 输入 ----------
   function poolOf(inp) { return (inp && inp.heroes || []).filter(function (h, i, a) { return HEROX(h) && a.indexOf(h) === i; }); }
+  function meOf(inp) { var id = inp && (inp.me || ''); return id && HEROX(id) ? id : ''; }
   function validatePrep(inp) {
-    if (!poolOf(inp).length) return { ok: false, msg: '请先在“我的英雄池”里至少选一位英雄。未起卦。' };
     return { ok: true, msg: '' };
   }
   // 出征：sess 可为 null（未备战、直接临阵）；有备战记录时一备战只绑定一场出征
@@ -1684,7 +1687,8 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var hits = [], miss = [];
     A.need.forEach(function (g) { var m = g.filter(function (x) { return hasItem(h, x); }); if (m.length) m.forEach(function (x) { hits.push(x); }); else miss.push(needText(g)); });
     var ph = (A.pref || []).filter(function (x) { return hasItem(h, x); });
-    return { ok: !miss.length, hits: hits, prefHits: ph, miss: miss, depth: hits.length + ph.length };
+    // 每组「至少一项」只算 1。同一组里多出来的技能不再加分，否则技能标签多的英雄会压过真正贴合点位的英雄。
+    return { ok: !miss.length, hits: hits, prefHits: ph, miss: miss, depth: (miss.length ? 0 : A.need.length) + ph.length };
   }
   function capLine(hid, arch) { var h = HEROX(hid), e = canExec(hid, arch); if (!e.ok) return ''; return '此打法需要「' + ARCH[arch].need.map(needText).join('」+「') + '」，你用：' + e.hits.map(function (x) { return itemText(h, x); }).join('；') + (e.prefHits.length ? '；加分：' + e.prefHits.map(function (x) { return itemText(h, x); }).join('；') : '') + '。'; }
   // 灵活条件里的 {cap}：该英雄满足此打法的第一个技能（官方技能名）
@@ -1703,8 +1707,9 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       siteEdge: '包点靠主通道出口一侧的掩体（' + sites.join(' / ') + '）', siteDeep: '包点深处、靠近撤退方向（' + sites.join(' / ') + '）', spawnSide: '{Defender Side Spawn} 一侧、两个包点之间' }[t.start];
     String(startT).replace(/\{([^{}]+)\}/g, function (_, k) { refs.push(k); return ''; });
     var A = ARCH[t.arch];
+    var suits = (mx.m.suits && mx.m.suits[t.arch]) || A.suits || [];
     return { tid: mapId + '-G-' + side.toUpperCase() + '-' + t.arch, side: side, arch: t.arch, archZh: A.zh, name: t.name, generic: true, safe: t.safe,
-      start: fmt(mapId, startT), brief: A.zh + '｜起点：' + fmt(mapId, startT), route: fmt(mapId, startT), lim: t, refs: refs,
+      start: fmt(mapId, startT), brief: A.zh + '｜起点：' + fmt(mapId, startT), route: fmt(mapId, startT), lim: t, refs: refs, suits: suits,
       retreat: side === 'atk' ? t.retreat : t.fallback, plan: null };
   }
   function fullCand(mx, side, arch, pid) {
@@ -1722,26 +1727,32 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     else ['atk', 'def'].forEach(function (s) { DB.limitedTac[s].forEach(function (t) { out[s].push(limitedCand(mx, s, t)); }); });
     return out;
   }
-  // 每侧两方案：A/B 各按原型优先级取“英雄池里有人能执行”的第一个；都没人能执行 → 不起这一卦并说明
-  function plansFor(mx, pool) {
+  // 每侧固定两套个人倾向（快 / 慢），不按英雄池过滤，也不指定队伍必须打哪个点。
+  function plansFor(mx) {
     var all = allCandidates(mx), res = {};
     ['atk', 'def'].forEach(function (s) {
       var c = [], x = [];
       ['A', 'B'].forEach(function (slot) {
-        var spec = DB.planAB[s][slot], got = null, skipped = [];
+        var spec = DB.planAB[s][slot], got = null;
         spec.opts.forEach(function (arch) {
-          if (got) return; var t = all[s].filter(function (y) { return y.arch === arch; })[0]; if (!t) return;
-          var by = pool.filter(function (h) { return canExec(h, arch).ok; });
-          if (by.length) { got = t; t.execBy = by; } else skipped.push('「' + t.name + '」（' + t.archZh + '：英雄池里没有英雄满足「' + ARCH[arch].need.map(needText).join('」+「') + '」）');
+          if (got) return;
+          var t = all[s].filter(function (y) { return y.arch === arch; })[0];
+          if (!t) return;
+          got = t; t.execBy = []; t.slot = slot; t.slotZh = spec.zh; t.slotDesc = spec.desc; t.skipped = [];
         });
-        if (got) { got.slot = slot; got.slotZh = spec.zh; got.slotDesc = spec.desc; got.skipped = skipped; c.push(got); }
-        else x.push({ slot: slot, slotZh: spec.zh, why: '方案' + slot + '·' + spec.zh + '（' + spec.desc + '）现实不可执行：' + (skipped.join('；') || '本地图无此类路线') + '。只剩一个可执行方案，不为凑数起第二卦。' });
+        if (got) c.push(got);
+        else x.push({ slot: slot, slotZh: spec.zh, why: '本地图没有这套个人打法，不起这一卦。' });
       });
       res[s] = { cands: c, excluded: x };
     });
     return res;
   }
-  function tacQ(mx, side, t) { return '本场在' + mx.zh + '（' + mx.id + '）' + (side === 'atk' ? '进攻' : '防守') + '阶段，我采取方案' + t.slot + '（「' + t.name + '」，' + t.slotZh + '：' + t.brief + '），对个人发挥是否有利？'; }
+  function tacQ(mx, side, t) {
+    var style = side === 'atk'
+      ? (t.slot === 'A' ? '队伍叫哪个点，我就立刻跟进做交易，不自己改口' : '先在集合点等待，第一波没打开再转点或走备用通道')
+      : (t.slot === 'A' ? '前点看一眼就撤，再按交火声补位' : '先守一个点拖时间，确认另一边有交火再转点');
+    return '本场在' + mx.zh + '（' + mx.id + '）' + (side === 'atk' ? '进攻' : '防守') + '，我个人采取「' + style + '」（不指定队伍必须打哪个点），对个人发挥是否有利？';
+  }
 
   // ---------- 两卦比较 P-LZ13 v3（V4.2.1）：只比“关系”，不打分、不分级、不求和、不比较档位 ----------
   // 每卦取 judge() 记录的关系：生（谁生扶世爻）/ 克（未解的克伤：月日克、日月夹伤、到底月破、日破、真空、完整回头克、化退空破墓绝、忌神动克、局克）/
@@ -1805,20 +1816,16 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     return { chosen: rp.top.tid, mode: 'reality', rel: relS, why: '传统卦象分不出高下（待复核，关系见上）。不硬判，按现实可执行性取方案' + rp.top.slot + '「' + rp.top.name + '」：' + rp.why + '。', short: '卦' + a.no + '｜卦' + b.no + ' → 传统卦象分不出高下（待复核），按现实取方案' + rp.top.slot };
   }
 
-  // ---------- 择将（现实匹配，不是卦象结果；不起卦） ----------
-  var ZJ_NOTE = '择将为现实匹配，不是卦象结果；六爻不计算哪位英雄最优';
-  function matchHeroes(pool, prof, atkMain, defMain) {
-    var rows = pool.map(function (hid) {
-      var a = atkMain ? canExec(hid, atkMain.arch) : { ok: false, depth: 0, miss: [] }, d = defMain ? canExec(hid, defMain.arch) : { ok: false, depth: 0, miss: [] };
-      return { id: hid, zh: heroZhX(hid), canAtk: a.ok, canDef: d.ok, tier: (a.ok ? 1 : 0) + (d.ok ? 1 : 0), depth: (a.ok ? a.depth : 0) + (d.ok ? d.depth : 0), prof: prof.indexOf(hid) + 1, missAtk: a.miss, missDef: d.miss };
-    });
-    rows.sort(function (x, y) { return (y.tier - x.tier) || (y.depth - x.depth) || (x.prof - y.prof); });
-    rows.forEach(function (r, i) {
-      var nx = rows[i + 1], pv = rows[i - 1];
-      r.tieProf = !!((nx && nx.tier === r.tier && nx.depth === r.depth) || (pv && pv.tier === r.tier && pv.depth === r.depth));
-      r.why = (r.tier === 2 ? '攻防两个首选打法都能执行' : r.canAtk ? '只能执行进攻首选打法' : r.canDef ? '只能执行防守首选打法' : '两个首选打法都不能执行') + '｜能力匹配项 ' + r.depth + (r.tieProf ? '｜与相邻英雄能力条件相同，按熟练度第' + r.prof + '排先后（只在都可行时作辅助）' : '');
-    });
-    return rows;
+  // 不替玩家选英雄。可选的「我用的英雄」只用来点名一个技能，不参与排序。
+  var ZJ_NOTE = '程序不推荐英雄；英雄由你自己选，选了也只改技能那一句';
+  function skillLine(hid) {
+    if (!hid) return '';
+    var h = HEROX(hid); if (!h) return '';
+    var c = capsOf(hid), order = ['move', 'blind', 'recon', 'vision', 'trap', 'cc', 'dmg'], slot = '', i;
+    for (i = 0; i < order.length; i++) if (c[order[i]]) { slot = c[order[i]]; break; }
+    var ab = h.abil && slot && h.abil[slot];
+    if (!ab) return '你选了' + h.zh + '：下面的走位不变，技能按你自己的时机交。';
+    return '你选了' + h.zh + '：需要先手或脱身时用 ' + ab[0] + '（' + ab[1] + '）。没技能就只走位置，不硬冲。';
   }
 
   // ---------- 单英雄执行视图 ----------
@@ -2086,7 +2093,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     return { rush: h.escape === 'strong' ? 'escape' : 'decisive', burst: 'decisive', clear: 'tempo', flank: 'back', contact: h.escape === 'strong' ? 'escape' : 'decisive', anchor: 'hold', info: 'tempo' }[arch] || 'live';
   }
   function remember(prep, hid, atkT, defT, habits, mx) {
-    var h = HEROX(hid), hb = (habits || []).map(function (id) { return byId(DB.habits, id); }).filter(Boolean);
+    var h = HEROX(hid) || { zh: '自己', escape: 'weak', id: '' }, hb = (habits || []).map(function (id) { return byId(DB.habits, id); }).filter(Boolean);
     var dom = '', from = '', i = 0;
     var pd = prep ? evDomain(prep.cast.cls) : '';
     if (pd) { dom = pd; from = noOf(prep.cast) + '：' + REM_WHY[pd]; }
@@ -2117,7 +2124,7 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var c = doCast('beizhan', PREP_Q, rnd, nowFn); c.no = 1;
     var habits = (inp.habits || []).slice();
     return { id: newId(nowFn), app: VER, dbVersion: DB.dbVersion, createdAt: c.timeStr, status: '待匹配',
-      inputs: { heroes: poolOf(inp), prof: profOrder(inp), pref: inp.pref || '', habits: habits },
+      inputs: { me: meOf(inp), pref: inp.pref || '', habits: habits },
       cast: c, ref: { gua: c.chart.ben + (c.chart.bian ? ' 之 ' + c.chart.bian : '（六爻安静）'), shi: c.cls.shi, label: c.cls.label, self: selfLine(c), ban: prepBan(c, habits), main: c.cls.main } };
   }
 
@@ -2192,49 +2199,80 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
       atkNone: !pa.t, defNone: !pd.t, risk: risk, order: o, refs: (av ? av.refs : []).concat(dv ? dv.refs : []) };
   }
 
+  var ENTRY = { Haven: { A: 'A Lobby', B: 'Mid Courtyard', C: 'C Lobby' }, Bind: { A: 'A Lobby', B: 'B Fountain' }, Sunset: { A: 'A Main', B: 'B Main' }, Abyss: { A: 'A Main', B: 'B Main' }, Lotus: { A: 'A Main', B: 'B Main', C: 'C Main' }, Corrode: { A: 'A Main', B: 'B Main' }, Summit: { A: 'A Main', B: 'B Main' } };
+  var ALTENT = { Haven: { A: 'A Sewer', C: 'C Garage' }, Bind: { A: 'A Bath', B: 'B Long' }, Sunset: { A: 'A Elbow', B: 'B Market' }, Abyss: { A: 'A Vent', B: 'B Danger' } };
+  var HOLD = { Haven: { A: 'A Tower', B: 'B Back', C: 'C Site' }, Bind: { A: 'A Tower', B: 'B Site' }, Sunset: { A: 'A Site', B: 'B Market' }, Abyss: { A: 'A Tower', B: 'B Tower' }, Lotus: { A: 'A Site', B: 'B Site', C: 'C Site' }, Corrode: { A: 'A Site', B: 'B Site' }, Summit: { A: 'A Site', B: 'B Site' } };
+  function keyOf(table, mapId, site, fallbacks) {
+    var k = table[mapId] && table[mapId][site];
+    if (k && hasCo(mapId, k)) return k;
+    for (var i = 0; i < fallbacks.length; i++) if (hasCo(mapId, fallbacks[i])) return fallbacks[i];
+    return '';
+  }
+  function playSheet(mx, side, leanArch, hid) {
+    var mapId = mx.id, fast = side === 'atk' ? (leanArch === 'rush' || leanArch === 'burst') : (leanArch === 'contact');
+    var spawn = hasCo(mapId, 'Defender Side Spawn') ? co(mapId, 'Defender Side Spawn') : '守方重生点';
+    var branches = [];
+    mx.sites.forEach(function (site) {
+      var ek = keyOf(ENTRY, mapId, site, [site + ' Main', site + ' Lobby', site + ' Site']);
+      var hk = keyOf(HOLD, mapId, site, [site + ' Site', site + ' Main']);
+      var ak = keyOf(ALTENT, mapId, site, []);
+      if (!ek) ek = hk;
+      var entry = co(mapId, ek), hold = hk ? co(mapId, hk) : entry, alt = ak ? co(mapId, ak) : '';
+      var text, role;
+      if (side === 'atk') {
+        if (fast) { role = '交易'; text = '跟到' + entry + '，你做第二名进点，打一枪就贴掩体。下包后守' + entry + '这一侧，不追出包点。'; }
+        else { role = alt ? '侧翼时机' : '默认等待'; text = '先在' + entry + '等第一波交火声。入口没打开就不要补第二枪。' + (alt ? '等主攻已经打起来，再从' + alt + '晚进，不和主攻同时露头。' : '下一波晚几秒再从' + entry + '进。'); }
+      } else if (fast) { role = '前点看一眼就撤'; text = '开局到' + (alt || entry) + '接第一枪，打完立刻回' + hold + '。听到第二个人就撤，不留在前点。'; }
+      else { role = '锚点拖延'; text = '默认守' + hold + '，只看一个出口。你这边没有脚步、另一边先传来交火声，再经' + spawn + '一侧过去补，不穿已经打起来的那条路。'; }
+      branches.push({ call: site, title: (side === 'atk' ? '队伍去 ' : '队友守 ') + site, role: role, when: side === 'atk' ? ('何时用：队友已经往 ' + site + ' 集中，或你听到他们从' + entry + '出发。') : ('何时用：队友默认守 ' + site + '，你跟他们落在这一侧。'), text: text });
+    });
+    var home = co(mapId, keyOf(ENTRY, mapId, mx.sites[0], [mx.sites[0] + ' Main', mx.sites[0] + ' Lobby', mx.sites[0] + ' Site']));
+    if (side === 'atk') branches.push({ call: 'spread', title: '没人集中', role: '等第一波再补', when: '何时用：开局没人报点，人散在两条以上的路上。', text: '你留在' + home + '，不单人深入。哪边先打起来，你再过去做交易，不自己指定一个点。' });
+    else branches.push({ call: 'spread', title: '对面还没露出方向', role: '听声再补', when: '何时用：两边都没有脚步，也没有人报点。', text: '你站' + spawn + '一侧听。哪边先传来交火声再过去，不提前赌一个点。' });
+    var alts = side === 'atk' ? [
+      { when: '何时换：第一波接触没打开入口，或者你这回合第一个倒下。', text: fast ? '变招：下一回合不要第一个进。改到队伍后面做交易，晚两秒再进同一条通道。' : '变招：下一回合改跟队伍的快打，他们起势你就第二名进，不再在集合点干等。' },
+      { when: '何时换：同一条路连续两回合都没打开。', text: '变招：半场改节奏。快打改成先等第一波再转；慢打改成跟队伍一起快进。点还是队伍叫，你只改自己的时机。' }
+    ] : [
+      { when: '何时换：你守的这一侧连续两回合没有脚步，另一边先传来交火声。', text: '变招：下一回合开局就靠向' + spawn + '，准备转点回防。这回合不要再往前压。' },
+      { when: '何时换：对面连续两回合从你守的这一侧进点，你被先手打掉。', text: fast ? '变招：下一回合不要再去前点。改守包点深处，等他们进点再打一枪。' : '变招：下一回合改成前点看一眼就撤，打完立刻回包点，不在前点留第二枪。' }
+    ];
+    var leanName = { rush: '快打跟进', burst: '近点快打', clear: '慢默认再转', flank: '侧翼时机', contact: '前点看一眼就撤', anchor: '锚点拖延再转', info: '听声再补' }[leanArch] || leanArch;
+    return { arch: leanArch, lean: leanName, fast: !!fast, branches: branches, alts: alts, skill: skillLine(hid) };
+  }
+
   function deploy(sess, inp, opt) {
     opt = opt || {};
     var v = validateDeploy(sess, inp); if (!v.ok) return { error: v.msg };
     var rnd = opt.rnd || C.cryptoRnd, nowFn = opt.now || function () { return new Date(); };
     var prep = sess && sess.prep ? sess.prep : null, mx = MAPX(inp.map), mapName = mx.zh + '（' + mx.id + '）', pref = inp.pref || '', habits = (inp.habits || []).slice();
-    var pool = poolOf(inp), prof = profOrder(inp);
-    // ① 生成两方案（现实可执行性为硬约束）
-    var T = plansFor(mx, pool), byTid = {};
+    var me = meOf(inp);
+    var T = plansFor(mx), byTid = {};
     ['atk', 'def'].forEach(function (s) { T[s].cands.forEach(function (t) { byTid[t.tid] = t; }); });
-    // ② 题目全部先定好、存档，再依次起卦（每方案一卦）
     var setAt = tStr(bjParts(nowFn())), no = prep ? 1 : 0, plan = [];
     ['atk', 'def'].forEach(function (s) { T[s].cands.forEach(function (t) { plan.push({ no: ++no, tid: t.tid, slot: t.slot, side: s, kind: s === 'atk' ? 'jingong' : 'fangshou', q: tacQ(mx, s, t), setAt: setAt }); }); });
     var questions = plan.map(function (x) { return { no: x.no, tid: x.tid, slot: x.slot, side: x.side, q: x.q, setAt: x.setAt }; });
     if (opt.onPlan) opt.onPlan(JSON.parse(JSON.stringify(questions)));
     var casts = [], castByTid = {};
     plan.forEach(function (x) { var c = doCast(x.kind, x.q, rnd, nowFn, x.setAt); c.no = x.no; c.tid = x.tid; c.slot = x.slot; c.side = x.side; c.tacName = byTid[x.tid].name; casts.push(c); castByTid[x.tid] = c; });
-    // ③ 取势：每侧两卦比较主证据；分不出就按现实
     var pick = {};
-    ['atk', 'def'].forEach(function (s) { pick[s] = chooseTactic(T[s].cands.map(function (t) { var c = castByTid[t.tid]; return { tid: t.tid, slot: t.slot, name: t.name, arch: t.arch, safe: t.safe, nExec: (t.execBy || []).length, no: c.no, cls: c.cls, feasible: true }; }), pref, s); });
+    ['atk', 'def'].forEach(function (s) { pick[s] = chooseTactic(T[s].cands.map(function (t) { var c = castByTid[t.tid]; return { tid: t.tid, slot: t.slot, name: t.name, arch: t.arch, safe: t.safe, nExec: 1, no: c.no, cls: c.cls, feasible: true }; }), pref, s); });
     var atkMain = pick.atk.chosen ? byTid[pick.atk.chosen] : null, defMain = pick.def.chosen ? byTid[pick.def.chosen] : null;
-    // ④ 择将
-    var rows = matchHeroes(pool, prof, atkMain, defMain), rowOf = {};
-    rows.forEach(function (r) { rowOf[r.id] = r; });
-    var hero = rows[0].id, alt = rows[1] ? rows[1].id : '';
-    var shiLine = '察己：' + (prep ? '「' + prep.ref.shi + '」' + prep.ref.label : '未备战（只给通用纪律）') + '｜进攻取' + (atkMain ? '「' + atkMain.name + '」（' + (pick.atk.mode === 'trad' ? '卦象关系明确' : pick.atk.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
-      '｜防守取' + (defMain ? '「' + defMain.name + '」（' + (pick.def.mode === 'trad' ? '卦象关系明确' : pick.def.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一可执行方案') + '）' : '：无可执行方案') +
-      '｜主线：' + [atkMain ? '进攻' + DB.archLine[atkMain.arch] : '', defMain ? '防守' + DB.archLine[defMain.arch] : ''].filter(Boolean).join('，') + '。（象征性参考，' + LIVE + '）';
-    var X = { T: T, byTid: byTid, castByTid: castByTid, atkMain: atkMain, defMain: defMain, pick: pick, prep: prep, habits: habits, rowOf: rowOf, hero: hero, shiLine: shiLine };
-    var views = {};
-    rows.forEach(function (r) { views[r.id] = heroView(mx, r.id, X); });
+    var play = { atk: playSheet(mx, 'atk', atkMain ? atkMain.arch : 'clear', me), def: playSheet(mx, 'def', defMain ? defMain.arch : 'anchor', me) };
+    var rem = remember(prep, me, atkMain, defMain, habits, mx);
+    var shiLine = '察己：' + (prep ? '「' + prep.ref.shi + '」' + prep.ref.label : '未备战（只给通用纪律）') + '｜进攻倾向「' + play.atk.lean + '」（' + (pick.atk.mode === 'trad' ? '卦象关系明确' : pick.atk.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一方案') + '）' +
+      '｜防守倾向「' + play.def.lean + '」（' + (pick.def.mode === 'trad' ? '卦象关系明确' : pick.def.mode === 'reality' ? '卦象分不出高下，按现实取' : '唯一方案') + '）。点还是队伍叫，你只改自己的时机。（' + LIVE + '）';
     var cand = function (s) { return T[s].cands.map(function (t) { var c = castByTid[t.tid], chosen = pick[s].chosen === t.tid;
-      return { tid: t.tid, slot: t.slot, slotZh: t.slotZh, name: t.name, archZh: t.archZh, arch: t.arch, start: t.start, route: t.route, brief: t.brief, retreat: t.retreat, safe: t.safe, execBy: t.execBy, skipped: t.skipped,
+      return { tid: t.tid, slot: t.slot, slotZh: t.slotZh, name: t.name, archZh: t.archZh, arch: t.arch, start: t.start, route: t.route, brief: t.brief, retreat: t.retreat, safe: t.safe, execBy: [], skipped: t.skipped,
         no: c.no, shi: c.cls.shi, label: c.cls.label, verdict: c.cls.verdict, main: c.cls.main, chosen: chosen,
-        whyNot: chosen ? '' : '未选：' + (pick[s].mode === 'trad' ? '卦' + c.no + '在两卦生克关系上不如首选方案（见两卦关系）' : '卦象分不出高下，现实上首选方案更合理（' + (pick[s].why.split('：').slice(-1)[0] || '').replace(/。$/, '') + '）') + '；打不顺时可改用，不重新起卦' }; }); };
+        whyNot: chosen ? '' : (pick[s].mode === 'trad' ? '卦象关系上这套不是更顺的那一卦；打不顺时可以改用，不重新起卦' : '卦象分不出高下，现实上另一套更稳；打不顺时可以改用，不重新起卦') }; }); };
     return { app: VER, dbVersion: DB.dbVersion, dbUpdated: DB.updated, gameVersion: DB.gameVersion, prepId: prep ? sess.id : '', direct: !prep, createdAt: casts.length ? casts[0].timeStr : tStr(bjParts(nowFn())),
       map: mx.id, mapZh: mx.zh, mapName: mapName, tier: mx.tier, limitedWhy: mx.tier === 'limited' ? mx.m.why : '', mech: mx.tier === 'limited' ? mx.m.mech.map(function (x) { return fmt(mx.id, x); }) : [],
-      inputs: { map: mx.id, heroes: pool, prof: prof, pref: pref, habits: habits },
+      inputs: { map: mx.id, me: me, pref: pref, habits: habits },
       questions: questions, tac: { atk: cand('atk'), def: cand('def') }, excluded: { atk: T.atk.excluded, def: T.def.excluded },
       pick: { atk: { tid: pick.atk.chosen, mode: pick.atk.mode, strength: pick.atk.strength || '', rel: pick.atk.rel || null, why: pick.atk.why, short: pick.atk.short }, def: { tid: pick.def.chosen, mode: pick.def.mode, strength: pick.def.strength || '', rel: pick.def.rel || null, why: pick.def.why, short: pick.def.short } },
-      heroes: rows, hero: hero, altHero: alt, zjNote: ZJ_NOTE, casts: casts, nCasts: casts.length + (prep ? 1 : 0), views: views, shiLine: shiLine,
+      play: play, me: me, meZh: me ? heroZhX(me) : '', remember: rem.t, casts: casts, nCasts: casts.length + (prep ? 1 : 0), shiLine: shiLine,
       self: prep ? { t: prep.ref.self, ban: prep.ref.ban.t } : { t: '未备战：本场没有察己卦，只给通用纪律。', ban: DISC.general },
-      head: { map: { t: mapName + (mx.tier === 'limited' ? '（战术资料不足，只给通用打法，只用官方点位名）' : ''), src: ['你点选的匹配地图'] },
-        hero: { t: heroZhX(hero) + '（' + hero + '）', src: [ZJ_NOTE] }, alt: { t: alt ? heroZhX(alt) + '（' + alt + '）' : '无（英雄池只有一位）', src: [ZJ_NOTE] } } };
+      head: { map: { t: mapName + (mx.tier === 'limited' ? '（资料有限，只用官方点位名）' : ''), src: ['你点选的匹配地图'] } } };
   }
   function newDirect(nowFn) { return { id: newId(nowFn || function () { return new Date(); }), prep: null, deploy: null, void: false, direct: true }; }
   function allCasts(sess) { return (sess.prep ? [sess.prep.cast] : []).concat(sess.deploy ? sess.deploy.casts : []).sort(function (x, y) { return x.no - y.no; }); }
@@ -2249,25 +2287,25 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
   var PLAIN_ROWS = [['where', '去哪'], ['how', '怎么打'], ['chance', '有机会'], ['turn', '打不顺']];
   var PLAIN_ROWS_V41 = [['where', '去哪'], ['how', '怎么打'], ['change', '什么时候变招']];   // V4.1 旧记录只读显示
   function plainRows(x) { return x && x.chance ? PLAIN_ROWS : PLAIN_ROWS_V41; }
-  function plainText(sess, heroId) {
-    var d = sess.deploy, hid = heroId && d.views[heroId] ? heroId : d.hero, v = d.views[hid], P = v.plain, alt = hid === d.hero ? d.altHero : d.hero, t = [];
+  function sheetLines(sideZh, sh) {
+    var t = ['〔' + sideZh + '〕倾向：' + sh.lean + '（点由队伍叫，下面每条都给出）'];
+    if (sh.skill) t.push(sh.skill);
+    sh.branches.forEach(function (b) { t.push('【' + b.title + '·' + b.role + '】' + b.when + b.text); });
+    sh.alts.forEach(function (a) { t.push('【变招】' + a.when + a.text); });
+    return t;
+  }
+  function plainText(sess) {
+    var d = sess.deploy, t = [];
+    if (!d || !d.play) return ['（旧记录，没有新的条件分支）'];
     t.push('⚔️【六爻·临阵】' + d.mapName);
-    t.push('【玩谁】' + v.heroZh + (alt ? '（备选：' + heroZhX(alt) + '）' : ''));
-    [['atk', '进攻'], ['def', '防守']].forEach(function (z) { var x = P[z[0]]; t.push('〔' + z[1] + '〕' + (x.note ? '（' + x.note + '）' : ''));
-      plainRows(x).forEach(function (r) { t.push('【' + r[1] + '】' + x[r[0]]); }); });
-    t.push('【本场记住】' + P.remember);
+    if (d.meZh) t.push('【你选的英雄】' + d.meZh + '（只用于技能那一句，不是程序推荐）');
+    t.push(d.shiLine);
+    sheetLines('进攻', d.play.atk).forEach(function (x) { t.push(x); });
+    sheetLines('防守', d.play.def).forEach(function (x) { t.push(x); });
+    t.push('【本场记住】' + d.remember);
     return t;
   }
-  function orderText(sess, heroId) {
-    var d = sess.deploy, hid = heroId && d.views[heroId] ? heroId : d.hero, v = d.views[hid], o = v.order, t = plainText(sess, hid);
-    t.push('', '【详细战术（依据）】', '【本场之势】' + o.shi.t, '【首选英雄】' + o.hero.t + '｜备选：' + d.head.alt.t, '　为什么：' + o.heroWhy.t);
-    t.push('【进攻细则】'); ORDER_ROWS.atk.forEach(function (x) { if (o[x[0]]) t.push('　' + x[1] + '：' + o[x[0]].t); });
-    t.push('　技能用法：' + v.plain.atk.skill);
-    t.push('【防守细则】'); ORDER_ROWS.def.forEach(function (x) { if (o[x[0]]) t.push('　' + x[1] + '：' + o[x[0]].t); });
-    t.push('　技能用法：' + v.plain.def.skill);
-    t.push('【本场记住·来源】' + o.ban.src.join('｜'), '【实时优先】' + o.live.t);
-    return t;
-  }
+  function orderText(sess) { return plainText(sess); }
   function chartText(ch) {
     var t = ['本卦：' + ch.ben + '（' + ch.palace + '）' + (ch.bian ? '　之卦：' + ch.bian : '　六爻安静') + '｜四柱：' + ch.pillars + '｜旬空：' + ch.kong];
     for (var i = 5; i >= 0; i--) { var l = ch.lines[i]; t.push(l.pos + '爻　' + l.shen + '　' + l.qin + l.gz + '　' + (l.yang ? '—' : '- -') + (l.mv ? (l.v === 9 ? '○' : '×') : '　') + (l.shi ? '世' : l.ying ? '应' : '　') + (l.bian ? '　→' + l.bian : '') + (l.fu ? '　伏' + l.fu : '')); }
@@ -2292,37 +2330,30 @@ footer{color:var(--dim);font-size:11.5px;line-height:1.6;margin-top:18px}
     var p = sess.prep, d = sess.deploy, all = allCasts(sess), inp = d ? d.inputs : p.inputs;
     var t = [REVIEW_PROMPT, '', '【' + VER + '｜完整临阵分析】', '数据库：' + DB.dbVersion + '（更新 ' + DB.updated + '，' + DB.gameVersion + '）；静态战术规则，游戏更新后可能过时；本页没有接入任何大模型，所有文字来自本地已审规则库。',
       '来源分四类：古籍原意（原书明确，附《增删卜易》研易论道简体本行号或规则号）/ 传统引申 / 程序约定 / 现实战术（含电竞类比）。卦象只作象征性参考，不换算胜率，不预测敌人站位与比赛结果。',
-      '流程：察势（备战一卦，可跳过）→ 辨势（地图揭晓后，进攻、防守各两个方案，各起一卦）→ 取势（每侧比较两卦主证据；分不出高下按现实取）→ 择将（现实能力匹配，不起卦）→ 用势（战令）。一事一占；每卦先定题后摇卦；全程共 ' + all.length + ' 卦，不重摇、不暗中补卦；各卦各答各题，不打分、不投票。',
-      '英雄池：' + inp.heroes.map(heroZhX).join('、') + '｜熟练度（只在能力条件相同时作辅助）' + inp.prof.map(heroZhX).join(' > ') + (inp.pref ? '｜偏好 ' + inp.pref : ''), '', RULE, TRIG, ''];
+      '流程：察势（备战一卦，可跳过）→ 辨势（地图揭晓后，进攻、防守各两个个人倾向，各起一卦）→ 取势（每侧比较两卦；分不出高下按现实取）→ 用势（按队伍叫点给个人分支，不替你选英雄）。一事一占；每卦先定题后摇卦；全程共 ' + all.length + ' 卦，不重摇、不暗中补卦；各卦各答各题，不打分、不投票。',
+      (inp.me ? '你选的英雄（只用于技能措辞）：' + heroZhX(inp.me) : '未选英雄：方案不绑定英雄') + (inp.pref ? '｜偏好 ' + inp.pref : ''), '', RULE, TRIG, ''];
     if (p) { t.push('══ 一、察势·察己（' + p.createdAt + '）══', '【自身之势】' + p.ref.self, '【本场戒令】' + p.ref.ban.t + '（' + p.ref.ban.from + '｜' + p.ref.ban.cls + '）', ''); castText(p.cast).forEach(function (x) { t.push(x); }); }
     else t.push('══ 一、察势·察己 ══', '未备战：直接临阵，本场不起察己卦；【自身之势】未备战，只给通用纪律。', '');
     if (!d) { t.push('（尚未出征：待匹配）'); return t.join('\n'); }
-    var hid = heroId && d.views[heroId] ? heroId : d.hero;
-    if (d.tier === 'limited') t.push('资料限制：' + d.limitedWhy + '。只用官方点位名（valorant-api），不写路线连接与枪线。', '地图机制：' + d.mech.join('；'));
+    if (d.tier === 'limited') t.push('资料限制：' + d.limitedWhy + '。只用官方点位名，不写未核对的路线连接。', '地图机制：' + d.mech.join('；'));
     t.push('题目（全部在起卦前定好并存档，' + (d.questions[0] ? d.questions[0].setAt : '') + '）：'); d.questions.forEach(function (q) { t.push('　卦' + q.no + '：' + q.q); });
     [['atk', '二、辨进攻之势'], ['def', '三、辨防守之势']].forEach(function (z) { var s = z[0];
       t.push('══ ' + z[1] + '（地图：' + d.mapName + '）══');
-      d.tac[s].forEach(function (c) { t.push('　' + (c.chosen ? '★首选 ' : '　') + '方案' + c.slot + '·' + c.slotZh + '「' + c.name + '」' + c.archZh + '｜' + c.brief + '｜撤退条件：' + c.retreat + '｜可执行英雄：' + c.execBy.map(heroZhX).join('、') + '｜卦' + c.no + '：' + c.main + (c.whyNot ? '｜' + c.whyNot : '') + (c.skipped.length ? '｜顺延说明：' + c.skipped.join('；') + '不可执行' : '')); });
+      d.tac[s].forEach(function (c) { t.push('　' + (c.chosen ? '★本场倾向 ' : '　') + '方案' + c.slot + '·' + c.slotZh + '「' + c.name + '」' + c.archZh + '｜卦' + c.no + '：' + c.main + (c.whyNot ? '｜' + c.whyNot : '')); });
       d.excluded[s].forEach(function (x) { t.push('　✗方案' + x.slot + '：' + x.why); });
       var rlc = d.pick[s].rel; if (rlc && rlc.ev) { t.push('　两卦生克关系（逐条列关系，不打分、不分级）：'); rlc.ev.forEach(function (x) { t.push('　· ' + x); }); t.push('　→ ' + rlc.rel); }
       t.push('　取势：' + d.pick[s].why);
       d.casts.filter(function (c) { return c.side === s; }).forEach(function (c) { castText(c).forEach(function (x) { t.push(x); }); });
     });
-    t.push('══ 四、取势·择将（' + d.zjNote + '）══');
-    d.heroes.forEach(function (r, i) { t.push('　' + (i + 1) + '. ' + r.zh + '（' + r.id + '）：' + r.why + (r.canAtk ? '' : '｜进攻首选打法缺：' + r.missAtk.join('、')) + (r.canDef ? '' : '｜防守首选打法缺：' + r.missDef.join('、'))); });
-    t.push('', '══ 五、用势·最终战令 ══');
-    orderText(sess, hid).forEach(function (x) { t.push(x); });
-    var v = d.views[hid];
-    if (v.atk) t.push('进攻风险枪线：' + v.atk.risks.join('；'), '进攻撤退通道：' + v.atk.retreats.join('；'));
-    if (v.def) t.push('防守风险枪线：' + v.def.risks.join('；'), '防守撤退通道：' + v.def.retreats.join('；'));
-    t.push('', '各字段来源：'); Object.keys(v.order).forEach(function (k) { t.push('· ' + k + '：' + v.order[k].src.join('、')); });
-    t.push('', '（卦象不推断敌人站位、不预测比赛结果；不给胜率；择将为现实匹配，不是卦象结果；战术库为静态规则 ' + DB.dbVersion + '，游戏更新后可能过时。' + LIVE + '。）');
+    t.push('', '══ 四、用势·战令（不推荐英雄；点由队伍叫）══');
+    orderText(sess).forEach(function (x) { t.push(x); });
+    t.push('', '（卦象不推断敌人站位、不预测比赛结果；不给胜率；不替你选英雄。战术库为静态规则 ' + DB.dbVersion + '，游戏更新后可能过时。' + LIVE + '。）');
     return t.join('\n');
   }
 
   return { VER: VER, KEYS: KEYS, REVIEW_PROMPT: REVIEW_PROMPT, PREP_Q: PREP_Q, ZJ_NOTE: ZJ_NOTE, RULE: RULE, TRIG: TRIG, LIVE: LIVE, HONEST: HONEST, validatePrep: validatePrep, validateDeploy: validateDeploy,
     prepare: prepare, deploy: deploy, newDirect: newDirect, allCasts: allCasts, judge: judge, judgeValues: judgeValues, classify: classify, chooseTactic: chooseTactic, compareCasts: compareCasts, realPick: realPick,
-    matchHeroes: matchHeroes, canExec: canExec, plansFor: plansFor, allCandidates: allCandidates, heroView: heroView, cast: cast, copyText: copyText, orderText: orderText, chartText: chartText, castText: castText,
+    canExec: canExec, plansFor: plansFor, allCandidates: allCandidates, playSheet: playSheet, cast: cast, copyText: copyText, orderText: orderText, chartText: chartText, castText: castText,
     banTheme: banTheme, prepBan: prepBan, ORDER_ROWS: ORDER_ROWS, PLAIN_ROWS: PLAIN_ROWS, PLAIN_ROWS_V41: PLAIN_ROWS_V41, plainRows: plainRows, liveOf: liveOf, profileOf: relProfile, relProfile: relProfile, profText: profText, plainText: plainText, synth: synth, remember: remember, REM: REM, DIMS: DIMS, AUDIT_ROWS: AUDIT_ROWS, SHI_LABEL: SHI_LABEL,
     fmt: fmt, co: co, refsOf: refsOf, route: route, esc: esc, bjParts: bjParts, tStr: tStr, YONG: YONG, DISC: DISC, MAP: MAP, HERO: HERO, HEROX: HEROX, MAPX: MAPX, heroZhX: heroZhX, profOrder: profOrder };
 });
@@ -2343,11 +2374,10 @@ function sset(k,v){try{if(STORE_OK){window.localStorage.setItem(k,v);return true
 function jget(k,d){try{var v=sget(k);return v?JSON.parse(v):d;}catch(e){return d;}}
 var SK='linzhen_settings_v2', HK='linzhen_sessions_v42', CK='linzhen_current_v42', UK='linzhen_ui_v42', HK41='linzhen_sessions_v41', HK4='linzhen_sessions_v4', HK3='linzhen_sessions_v3', HMAX=15;   // V4.2：新增“有机会/打不顺”，会话改存 v42 键；V4.1 记录（同结构）按原存档只读显示，不改写、不删除；V4.0 / V3 历史只读显示
 var st=jget(SK,null)||jget('linzhen_settings_v1',null)||{};   // 兼容 V1 设置（不读取 V1 的地图）
-var S={heroes:st.heroes||['Neon','Yoru','Reyna'],prof:st.prof||['Neon','Yoru','Reyna'],pref:st.pref||'',habits:st.habits||[]};
-S.heroes=S.heroes.filter(function(h){return !!L.HEROX(h)});
+var S={me:st.me||'',pref:st.pref||'',habits:st.habits||[]};
+if(S.me&&!L.HEROX(S.me))S.me='';
 var MAPSEL='';           // 本场地图：只在内存里，不跨场保留
-function saveSet(){sset(SK,JSON.stringify({heroes:S.heroes,prof:S.prof,pref:S.pref,habits:S.habits}));}
-function poolNow(){var po=S.prof.filter(function(id){return S.heroes.indexOf(id)>=0});S.heroes.forEach(function(id){if(po.indexOf(id)<0)po.push(id)});return po;}
+function saveSet(){sset(SK,JSON.stringify({me:S.me,pref:S.pref,habits:S.habits}));}
 // ---------- 会话（一次备战 ↔ 至多一次出征） ----------
 function sessions(){return jget(HK,[]);}
 function putSess(s){var a=sessions().filter(function(x){return x.id!==s.id});a.unshift(s);while(a.length>HMAX)a.pop();
@@ -2366,19 +2396,12 @@ function T(s){var seen={};return esc(s).replace(GRX,function(m){if(seen[m])retur
 document.addEventListener('click',function(e){var t=e.target.closest&&e.target.closest('.term');var tip=$('tip');if(t){tip.innerHTML='<b style="color:var(--gold2)">'+esc(t.getAttribute('data-t'))+'</b>：'+esc(GL[t.getAttribute('data-t')])+'<div class="note">点任意处关闭</div>';tip.className='on';e.stopPropagation();return;} if(tip.className==='on')tip.className='';});
 // ---------- 备战设置 ----------
 function chip(txt,on,fn,dis){var b=document.createElement('button');b.type='button';b.className='chip'+(on?' on':'')+(dis?' dis':'');b.textContent=txt;b.onclick=fn;return b;}
-function toggleHero(id){var i=S.heroes.indexOf(id);if(i>=0)S.heroes.splice(i,1);else{S.heroes.push(id);if(S.prof.indexOf(id)<0)S.prof.push(id);}saveSet();drawSettings();}
+function pickMe(id){S.me=S.me===id?'':id;saveSet();drawSettings();}
 function drawSettings(){
- var tplIds=DB.heroes.map(function(h){return h.id});
- var h=$('heroes');h.innerHTML='';['决斗','先锋','控场','哨卫'].forEach(function(r){var g=document.createElement('div');g.className='hgrp';g.innerHTML='<span class="note">'+r+'</span>';var c=document.createElement('div');c.className='chips';DB.heroes.filter(function(x){return x.role===r}).forEach(function(x){c.appendChild(chip(x.zh,S.heroes.indexOf(x.id)>=0,function(){toggleHero(x.id)}));});g.appendChild(c);h.appendChild(g);});
- var po=poolNow(),p=$('prof');p.innerHTML='';
- po.forEach(function(id,i){var r=document.createElement('div');r.className='prow';r.innerHTML='<span>'+(i+1)+'. '+esc(L.heroZhX(id))+(L.HEROX(id).generic?' <small class="note">通用打法</small>':'')+'</span>';
-  [['↑',-1],['↓',1]].forEach(function(b){var bt=document.createElement('button');bt.className='mini';bt.type='button';bt.textContent=b[0];bt.disabled=(b[1]<0?i===0:i===po.length-1);
-   bt.onclick=function(){var a=po.slice();a.splice(i+b[1],0,a.splice(i,1)[0]);S.prof=a.concat(S.prof.filter(function(z){return a.indexOf(z)<0}));saveSet();drawSettings();};r.appendChild(bt);});
-  p.appendChild(r);});
- if(!po.length)p.innerHTML='<div class="note">先在上面选英雄</div>';
+ var h=$('heroes');h.innerHTML='';['决斗','先锋','控场','哨卫'].forEach(function(r){var g=document.createElement('div');g.className='hgrp';g.innerHTML='<span class="note">'+r+'</span>';var c=document.createElement('div');c.className='chips';DB.heroes.filter(function(x){return x.role===r}).forEach(function(x){c.appendChild(chip(x.zh,S.me===x.id,function(){pickMe(x.id)}));});g.appendChild(c);h.appendChild(g);});
  var pf=$('pref');pf.innerHTML='';[['','不指定']].concat(Object.keys(DB.styles).map(function(k){return [k,DB.styles[k].name]})).forEach(function(x){pf.appendChild(chip(x[1],S.pref===x[0],function(){S.pref=x[0];saveSet();drawSettings();}));});
  var hb=$('habits');hb.innerHTML='';DB.habits.forEach(function(x){hb.appendChild(chip(x.t,S.habits.indexOf(x.id)>=0,function(){var i=S.habits.indexOf(x.id);if(i>=0)S.habits.splice(i,1);else S.habits.push(x.id);saveSet();drawSettings();}));});
- $('setSum').textContent='（'+(po.length?po.map(function(id){return L.HEROX(id).zh}).join('、'):'未选英雄')+'）';
+ $('setSum').textContent=S.me?('（'+L.HEROX(S.me).zh+'）'):'（不选）';
 }
 // ---------- 动画：顶部横幅，总长 ≤0.8 秒，点击跳过，结果先渲染、不被遮挡 ----------
 var timers=[], ANIM_MAX=800;
@@ -2399,7 +2422,7 @@ function vcls(c){return '<span class="v-'+c.cls.verdict+'">「'+esc(c.cls.shi)+'
 function renderPrep(s){return '备战完成，已存档'+(s.void?'（已作废）':'')+' <button class="btn sm" id="voidBtn" type="button">作废</button>';}
 function prepBasis(s){var p=s.prep,c=p.cast,h=[];
  h.push('<details class="gua" data-k="beizhan"><summary>卦'+c.no+'·'+esc(c.name)+'：'+vcls(c)+'</summary>');
- h.push(li('自身之势：'+p.ref.self),li('备战纪律主题（存档；战令里的“本场记住”另按证据与打法选句）：'+p.ref.ban.t+'（'+p.ref.ban.from+'｜'+p.ref.ban.cls+'）'),'<div class="note">英雄池：'+esc(p.inputs.prof.map(L.heroZhX).join(' > '))+(p.inputs.pref?'｜偏好 '+esc(p.inputs.pref):'')+'｜此卦不知地图、不定英雄与路线</div>');
+ h.push(li('自身之势：'+p.ref.self),li('备战纪律主题（存档；战令里的“本场记住”另按证据与打法选句）：'+p.ref.ban.t+'（'+p.ref.ban.from+'｜'+p.ref.ban.cls+'）'),'<div class="note">'+(p.inputs.prof?('旧记录英雄池：'+esc(p.inputs.prof.map(L.heroZhX).join(' > '))):(p.inputs.me?('自选 '+esc(L.heroZhX(p.inputs.me))):'未选英雄'))+(p.inputs.pref?'｜偏好 '+esc(p.inputs.pref):'')+'｜此卦不知地图、不定英雄与路线</div>');
  h.push(castBasis(s,c)+'</details>');return h.join('');}
 function drawMaps(){var el=$('maps');el.innerHTML='';
  DB.pool.forEach(function(id,i){var mx=L.MAPX(id),b=document.createElement('button');b.type='button';b.className='tile'+(MAPSEL===id?' on':'');b.setAttribute('data-map',id);b.style.setProperty('--h',String((i*47+8)%360));
@@ -2420,6 +2443,25 @@ function castBasis(s,c){var k=c.cls,h=[];
  h.push('<details><summary>辨势规则（程序约定） '+TAG4+'</summary><div class="note">'+esc(k.rule)+'<br><br>'+esc(L.TRIG)+'</div></details>');
  h.push('<details><summary>专业细节（《增删卜易》引擎完整输出，按存档铜钱与时间重排）</summary><div class="chart" data-full="'+c.no+'"></div></details>');
  return h.join('');}
+function renderPlay(s,side){var d=s.deploy,h=[];
+ h.push('<div class="mh"><b>'+esc(d.mapZh)+'</b>'+(d.tier==='limited'?'<span class="note lim">资料有限</span>':'')+'</div>');
+ h.push('<div class="sideTg">'+[['atk','进攻'],['def','防守']].map(function(x){return '<button type="button" data-side="'+x[0]+'" class="'+(side===x[0]?'on':'')+'">'+x[1]+'</button>'}).join('')+'</div>');
+ [['atk','进攻'],['def','防守']].forEach(function(z){var sh=d.play[z[0]],on=side===z[0];
+  h.push('<div class="cur'+(on?'':' hide')+'" data-cur="'+z[0]+'">');
+  h.push('<div class="row"><b>倾向</b><div>'+esc(sh.lean)+'</div></div>');
+  if(sh.skill)h.push('<div class="pnote">'+esc(sh.skill)+'</div>');
+  sh.branches.forEach(function(b){h.push('<div class="row" data-k="br-'+esc(b.call)+'"><b>'+esc(b.title)+' · '+esc(b.role)+'</b><div>'+esc(b.when+b.text)+'</div></div>');});
+  sh.alts.forEach(function(a){h.push('<div class="row" data-k="alt"><b>变招</b><div>'+esc(a.when+a.text)+'</div></div>');});
+  h.push('<div class="row mem"><b>本场记住</b><div>'+esc(d.remember)+'</div></div></div>');});
+ return h.join('');}
+function renderPlayBasis(s){var d=s.deploy,h=[];
+ h.push('<div class="note">不推荐英雄。卦只决定本场更偏向快还是慢；每个点的分支和变招都会列出来。攻守切换、复制、刷新都不起卦。</div>');
+ h.push('<div class="note">'+esc(d.shiLine)+'</div>');
+ if(s.prep)h.push(prepBasis(s));
+ h.push('<details class="gua"><summary>辨势与取势</summary>');
+ h.push('<div class="lbl">进攻</div>'+tacList(d,'atk')+'<div class="lbl">防守</div>'+tacList(d,'def')+'</details>');
+ L.allCasts(s).filter(function(c){return c.kind!=='beizhan'}).forEach(function(c){h.push('<details class="gua" data-k="'+c.kind+'"><summary>卦'+c.no+'·'+esc(c.name)+(c.tacName?'·方案'+c.slot+'「'+esc(c.tacName)+'」':'')+'：'+vcls(c)+'</summary>'+castBasis(s,c)+'</details>');});
+ return h.join('');}
 function sidePanel(d,v,hid,side,on){var P=v.plain[side],alt=hid===d.hero?d.altHero:d.hero,h=[];
  h.push('<div class="cur'+(on?'':' hide')+'" data-cur="'+side+'">');
  h.push('<div class="row" data-k="who"><b>玩谁</b><div class="who"><span class="hn">'+esc(v.heroZh)+'</span>'+(alt?'<button class="alt" type="button" data-hero="'+esc(alt)+'">'+(hid===d.hero?'备选：':'回到首选：')+esc(L.HEROX(alt).zh)+'</button>':'')+'</div></div>');
@@ -2433,7 +2475,7 @@ function renderOrder(s,hid,side){var d=s.deploy,v=d.views[hid],h=[];
  h.push(sidePanel(d,v,hid,'atk',side==='atk')+sidePanel(d,v,hid,'def',side==='def'));
  if(d.heroes.length>2)h.push('<details id="heroBox"><summary>其他英雄</summary><div class="chips" id="heroSw"></div></details>');
  return h.join('');}
-function tacList(d,s){var h=[];d.tac[s].forEach(function(c){h.push('<div class="li">'+(c.chosen?'★ ':'')+'<b>方案'+c.slot+'·'+esc(c.slotZh)+'「'+esc(c.name)+'」</b>'+esc(c.archZh)+'｜'+esc(c.brief)+'｜卦'+c.no+'：<span class="v-'+c.verdict+'">「'+esc(c.shi)+'」</span><div class="note">撤退条件：'+esc(c.retreat)+'｜可执行：'+esc(c.execBy.map(L.heroZhX).join('、'))+(c.whyNot?'｜'+esc(c.whyNot):'')+(c.skipped.length?'｜顺延：'+esc(c.skipped.join('；'))+'不可执行':'')+'</div></div>');});
+function tacList(d,s){var h=[];d.tac[s].forEach(function(c){h.push('<div class="li">'+(c.chosen?'★ ':'')+'<b>方案'+c.slot+'·'+esc(c.slotZh)+'「'+esc(c.name)+'」</b>'+esc(c.archZh)+'｜卦'+c.no+'：<span class="v-'+c.verdict+'">「'+esc(c.shi)+'」</span><div class="note">'+(c.whyNot?esc(c.whyNot):'')+(c.skipped&&c.skipped.length?'｜'+esc(c.skipped.join('；')):'')+'</div></div>');});
  d.excluded[s].forEach(function(x){h.push('<div class="li note">✗ '+esc(x.why)+'</div>');});
  var rl=d.pick[s].rel;if(rl&&rl.ev)h.push('<div class="li" data-k="rel-'+s+'">两卦生克关系（逐条列关系，不打分、不分级）：'+rl.ev.map(function(x){return '<div class="note">· '+esc(x)+'</div>';}).join('')+'<div class="note">→ '+esc(rl.rel)+(rl.review?(/待复核/.test(rl.rel)?'':'（待复核）')+'；按现实可执行性取方案':rl.strength==='lean'?'（轻度倾向，实时信息优先）':'')+'</div></div>');
  h.push('<div class="li">取势：'+T(d.pick[s].why)+'</div>');return h.join('');}
@@ -2483,20 +2525,21 @@ function render(){
   return;}
  $('setBox').classList.remove('hide');
  stage(['stOrder']);
- var u=uiOf(s.id)||{hero:s.deploy.hero,side:'atk'};if(!s.deploy.views[u.hero])u.hero=s.deploy.hero;if(u.side!=='def')u.side='atk';
+ var u=uiOf(s.id)||{side:'atk'};if(u.side!=='def')u.side='atk';
+ if(!s.deploy.play){u=uiOf(s.id)||{hero:s.deploy.hero,side:'atk'};if(!s.deploy.views[u.hero])u.hero=s.deploy.hero;if(u.side!=='def')u.side='atk';}
  $('roNote').innerHTML=READONLY?'历史记录（'+(s.__v?s.__v+' 旧记录，':'')+'只读） <button class="btn sm" id="backBtn" type="button">返回</button>':'';
- $('order').innerHTML=renderOrder(s,u.hero,u.side);
+ $('order').innerHTML=s.deploy.play?renderPlay(s,u.side):renderOrder(s,u.hero,u.side);
  var sw=$('heroSw');if(sw)s.deploy.heroes.forEach(function(c){if(c.id===u.hero)return;
   var b=chip(c.zh,u.hero===c.id,function(){u.hero=c.id;setUi(s.id,u);render();});b.setAttribute('data-hero',c.id);sw.appendChild(b);});
  Array.prototype.forEach.call($('order').querySelectorAll('button.alt'),function(b){b.onclick=function(){u.hero=b.getAttribute('data-hero');setUi(s.id,u);render();};});
- $('basis').innerHTML=renderBasis(s,u.hero);bindFull($('basis'),s);
+ $('basis').innerHTML=s.deploy.play?renderPlayBasis(s):renderBasis(s,u.hero);bindFull($('basis'),s);
  Array.prototype.forEach.call($('order').querySelectorAll('[data-side]'),function(b){b.onclick=function(){u.side=b.getAttribute('data-side');setUi(s.id,u);
   Array.prototype.forEach.call($('order').querySelectorAll('[data-side]'),function(x){x.className=x===b?'on':'';});
   Array.prototype.forEach.call($('order').querySelectorAll('[data-cur]'),function(x){x.classList.toggle('hide',x.getAttribute('data-cur')!==u.side);});};});
  }
 document.addEventListener('click',function(e){if(e.target&&e.target.id==='backBtn'){READONLY=false;LEGACY=false;var c=getSess(curId());VIEW=c&&!c.void?c:null;render();window.scrollTo(0,0);}});
 function optRnd(){return window.__LZ_RND?{rnd:window.__LZ_RND,now:window.__LZ_NOW}:{};}
-function inpNow(){return {heroes:S.heroes.slice(),prof:poolNow(),pref:S.pref,habits:S.habits.slice()};}
+function inpNow(){return {me:S.me||'',pref:S.pref,habits:S.habits.slice()};}
 // 入口一：备战
 $('prep').addEventListener('click',function(){
  var inp=inpNow();
@@ -2510,24 +2553,24 @@ $('prep').addEventListener('click',function(){
 $('deploy').addEventListener('click',function(){
  if(READONLY||LEGACY)return;
  var s=VIEW, inp;
- if(s){var p=s.prep.inputs;inp={map:MAPSEL,heroes:p.heroes.slice(),prof:p.prof.slice(),pref:p.pref,habits:p.habits.slice()};}
- else{inp=inpNow();inp.map=MAPSEL;}
+ inp=inpNow();inp.map=MAPSEL;
+ if(s&&s.prep&&s.prep.inputs){inp.pref=s.prep.inputs.pref||inp.pref;inp.habits=(s.prep.inputs.habits||inp.habits).slice();}
  var v=L.validateDeploy(s,inp);if(!v.ok){$('msg').textContent=v.msg;return;}
  var d;try{d=L.deploy(s,inp,optRnd());}catch(e){$('msg').textContent='出错：'+e.message;return;}
  if(d.error){$('msg').textContent=d.error;return;}
  if(!s){s=L.newDirect(window.__LZ_NOW);setCur(s.id);}
- s.deploy=d;putSess(s);setUi(s.id,{hero:d.hero,side:'atk'});VIEW=s;render();window.scrollTo(0,0);animate(d.casts);
+ s.deploy=d;putSess(s);setUi(s.id,{side:'atk'});VIEW=s;render();window.scrollTo(0,0);animate(d.casts);
 });
 $('again').addEventListener('click',function(){stopAnim();setCur('');VIEW=null;READONLY=false;LEGACY=false;MAPSEL='';$('copyMsg').textContent='';render();window.scrollTo(0,0);});
 function copy(txt){var ok=function(){$('copyMsg').textContent='已复制完整临阵分析（'+txt.length+' 字），开头已附复核提示词，可粘贴给外部 AI 独立复核。';};
  var fb=function(){var ta=document.createElement('textarea');ta.value=txt;ta.setAttribute('readonly','');ta.style.position='fixed';ta.style.top='-1000px';document.body.appendChild(ta);ta.select();var r=false;try{r=document.execCommand('copy');}catch(e){}document.body.removeChild(ta);if(r)ok();else{$('copyMsg').textContent='浏览器不允许自动复制，已在下方文本框选中，请长按复制。';var t2=document.createElement('textarea');t2.value=txt;t2.style.width='100%';t2.style.height='160px';$('copyMsg').appendChild(t2);t2.select();}};
  try{if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(txt).then(ok,fb);else fb();}catch(e){fb();}}
-$('copy').addEventListener('click',function(){var s=VIEW;if(!s||!s.deploy||LEGACY)return;var u=uiOf(s.id)||{hero:s.deploy.hero};copy(L.copyText(s,u.hero));});
+$('copy').addEventListener('click',function(){var s=VIEW;if(!s||!s.deploy||LEGACY)return;copy(L.copyText(s));});
 // ---------- 历史（V4 + V3 旧记录只读） ----------
 function legacy(){return jget(HK4,[]).map(function(x){x.__v='V4.0';return x;}).concat(jget(HK3,[]).map(function(x){x.__v='V3';return x;}));}
 function drawHist(){var a=sessions(),a41=sess41(),b3=legacy(),el=$('hist');
  if(!a.length&&!a41.length&&!b3.length){el.innerHTML='<div class="note">暂无记录'+(STORE_OK?'':'（本机存储不可用，记录只在本页有效）')+'</div>';return;}
- var row=function(s){var d=s.deploy,t=(s.prep?s.prep.createdAt:d?d.createdAt:'').replace('（北京时间）','');return '<button type="button" data-id="'+esc(s.id)+'">'+esc(t)+'｜'+(s.prep?'已备战':'未备战')+'｜'+(s.void?'已作废':d?esc(d.mapZh)+'·'+esc(L.HEROX(d.hero).zh)+'·'+L.allCasts(s).length+'卦':'待匹配')+'</button>';};
+ var row=function(s){var d=s.deploy,t=(s.prep?s.prep.createdAt:d?d.createdAt:'').replace('（北京时间）','');var who=d?(d.play?(d.meZh?('自选'+d.meZh):'不选英雄'):(d.hero?L.HEROX(d.hero).zh:'')):'';return '<button type="button" data-id="'+esc(s.id)+'">'+esc(t)+'｜'+(s.prep?'已备战':'未备战')+'｜'+(s.void?'已作废':d?esc(d.mapZh)+'·'+esc(who)+'·'+L.allCasts(s).length+'卦':'待匹配')+'</button>';};
  var row3=function(s){var d=s.deploy;return '<button type="button" data-v3="'+esc(s.id)+'">['+s.__v+' 旧记录] '+esc(((s.prep&&s.prep.createdAt)||'').replace('（北京时间）',''))+'｜'+(d?esc(d.mapZh||''):'未出征')+'</button>';};
  var row41=function(s){return row(s).replace('data-id=','data-id41=').replace('">','">[V4.1] ');};
  el.innerHTML=a.map(row).join('')+a41.map(row41).join('')+b3.map(row3).join('')+(STORE_OK?'':'<div class="note">本机存储不可用，记录只在本页有效</div>');
